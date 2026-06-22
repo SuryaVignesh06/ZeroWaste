@@ -20,7 +20,9 @@ export function Marketplace() {
   const products = useAppStore((s) => s.products);
   const [activeFilter, setActiveFilter] = useState("all");
   const [query, setQuery] = useState("");
-  const [sort, setSort] = useState<"relevance" | "price-low" | "distance" | "expiry">("relevance");
+  const [sort, setSort] = useState<
+    "relevance" | "price-low" | "distance" | "expiry"
+  >("relevance");
 
   const filtered = useMemo(() => {
     let list = [...products];
@@ -36,7 +38,8 @@ export function Marketplace() {
     switch (activeFilter) {
       case "expiring-today":
         list = list.filter((p) => {
-          const days = (new Date(p.bestBefore).getTime() - Date.now()) / 86400000;
+          const days =
+            (new Date(p.bestBefore).getTime() - Date.now()) / 86400000;
           return days <= 1.5;
         });
         break;
@@ -50,8 +53,7 @@ export function Marketplace() {
         break;
       case "over-50-off":
         list = list.filter(
-          (p) =>
-            (p.originalPrice - p.discountedPrice) / p.originalPrice > 0.5
+          (p) => (p.originalPrice - p.discountedPrice) / p.originalPrice > 0.5
         );
         break;
       case "within-1km":
@@ -71,7 +73,8 @@ export function Marketplace() {
       case "expiry":
         list.sort(
           (a, b) =>
-            new Date(a.bestBefore).getTime() - new Date(b.bestBefore).getTime()
+            new Date(a.bestBefore).getTime() -
+            new Date(b.bestBefore).getTime()
         );
         break;
     }
@@ -79,23 +82,50 @@ export function Marketplace() {
   }, [products, activeFilter, query, sort]);
 
   return (
-    <div className="flex h-full flex-col bg-zw-bg-base">
+    <div className="relative flex h-full flex-col">
+      {/* Aurora background */}
+      <div className="absolute inset-0 -z-10 bg-zw-aurora" />
+      <div className="blob bg-zw-primary-300/30 zw-float-slow" style={{ width: 250, height: 250, top: "10%", right: "-20%" }} />
+
       {/* Header */}
-      <div className="sticky top-0 z-30 border-b border-zw-border/60 bg-zw-bg-base/90 px-5 pb-3 pt-4 backdrop-blur-lg">
+      <div className="sticky top-0 z-30 px-5 pb-3 pt-4">
+        <div className="absolute inset-0 -z-10 bg-white/60 backdrop-blur-xl border-b border-zw-border-strong" />
+
         <div className="mb-3 flex items-center justify-between">
-          <h1 className="font-display text-xl font-bold text-zw-text-primary">
-            Marketplace
-          </h1>
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as any)}
-            className="rounded-lg border border-zw-border bg-white px-3 py-1.5 text-[12px] font-medium text-zw-text-secondary"
-          >
-            <option value="relevance">Relevance</option>
-            <option value="price-low">Price: Low to High</option>
-            <option value="distance">Distance</option>
-            <option value="expiry">Expiring soonest</option>
-          </select>
+          <div>
+            <h1 className="font-display text-[22px] font-bold tracking-tight text-zw-text-primary">
+              Marketplace
+            </h1>
+            <p className="text-[11px] text-zw-text-secondary">
+              {filtered.length} fresh deals near you
+            </p>
+          </div>
+          <div className="relative">
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as any)}
+              className="appearance-none rounded-full glass py-2 pl-3 pr-7 text-[12px] font-semibold text-zw-text-primary"
+            >
+              <option value="relevance">Relevance</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="distance">Distance</option>
+              <option value="expiry">Expiring soonest</option>
+            </select>
+            <svg
+              className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2"
+              width="10"
+              height="6"
+              viewBox="0 0 10 6"
+              fill="none"
+            >
+              <path
+                d="M1 1L5 5L9 1"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
         </div>
 
         {/* Search bar */}
@@ -103,19 +133,19 @@ export function Marketplace() {
           <div className="relative flex-1">
             <Search
               size={16}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-zw-text-muted"
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zw-text-muted"
             />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search products, shops..."
-              className="h-11 w-full rounded-xl border border-zw-border bg-white pl-9 pr-10 text-[13px] text-zw-text-primary placeholder:text-zw-text-muted focus:border-zw-primary-400 focus:outline-none focus:ring-2 focus:ring-zw-primary-100"
+              className="h-12 w-full rounded-2xl glass pl-10 pr-12 text-[13px] text-zw-text-primary placeholder:text-zw-text-muted focus:outline-none focus:ring-2 focus:ring-zw-primary-400/40"
             />
-            <button className="absolute right-2 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-lg bg-zw-primary-50 text-zw-primary-700">
+            <button className="absolute right-2 top-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-zw-primary-500 to-zw-primary-700 text-white shadow-sm">
               <Mic size={14} />
             </button>
           </div>
-          <button className="flex h-11 w-11 items-center justify-center rounded-xl border border-zw-border bg-white text-zw-text-secondary active:scale-95">
+          <button className="flex h-12 w-12 items-center justify-center rounded-2xl glass text-zw-text-secondary active:scale-95">
             <SlidersHorizontal size={18} />
           </button>
         </div>
@@ -126,36 +156,34 @@ export function Marketplace() {
             <button
               key={f.id}
               onClick={() => setActiveFilter(f.id)}
-              className={`relative flex-shrink-0 rounded-full px-3.5 py-1.5 text-[12px] font-semibold transition-all ${
+              className={`relative flex-shrink-0 rounded-full px-4 py-2 text-[12px] font-semibold transition-all ${
                 activeFilter === f.id
-                  ? "bg-zw-primary-700 text-white"
-                  : "border border-zw-border bg-white text-zw-text-secondary hover:border-zw-primary-300"
+                  ? "text-white shadow-md"
+                  : "glass text-zw-text-secondary hover:text-zw-text-primary"
               }`}
+              style={
+                activeFilter === f.id
+                  ? {
+                      background:
+                        "linear-gradient(135deg, var(--color-zw-primary-600), var(--color-zw-primary-800))",
+                    }
+                  : undefined
+              }
             >
               {f.label}
-              {activeFilter === f.id && (
-                <motion.div
-                  layoutId="filter-active"
-                  className="absolute inset-0 -z-10 rounded-full bg-zw-primary-700"
-                  transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                />
-              )}
             </button>
           ))}
         </div>
       </div>
 
       {/* Results */}
-      <div className="flex-1 overflow-y-auto px-5 pb-24 pt-4">
-        <p className="mb-3 text-[12px] text-zw-text-secondary">
-          {filtered.length} products near you
-        </p>
+      <div className="flex-1 overflow-y-auto zw-scroll px-5 pb-32 pt-4">
         {filtered.length === 0 ? (
           <div className="mt-20 flex flex-col items-center text-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-zw-bg-muted">
+            <div className="flex h-20 w-20 items-center justify-center rounded-full glass">
               <Search size={28} className="text-zw-text-muted" />
             </div>
-            <p className="mt-3 text-sm font-semibold text-zw-text-primary">
+            <p className="mt-4 font-display text-base font-bold text-zw-text-primary">
               No products found
             </p>
             <p className="text-[12px] text-zw-text-muted">

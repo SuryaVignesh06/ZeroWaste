@@ -20,8 +20,6 @@ import {
   Utensils,
   GraduationCap,
   CalendarDays,
-  Bike,
-  Star,
 } from "lucide-react";
 
 const DONOR_ICONS: Record<string, any> = {
@@ -40,12 +38,16 @@ export function NgoFeed() {
   const listed = donations.filter((d) => d.status === "listed");
 
   return (
-    <div className="flex h-full flex-col bg-zw-bg-base">
+    <div className="relative flex h-full flex-col">
+      <div className="absolute inset-0 -z-10 bg-zw-aurora" />
+      <div className="blob bg-zw-accent-300/30 zw-float" style={{ width: 240, height: 240, top: "10%", right: "-15%" }} />
+
       {/* Header */}
-      <div className="sticky top-0 z-30 border-b border-zw-border/60 bg-white px-5 pb-3 pt-4">
+      <div className="sticky top-0 z-30 px-5 pb-3 pt-4">
+        <div className="absolute inset-0 -z-10 bg-white/60 backdrop-blur-xl border-b border-zw-border-strong" />
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="font-display text-lg font-bold text-zw-text-primary">
+            <h1 className="font-display text-[22px] font-bold tracking-tight text-zw-text-primary">
               Rescue Feed
             </h1>
             <p className="text-[11px] text-zw-text-secondary">
@@ -53,35 +55,35 @@ export function NgoFeed() {
             </p>
           </div>
           {/* View toggle */}
-          <div className="flex rounded-xl border border-zw-border bg-zw-bg-muted p-0.5">
+          <div className="flex rounded-full glass p-1">
             <button
               onClick={() => setView("list")}
-              className={`flex items-center gap-1 rounded-lg px-3 py-1.5 text-[12px] font-semibold transition-all ${
+              className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-[12px] font-semibold transition-all ${
                 view === "list"
-                  ? "bg-white text-zw-primary-700 shadow-sm"
+                  ? "bg-gradient-to-br from-zw-primary-500 to-zw-primary-700 text-white shadow-sm"
                   : "text-zw-text-muted"
               }`}
             >
-              <List size={14} />
+              <List size={13} />
               List
             </button>
             <button
               onClick={() => setView("map")}
-              className={`flex items-center gap-1 rounded-lg px-3 py-1.5 text-[12px] font-semibold transition-all ${
+              className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-[12px] font-semibold transition-all ${
                 view === "map"
-                  ? "bg-white text-zw-primary-700 shadow-sm"
+                  ? "bg-gradient-to-br from-zw-primary-500 to-zw-primary-700 text-white shadow-sm"
                   : "text-zw-text-muted"
               }`}
             >
-              <MapIcon size={14} />
+              <MapIcon size={13} />
               Map
             </button>
           </div>
         </div>
 
         {/* Urgent count banner */}
-        <div className="mt-3 flex items-center gap-2 rounded-xl bg-gradient-to-r from-zw-accent-50 to-zw-accent-100 p-2.5">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-zw-accent-600">
+        <div className="mt-3 flex items-center gap-2 rounded-2xl bg-gradient-to-r from-zw-accent-50 to-zw-accent-100 p-2.5 border border-zw-accent-200/50">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-zw-accent-500 to-zw-accent-700">
             <Flame size={14} className="text-white" />
           </div>
           <div className="flex-1">
@@ -97,7 +99,7 @@ export function NgoFeed() {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto pb-24">
+      <div className="flex-1 overflow-y-auto zw-scroll pb-32">
         <AnimatePresence mode="wait">
           {view === "list" ? (
             <motion.div
@@ -120,19 +122,18 @@ export function NgoFeed() {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: i * 0.06, duration: 0.4 }}
-                    className={`overflow-hidden rounded-2xl border bg-white ${
-                      isUrgent
-                        ? "border-zw-danger/40 shadow-md shadow-zw-danger/10"
-                        : "border-zw-border"
+                    className={`overflow-hidden rounded-3xl glass glass-inset ${
+                      isUrgent ? "ring-2 ring-zw-danger/30" : ""
                     }`}
                   >
                     {/* Image strip with urgency bar */}
                     <div
-                      className={`relative h-20 w-full bg-gradient-to-br ${d.imageColor}`}
+                      className={`relative h-20 w-full overflow-hidden rounded-t-3xl bg-gradient-to-br ${d.imageColor}`}
                     >
-                      <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 shadow-sm">
+                      <div className="absolute -right-4 -top-4 h-16 w-16 rounded-full bg-white/30 blur-md" />
+                      <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur-md px-2.5 py-1 shadow-sm">
                         <Icon size={11} className="text-zw-primary-700" />
-                        <span className="text-[10px] font-bold uppercase text-zw-primary-700">
+                        <span className="text-[10px] font-bold uppercase tracking-wide text-zw-primary-700">
                           {d.donorType.replace("-", " ")}
                         </span>
                       </div>
@@ -144,8 +145,7 @@ export function NgoFeed() {
                           </span>
                         </div>
                       )}
-                      {/* Servings badge */}
-                      <div className="absolute bottom-2 right-3 flex items-center gap-1 rounded-full bg-zw-primary-900/80 px-2 py-0.5 backdrop-blur-sm">
+                      <div className="absolute bottom-2 right-3 flex items-center gap-1 rounded-full bg-zw-primary-900/85 backdrop-blur-md px-2 py-0.5">
                         <Users size={10} className="text-white" />
                         <span className="text-[10px] font-bold text-white">
                           {d.servings} servings
@@ -175,7 +175,7 @@ export function NgoFeed() {
 
                     {/* Body */}
                     <div className="p-4">
-                      <h3 className="font-display text-[15px] font-bold text-zw-text-primary">
+                      <h3 className="font-display text-[15px] font-bold tracking-tight text-zw-text-primary">
                         {d.title}
                       </h3>
                       <p className="mt-0.5 line-clamp-2 text-[12px] text-zw-text-secondary">
@@ -190,7 +190,7 @@ export function NgoFeed() {
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock size={11} />
-                          <span>Pickup window: 2 hrs</span>
+                          <span>Pickup: 2 hrs</span>
                         </div>
                         <div className="flex items-center gap-1">
                           <Sparkles size={11} className="text-zw-primary-600" />
@@ -202,9 +202,13 @@ export function NgoFeed() {
 
                       {/* AI match score */}
                       {d.aiMatchScore && (
-                        <div className="mt-3 flex items-center justify-between rounded-xl bg-zw-primary-50 p-2.5">
+                        <div className="mt-3 flex items-center justify-between rounded-2xl bg-gradient-to-br from-zw-primary-50 to-white p-2.5 border border-zw-primary-200/40">
                           <div className="flex items-center gap-2">
-                            <Sparkles size={14} className="text-zw-primary-700" />
+                            <div className="zw-ai-border h-6 w-6 rounded-md p-[1.5px]">
+                              <div className="flex h-full w-full items-center justify-center rounded-[3px] bg-white">
+                                <Sparkles size={11} className="text-zw-primary-700" />
+                              </div>
+                            </div>
                             <span className="text-[11px] font-bold text-zw-primary-900">
                               AI Match Score
                             </span>
@@ -215,7 +219,7 @@ export function NgoFeed() {
                                 initial={{ width: 0 }}
                                 animate={{ width: `${d.aiMatchScore}%` }}
                                 transition={{ duration: 0.8, delay: 0.2 }}
-                                className="h-full bg-zw-primary-700"
+                                className="h-full bg-gradient-to-r from-zw-primary-500 to-zw-primary-700"
                               />
                             </div>
                             <span className="text-[11px] font-bold text-zw-primary-800">
@@ -237,13 +241,13 @@ export function NgoFeed() {
                           />
                         </div>
                         <div className="flex gap-2">
-                          <button className="flex h-9 w-9 items-center justify-center rounded-xl border border-zw-border bg-white text-zw-text-muted active:scale-95">
+                          <button className="flex h-9 w-9 items-center justify-center rounded-xl glass text-zw-text-muted active:scale-95">
                             <X size={16} />
                           </button>
                           <motion.button
                             whileTap={{ scale: 0.95 }}
                             onClick={() => acceptDonation(d.id)}
-                            className="flex h-9 items-center gap-1.5 rounded-xl bg-zw-primary-700 px-4 text-[12px] font-semibold text-white shadow-md shadow-zw-primary-700/20"
+                            className="flex h-9 items-center gap-1.5 rounded-xl glass-primary px-4 text-[12px] font-semibold text-white"
                           >
                             <Check size={14} strokeWidth={3} />
                             Accept
@@ -257,11 +261,8 @@ export function NgoFeed() {
 
               {listed.length === 0 && (
                 <div className="mt-20 flex flex-col items-center text-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-zw-primary-50">
-                    <HeartHandshake
-                      size={28}
-                      className="text-zw-primary-600"
-                    />
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full glass">
+                    <HeartHandshake size={28} className="text-zw-primary-600" />
                   </div>
                   <p className="mt-3 text-sm font-semibold text-zw-text-primary">
                     All caught up!
@@ -285,17 +286,40 @@ export function NgoFeed() {
                 className="relative h-[450px] bg-zw-bg-muted"
                 style={{
                   backgroundImage:
-                    "linear-gradient(0deg, var(--color-zw-border) 1px, transparent 1px), linear-gradient(90deg, var(--color-zw-border) 1px, transparent 1px)",
+                    "linear-gradient(0deg, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)",
                   backgroundSize: "40px 40px",
                 }}
               >
                 {/* Roads */}
-                <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none">
-                  <path d="M 0 80 L 100% 80" stroke="var(--color-zw-bg-surface)" strokeWidth="14" />
-                  <path d="M 0 200 L 100% 200" stroke="var(--color-zw-bg-surface)" strokeWidth="10" />
-                  <path d="M 0 350 L 100% 350" stroke="var(--color-zw-bg-surface)" strokeWidth="12" />
-                  <path d="M 80 0 L 80 100%" stroke="var(--color-zw-bg-surface)" strokeWidth="14" />
-                  <path d="M 240 0 L 240 100%" stroke="var(--color-zw-bg-surface)" strokeWidth="10" />
+                <svg
+                  className="absolute inset-0 h-full w-full"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M 0 80 L 100% 80"
+                    stroke="var(--color-zw-bg-surface)"
+                    strokeWidth="14"
+                  />
+                  <path
+                    d="M 0 200 L 100% 200"
+                    stroke="var(--color-zw-bg-surface)"
+                    strokeWidth="10"
+                  />
+                  <path
+                    d="M 0 350 L 100% 350"
+                    stroke="var(--color-zw-bg-surface)"
+                    strokeWidth="12"
+                  />
+                  <path
+                    d="M 80 0 L 80 100%"
+                    stroke="var(--color-zw-bg-surface)"
+                    strokeWidth="14"
+                  />
+                  <path
+                    d="M 240 0 L 240 100%"
+                    stroke="var(--color-zw-bg-surface)"
+                    strokeWidth="10"
+                  />
                 </svg>
 
                 {/* Pins */}
@@ -309,7 +333,8 @@ export function NgoFeed() {
                   ];
                   const pos = positions[i % positions.length];
                   const hoursToExpiry =
-                    (new Date(d.expiryDeadline).getTime() - Date.now()) / 3600000;
+                    (new Date(d.expiryDeadline).getTime() - Date.now()) /
+                    3600000;
                   const isUrgent = hoursToExpiry < 2;
                   const isWarning = hoursToExpiry < 4 && !isUrgent;
 
@@ -329,17 +354,17 @@ export function NgoFeed() {
                       className="absolute -translate-x-1/2 -translate-y-1/2"
                     >
                       <div
-                        className={`relative flex items-center justify-center rounded-full p-2 ${
+                        className={`relative flex items-center justify-center rounded-full p-2 ring-3 ring-white ${
                           isUrgent
-                            ? "zw-urgency-pulse bg-zw-danger"
+                            ? "zw-urgency-pulse bg-gradient-to-br from-red-500 to-red-600"
                             : isWarning
-                              ? "zw-urgency-pulse-amber bg-zw-warning"
-                              : "bg-zw-primary-700"
-                        } ring-3 ring-white`}
+                              ? "zw-urgency-pulse-amber bg-gradient-to-br from-amber-400 to-amber-600"
+                              : "bg-gradient-to-br from-zw-primary-600 to-zw-primary-800"
+                        } shadow-lg`}
                       >
                         <Utensils size={14} className="text-white" />
                       </div>
-                      <div className="absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-md bg-white px-1.5 py-0.5 text-[9px] font-bold text-zw-text-primary shadow-sm">
+                      <div className="absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-md glass-strong px-1.5 py-0.5 text-[9px] font-bold text-zw-text-primary shadow-sm">
                         {d.servings} servings
                       </div>
                     </motion.button>
@@ -348,7 +373,7 @@ export function NgoFeed() {
 
                 {/* Self marker */}
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div className="zw-aura relative flex h-12 w-12 items-center justify-center rounded-full bg-zw-primary-900 ring-4 ring-white">
+                  <div className="zw-aura relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-zw-primary-800 to-zw-primary-900 ring-4 ring-white shadow-xl">
                     <HeartHandshake size={20} className="text-white" />
                   </div>
                   <div className="absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-md bg-zw-primary-900 px-2 py-0.5 text-[9px] font-bold text-white">
@@ -358,8 +383,8 @@ export function NgoFeed() {
               </div>
 
               {/* Bottom info card */}
-              <div className="absolute inset-x-0 bottom-0 rounded-t-3xl bg-white p-4 shadow-2xl">
-                <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-zw-border-strong" />
+              <div className="absolute inset-x-0 bottom-0 rounded-t-[2rem] glass-strong p-4 shadow-2xl">
+                <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-zw-text-muted/40" />
                 <h3 className="font-display text-sm font-bold text-zw-text-primary">
                   {listed.length} donations around you
                 </h3>
@@ -377,7 +402,9 @@ export function NgoFeed() {
                   </div>
                   <div className="flex items-center gap-1">
                     <div className="h-2.5 w-2.5 rounded-full bg-zw-danger" />
-                    <span className="text-zw-text-secondary">Urgent (&lt;2h)</span>
+                    <span className="text-zw-text-secondary">
+                      Urgent (&lt;2h)
+                    </span>
                   </div>
                 </div>
               </div>

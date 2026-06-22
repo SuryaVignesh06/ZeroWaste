@@ -81,20 +81,24 @@ export function DonateFood() {
     step === 3;
 
   return (
-    <div className="flex h-full flex-col bg-zw-bg-base">
+    <div className="relative flex h-full flex-col">
+      <div className="absolute inset-0 -z-10 bg-zw-aurora" />
+      <div className="blob bg-zw-primary-300/30 zw-float-slow" style={{ width: 250, height: 250, top: "10%", right: "-20%" }} />
+
       {/* Header */}
-      <div className="border-b border-zw-border/60 bg-white px-5 pb-3 pt-4">
+      <div className="px-5 pb-3 pt-4">
+        <div className="absolute inset-0 -z-10 bg-white/60 backdrop-blur-xl border-b border-zw-border-strong" />
         <div className="mb-3 flex items-center gap-3">
           <button
             onClick={() => {
               if (step === 1) setScreen("home");
               else setStep(step - 1);
             }}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-zw-border bg-white active:scale-95"
+            className="flex h-9 w-9 items-center justify-center rounded-full glass active:scale-95"
           >
             <ChevronLeft size={18} />
           </button>
-          <h1 className="font-display text-lg font-bold text-zw-text-primary">
+          <h1 className="font-display text-lg font-bold tracking-tight text-zw-text-primary">
             Donate Food
           </h1>
         </div>
@@ -110,7 +114,7 @@ export function DonateFood() {
                     backgroundColor:
                       step >= s
                         ? "var(--color-zw-primary-700)"
-                        : "var(--color-zw-border)",
+                        : "rgba(0, 0, 0, 0.1)",
                     scale: step === s ? 1.1 : 1,
                   }}
                   className="flex h-7 w-7 items-center justify-center rounded-full"
@@ -130,7 +134,7 @@ export function DonateFood() {
                 </span>
               </div>
               {i < 2 && (
-                <div className="relative h-0.5 flex-1 overflow-hidden rounded-full bg-zw-border">
+                <div className="relative h-0.5 flex-1 overflow-hidden rounded-full bg-black/10">
                   <motion.div
                     initial={false}
                     animate={{ width: step > s ? "100%" : "0%" }}
@@ -145,7 +149,7 @@ export function DonateFood() {
       </div>
 
       {/* Steps */}
-      <div className="flex-1 overflow-y-auto px-5 pb-32 pt-5">
+      <div className="flex-1 overflow-y-auto zw-scroll px-5 pb-32 pt-5">
         <AnimatePresence mode="wait">
           {step === 1 && (
             <motion.div
@@ -155,7 +159,6 @@ export function DonateFood() {
               exit={{ x: -30, opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Photo upload */}
               <h2 className="font-display text-base font-bold text-zw-text-primary">
                 Add photos of the food
               </h2>
@@ -166,7 +169,7 @@ export function DonateFood() {
               <div className="mt-4 grid grid-cols-3 gap-2">
                 <button
                   onClick={handleAiRecognize}
-                  className="relative flex aspect-square flex-col items-center justify-center gap-1 rounded-2xl border-2 border-dashed border-zw-primary-300 bg-zw-primary-50"
+                  className="relative flex aspect-square flex-col items-center justify-center gap-1 rounded-3xl border-2 border-dashed border-zw-primary-300 bg-zw-primary-50/80 backdrop-blur-md active:scale-95"
                 >
                   {aiLoading ? (
                     <Loader2 size={20} className="animate-spin text-zw-primary-700" />
@@ -174,7 +177,7 @@ export function DonateFood() {
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="flex h-full w-full flex-col items-center justify-center rounded-xl bg-gradient-to-br from-emerald-100 to-teal-200"
+                      className="flex h-full w-full flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-200"
                     >
                       <Check size={24} className="text-zw-primary-700" />
                     </motion.div>
@@ -190,7 +193,7 @@ export function DonateFood() {
                 {[0, 1].map((i) => (
                   <div
                     key={i}
-                    className="flex aspect-square items-center justify-center rounded-2xl border border-dashed border-zw-border bg-zw-bg-muted"
+                    className="flex aspect-square items-center justify-center rounded-3xl border border-dashed border-zw-border-strong bg-white/40 backdrop-blur-md"
                   >
                     <Camera size={18} className="text-zw-text-muted" />
                   </div>
@@ -204,16 +207,18 @@ export function DonateFood() {
                     initial={{ y: 20, opacity: 0, height: 0 }}
                     animate={{ y: 0, opacity: 1, height: "auto" }}
                     exit={{ y: -20, opacity: 0, height: 0 }}
-                    className="mt-4 overflow-hidden rounded-2xl border border-zw-primary-200 bg-gradient-to-br from-zw-primary-50 to-white p-4"
+                    className="mt-4 overflow-hidden rounded-3xl glass glass-inset p-4"
                   >
                     <div className="flex items-center gap-2">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-zw-primary-700">
-                        <Sparkles size={14} className="text-white" />
+                      <div className="zw-ai-border h-7 w-7 rounded-lg p-[1.5px]">
+                        <div className="flex h-full w-full items-center justify-center rounded-[6px] bg-white">
+                          <Sparkles size={13} className="text-zw-primary-700" />
+                        </div>
                       </div>
-                      <span className="text-[13px] font-bold text-zw-primary-900">
+                      <span className="text-[13px] font-bold text-zw-text-primary">
                         AI Recognition Complete
                       </span>
-                      <span className="ml-auto rounded-full bg-white px-2 py-0.5 text-[10px] font-bold text-zw-primary-700">
+                      <span className="ml-auto rounded-full bg-zw-primary-100 px-2 py-0.5 text-[10px] font-bold text-zw-primary-700">
                         {Math.round(AI_RECOGNITION_RESULT.aiFreshness * 100)}% fresh
                       </span>
                     </div>
@@ -250,7 +255,7 @@ export function DonateFood() {
                   value={form.title}
                   onChange={(e) => setForm({ title: e.target.value })}
                   placeholder="e.g., Wedding Reception Surplus"
-                  className="mt-1.5 h-11 w-full rounded-xl border border-zw-border bg-white px-3 text-[13px] focus:border-zw-primary-400 focus:outline-none focus:ring-2 focus:ring-zw-primary-100"
+                  className="mt-1.5 h-12 w-full rounded-2xl glass px-3 text-[13px] focus:outline-none focus:ring-2 focus:ring-zw-primary-400/40"
                 />
               </div>
 
@@ -267,21 +272,25 @@ export function DonateFood() {
                       <button
                         key={c.id}
                         onClick={() => setForm({ category: c.id })}
-                        className={`flex flex-col items-center gap-1.5 rounded-xl border p-3 transition-all ${
+                        className={`flex flex-col items-center gap-1.5 rounded-2xl border p-3 transition-all ${
                           active
-                            ? "border-zw-primary-600 bg-zw-primary-50"
-                            : "border-zw-border bg-white"
+                            ? "border-zw-primary-600 bg-zw-primary-50 ring-2 ring-zw-primary-400/40"
+                            : "border-zw-border-strong bg-white/60 backdrop-blur-md"
                         }`}
                       >
                         <Icon
                           size={20}
                           className={
-                            active ? "text-zw-primary-700" : "text-zw-text-muted"
+                            active
+                              ? "text-zw-primary-700"
+                              : "text-zw-text-muted"
                           }
                         />
                         <span
                           className={`text-[10px] font-semibold ${
-                            active ? "text-zw-primary-900" : "text-zw-text-secondary"
+                            active
+                              ? "text-zw-primary-900"
+                              : "text-zw-text-secondary"
                           }`}
                         >
                           {c.label}
@@ -305,11 +314,11 @@ export function DonateFood() {
                         servings: Math.max(1, form.quantity - 5),
                       })
                     }
-                    className="flex h-11 w-11 items-center justify-center rounded-xl border border-zw-border bg-white text-xl font-bold text-zw-text-primary active:scale-95"
+                    className="flex h-12 w-12 items-center justify-center rounded-2xl glass text-xl font-bold text-zw-text-primary active:scale-95"
                   >
                     -
                   </button>
-                  <div className="flex h-11 flex-1 items-center justify-center rounded-xl border border-zw-border bg-white">
+                  <div className="flex h-12 flex-1 items-center justify-center rounded-2xl glass">
                     <span className="font-display text-base font-bold">
                       {form.servings}
                     </span>
@@ -324,7 +333,7 @@ export function DonateFood() {
                         servings: form.servings + 5,
                       })
                     }
-                    className="flex h-11 w-11 items-center justify-center rounded-xl border border-zw-border bg-white text-xl font-bold text-zw-text-primary active:scale-95"
+                    className="flex h-12 w-12 items-center justify-center rounded-2xl glass text-xl font-bold text-zw-text-primary active:scale-95"
                   >
                     +
                   </button>
@@ -349,11 +358,12 @@ export function DonateFood() {
               </p>
 
               {/* Mini map */}
-              <div className="mt-4 relative h-40 overflow-hidden rounded-2xl border border-zw-border bg-zw-bg-muted">
-                <div className="absolute inset-0 opacity-30"
+              <div className="mt-4 relative h-44 overflow-hidden rounded-3xl glass">
+                <div
+                  className="absolute inset-0 opacity-30"
                   style={{
                     backgroundImage:
-                      "linear-gradient(0deg, var(--color-zw-border) 1px, transparent 1px), linear-gradient(90deg, var(--color-zw-border) 1px, transparent 1px)",
+                      "linear-gradient(0deg, rgba(0,0,0,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px)",
                     backgroundSize: "24px 24px",
                   }}
                 />
@@ -363,11 +373,11 @@ export function DonateFood() {
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
                 >
-                  <div className="zw-urgency-pulse-amber relative flex h-8 w-8 items-center justify-center rounded-full bg-zw-accent-600 ring-4 ring-white">
+                  <div className="zw-urgency-pulse-amber relative flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-zw-accent-500 to-zw-accent-700 ring-4 ring-white">
                     <MapPin size={16} className="text-white" />
                   </div>
                 </motion.div>
-                <div className="absolute bottom-2 right-2 rounded-lg bg-white px-2 py-1 text-[10px] font-medium text-zw-text-secondary shadow-sm">
+                <div className="absolute bottom-2 right-2 rounded-full glass-strong px-2.5 py-1 text-[10px] font-medium text-zw-text-secondary">
                   Anna Nagar, Chennai
                 </div>
               </div>
@@ -382,7 +392,7 @@ export function DonateFood() {
                   onChange={(e) => setForm({ pickupAddress: e.target.value })}
                   placeholder="Flat / House no, Street, Area, Landmark"
                   rows={3}
-                  className="mt-1.5 w-full rounded-xl border border-zw-border bg-white p-3 text-[13px] focus:border-zw-primary-400 focus:outline-none focus:ring-2 focus:ring-zw-primary-100"
+                  className="mt-1.5 w-full rounded-2xl glass p-3 text-[13px] focus:outline-none focus:ring-2 focus:ring-zw-primary-400/40"
                 />
               </div>
 
@@ -392,7 +402,7 @@ export function DonateFood() {
                   <label className="text-[12px] font-semibold text-zw-text-primary">
                     Pickup from
                   </label>
-                  <div className="mt-1.5 flex h-11 items-center gap-2 rounded-xl border border-zw-border bg-white px-3">
+                  <div className="mt-1.5 flex h-12 items-center gap-2 rounded-2xl glass px-3">
                     <Clock size={14} className="text-zw-text-muted" />
                     <span className="text-[13px] font-medium text-zw-text-primary">
                       Now
@@ -403,7 +413,7 @@ export function DonateFood() {
                   <label className="text-[12px] font-semibold text-zw-text-primary">
                     Until
                   </label>
-                  <div className="mt-1.5 flex h-11 items-center gap-2 rounded-xl border border-zw-border bg-white px-3">
+                  <div className="mt-1.5 flex h-12 items-center gap-2 rounded-2xl glass px-3">
                     <Calendar size={14} className="text-zw-text-muted" />
                     <span className="text-[13px] font-medium text-zw-text-primary">
                       in 2 hours
@@ -413,10 +423,14 @@ export function DonateFood() {
               </div>
 
               {/* AI expiry suggestion */}
-              <div className="mt-4 rounded-2xl border border-zw-primary-200 bg-zw-primary-50 p-4">
+              <div className="mt-4 rounded-3xl glass glass-inset p-4">
                 <div className="flex items-center gap-2">
-                  <Sparkles size={14} className="text-zw-primary-700" />
-                  <span className="text-[12px] font-bold text-zw-primary-900">
+                  <div className="zw-ai-border h-7 w-7 rounded-lg p-[1.5px]">
+                    <div className="flex h-full w-full items-center justify-center rounded-[6px] bg-white">
+                      <Sparkles size={13} className="text-zw-primary-700" />
+                    </div>
+                  </div>
+                  <span className="text-[12px] font-bold text-zw-text-primary">
                     AI suggests expiry window
                   </span>
                 </div>
@@ -426,30 +440,30 @@ export function DonateFood() {
                 <div className="mt-2 flex items-center gap-2">
                   <button
                     onClick={() => setForm({ expiryHours: 3 })}
-                    className={`rounded-lg px-3 py-1.5 text-[11px] font-semibold ${
+                    className={`rounded-full px-3 py-1.5 text-[11px] font-semibold transition-all ${
                       form.expiryHours === 3
-                        ? "bg-zw-primary-700 text-white"
-                        : "bg-white text-zw-text-secondary"
+                        ? "bg-gradient-to-br from-zw-primary-600 to-zw-primary-800 text-white shadow-sm"
+                        : "glass text-zw-text-secondary"
                     }`}
                   >
                     3 hours
                   </button>
                   <button
                     onClick={() => setForm({ expiryHours: 5 })}
-                    className={`rounded-lg px-3 py-1.5 text-[11px] font-semibold ${
+                    className={`rounded-full px-3 py-1.5 text-[11px] font-semibold transition-all ${
                       form.expiryHours === 5
-                        ? "bg-zw-primary-700 text-white"
-                        : "bg-white text-zw-text-secondary"
+                        ? "bg-gradient-to-br from-zw-primary-600 to-zw-primary-800 text-white shadow-sm"
+                        : "glass text-zw-text-secondary"
                     }`}
                   >
                     5 hours
                   </button>
                   <button
                     onClick={() => setForm({ expiryHours: 8 })}
-                    className={`rounded-lg px-3 py-1.5 text-[11px] font-semibold ${
+                    className={`rounded-full px-3 py-1.5 text-[11px] font-semibold transition-all ${
                       form.expiryHours === 8
-                        ? "bg-zw-primary-700 text-white"
-                        : "bg-white text-zw-text-secondary"
+                        ? "bg-gradient-to-br from-zw-primary-600 to-zw-primary-800 text-white shadow-sm"
+                        : "glass text-zw-text-secondary"
                     }`}
                   >
                     8 hours
@@ -475,9 +489,9 @@ export function DonateFood() {
               </p>
 
               {/* Summary card */}
-              <div className="mt-4 overflow-hidden rounded-2xl border border-zw-border bg-white">
-                <div className="flex items-center gap-3 border-b border-zw-border p-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-100 to-teal-200">
+              <div className="mt-4 overflow-hidden rounded-3xl glass glass-inset">
+                <div className="flex items-center gap-3 border-b border-zw-divider p-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-200">
                     <Utensils size={22} className="text-zw-primary-800" />
                   </div>
                   <div className="flex-1">
@@ -490,7 +504,7 @@ export function DonateFood() {
                   </div>
                 </div>
 
-                <div className="divide-y divide-zw-border">
+                <div className="divide-y divide-zw-divider">
                   <SummaryRow
                     icon={<MapPin size={14} />}
                     label="Pickup address"
@@ -515,9 +529,9 @@ export function DonateFood() {
               </div>
 
               {/* Impact preview */}
-              <div className="mt-4 rounded-2xl bg-gradient-to-br from-zw-primary-700 to-zw-primary-900 p-4 text-white">
+              <div className="mt-4 overflow-hidden rounded-3xl glass-primary p-4 text-white">
                 <div className="flex items-center gap-2">
-                  <Sparkles size={16} className="text-zw-primary-200" />
+                  <Sparkles size={16} className="text-zw-primary-100" />
                   <span className="text-[13px] font-bold">
                     Predicted Impact
                   </span>
@@ -527,19 +541,19 @@ export function DonateFood() {
                     <div className="font-display text-xl font-bold">
                       {form.servings}
                     </div>
-                    <div className="text-[10px] text-white/70">Meals saved</div>
+                    <div className="text-[10px] text-white/80">Meals saved</div>
                   </div>
                   <div>
                     <div className="font-display text-xl font-bold">
                       {(form.servings * 0.4).toFixed(1)}kg
                     </div>
-                    <div className="text-[10px] text-white/70">CO2 saved</div>
+                    <div className="text-[10px] text-white/80">CO2 saved</div>
                   </div>
                   <div>
                     <div className="font-display text-xl font-bold">
                       +{form.servings * 3}
                     </div>
-                    <div className="text-[10px] text-white/70">Points</div>
+                    <div className="text-[10px] text-white/80">Points</div>
                   </div>
                 </div>
               </div>
@@ -549,7 +563,8 @@ export function DonateFood() {
       </div>
 
       {/* CTA */}
-      <div className="border-t border-zw-border bg-white px-5 py-3">
+      <div className="px-5 py-3">
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-[76px] bg-white/80 backdrop-blur-xl border-t border-zw-border-strong" />
         <motion.button
           whileTap={{ scale: 0.97 }}
           disabled={!canProceed}
@@ -557,7 +572,7 @@ export function DonateFood() {
             if (step === 3) handleConfirm();
             else setStep(step + 1);
           }}
-          className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-zw-primary-700 text-[14px] font-semibold text-white shadow-lg shadow-zw-primary-700/25 disabled:opacity-50"
+          className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl glass-primary text-[14px] font-semibold text-white disabled:opacity-50"
         >
           {step === 3 ? (
             <>
@@ -580,13 +595,13 @@ export function DonateFood() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white px-8"
+            className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/95 backdrop-blur-lg px-8"
           >
             <motion.div
               initial={{ scale: 0, rotate: -30 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: "spring", stiffness: 200, damping: 14 }}
-              className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-zw-primary-500 to-zw-primary-800 shadow-2xl shadow-zw-primary-700/30"
+              className="flex h-24 w-24 items-center justify-center rounded-full glass-primary shadow-2xl"
             >
               <Check size={48} strokeWidth={3} className="text-white" />
             </motion.div>

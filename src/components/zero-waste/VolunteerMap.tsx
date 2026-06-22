@@ -13,7 +13,6 @@ import {
   CircleDollarSign,
   Clock,
   Package,
-  ChevronRight,
   Sparkles,
   TrendingUp,
   Trophy,
@@ -28,72 +27,60 @@ export function VolunteerMap() {
   const activeDonation = donations.find((d) => d.id === activePickup);
 
   return (
-    <div className="flex h-full flex-col bg-zw-bg-base">
+    <div className="relative flex h-full flex-col">
+      <div className="absolute inset-0 -z-10 bg-zw-aurora" />
+
       {/* Top stats bar */}
-      <div className="sticky top-0 z-30 border-b border-zw-border/60 bg-white px-5 pb-3 pt-4">
+      <div className="sticky top-0 z-30 px-5 pb-3 pt-4">
+        <div className="absolute inset-0 -z-10 bg-white/60 backdrop-blur-xl border-b border-zw-border-strong" />
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="font-display text-lg font-bold text-zw-text-primary">
+            <h1 className="font-display text-[22px] font-bold tracking-tight text-zw-text-primary">
               Volunteer Hub
             </h1>
             <p className="text-[11px] text-zw-text-secondary">
               You're {online ? "online" : "offline"} · 5km radius
             </p>
           </div>
-          {/* Online toggle */}
+          {/* Online toggle (iOS-style switch) */}
           <button
             onClick={() => setOnline(!online)}
-            className={`flex items-center gap-2 rounded-full px-3 py-2 transition-all ${
-              online
-                ? "bg-zw-primary-700 text-white"
-                : "bg-zw-bg-muted text-zw-text-secondary"
-            }`}
-          >
-            <motion.div
-              animate={{ scale: online ? [1, 1.3, 1] : 1 }}
-              transition={{ duration: 1.5, repeat: online ? Infinity : 0 }}
-              className={`h-2.5 w-2.5 rounded-full ${
-                online ? "bg-zw-primary-300" : "bg-zw-text-muted"
-              }`}
-            />
-            <span className="text-[12px] font-bold">
-              {online ? "Online" : "Offline"}
-            </span>
-          </button>
+            className={`ios-switch ${online ? "on" : ""}`}
+            style={{
+              backgroundColor: online
+                ? "var(--color-zw-primary-600)"
+                : "rgba(0, 0, 0, 0.15)",
+            }}
+            aria-label="Toggle online"
+          />
         </div>
 
         {/* Earnings strip */}
         <div className="mt-3 grid grid-cols-3 gap-2">
-          <div className="rounded-xl bg-gradient-to-br from-zw-primary-50 to-white p-2.5">
-            <div className="flex items-center gap-1 text-zw-primary-700">
-              <TrendingUp size={12} />
-              <span className="text-[10px] font-medium uppercase">Today</span>
-            </div>
-            <div className="font-display text-base font-bold text-zw-text-primary">
-              12
-            </div>
-            <div className="text-[9px] text-zw-text-muted">pickups done</div>
-          </div>
-          <div className="rounded-xl bg-gradient-to-br from-amber-50 to-white p-2.5">
-            <div className="flex items-center gap-1 text-zw-accent-700">
-              <CircleDollarSign size={12} />
-              <span className="text-[10px] font-medium uppercase">Earned</span>
-            </div>
-            <div className="font-display text-base font-bold text-zw-text-primary">
-              ₹240
-            </div>
-            <div className="text-[9px] text-zw-text-muted">today</div>
-          </div>
-          <div className="rounded-xl bg-gradient-to-br from-amber-50 to-white p-2.5">
-            <div className="flex items-center gap-1 text-zw-accent-700">
-              <Trophy size={12} />
-              <span className="text-[10px] font-medium uppercase">Points</span>
-            </div>
-            <div className="font-display text-base font-bold text-zw-text-primary">
-              +360
-            </div>
-            <div className="text-[9px] text-zw-text-muted">today</div>
-          </div>
+          <StatMini
+            icon={<TrendingUp size={12} />}
+            label="Today"
+            value="12"
+            sub="pickups"
+            gradient="from-emerald-50 to-white"
+            color="text-zw-primary-700"
+          />
+          <StatMini
+            icon={<CircleDollarSign size={12} />}
+            label="Earned"
+            value="\u20B9240"
+            sub="today"
+            gradient="from-amber-50 to-white"
+            color="text-zw-accent-700"
+          />
+          <StatMini
+            icon={<Trophy size={12} />}
+            label="Points"
+            value="+360"
+            sub="today"
+            gradient="from-pink-50 to-white"
+            color="text-zw-pink-500"
+          />
         </div>
       </div>
 
@@ -103,13 +90,16 @@ export function VolunteerMap() {
           className="absolute inset-0 bg-zw-bg-muted"
           style={{
             backgroundImage:
-              "linear-gradient(0deg, var(--color-zw-border) 1px, transparent 1px), linear-gradient(90deg, var(--color-zw-border) 1px, transparent 1px)",
+              "linear-gradient(0deg, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)",
             backgroundSize: "36px 36px",
           }}
         />
 
         {/* Roads */}
-        <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none">
+        <svg
+          className="absolute inset-0 h-full w-full"
+          preserveAspectRatio="none"
+        >
           <path
             d="M 0 100 L 100% 100"
             stroke="var(--color-zw-bg-surface)"
@@ -150,7 +140,7 @@ export function VolunteerMap() {
           <motion.div
             animate={{ scale: [1, 1.15, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="relative flex h-12 w-12 items-center justify-center rounded-full bg-zw-primary-900 ring-4 ring-white"
+            className="relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-zw-primary-800 to-zw-primary-900 ring-4 ring-white shadow-xl"
           >
             <Bike size={20} className="text-white" />
           </motion.div>
@@ -193,12 +183,12 @@ export function VolunteerMap() {
               }`}
             >
               <div
-                className={`relative flex items-center justify-center rounded-full ring-3 ring-white transition-all ${
+                className={`relative flex items-center justify-center rounded-full ring-3 ring-white transition-all shadow-lg ${
                   isActive
-                    ? "h-12 w-12 bg-zw-accent-600"
+                    ? "h-12 w-12 bg-gradient-to-br from-zw-accent-500 to-zw-accent-700"
                     : isUrgent
-                      ? "zw-urgency-pulse h-9 w-9 bg-zw-danger"
-                      : "h-9 w-9 bg-zw-primary-700"
+                      ? "zw-urgency-pulse h-9 w-9 bg-gradient-to-br from-red-500 to-red-600"
+                      : "h-9 w-9 bg-gradient-to-br from-zw-primary-600 to-zw-primary-800"
                 }`}
               >
                 <Package
@@ -225,13 +215,13 @@ export function VolunteerMap() {
                 animate={{ y: 0 }}
                 exit={{ y: 200 }}
                 transition={{ type: "spring", stiffness: 400, damping: 36 }}
-                className="rounded-t-3xl bg-white p-4 shadow-2xl"
+                className="rounded-t-[2rem] glass-strong p-4 shadow-2xl"
               >
-                <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-zw-border-strong" />
+                <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-zw-text-muted/40" />
 
                 <div className="flex items-start gap-3">
                   <div
-                    className={`flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${activeDonation.imageColor}`}
+                    className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${activeDonation.imageColor}`}
                   >
                     <Package size={24} className="text-white" />
                   </div>
@@ -241,7 +231,7 @@ export function VolunteerMap() {
                         {activeDonation.donorName}
                       </h3>
                       <span className="rounded-full bg-zw-primary-100 px-1.5 py-0.5 text-[9px] font-bold text-zw-primary-800">
-                        AI Match {activeDonation.aiMatchScore}%
+                        AI {activeDonation.aiMatchScore}%
                       </span>
                     </div>
                     <p className="text-[11px] text-zw-text-secondary line-clamp-1">
@@ -264,19 +254,19 @@ export function VolunteerMap() {
 
                 {/* Earning estimate */}
                 <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-                  <div className="rounded-lg bg-zw-primary-50 p-2">
+                  <div className="rounded-2xl bg-gradient-to-br from-zw-primary-50 to-white p-2 border border-zw-primary-200/40">
                     <div className="font-display text-sm font-bold text-zw-primary-800">
                       {activeDonation.servings}
                     </div>
                     <div className="text-[9px] text-zw-text-muted">Meals</div>
                   </div>
-                  <div className="rounded-lg bg-amber-50 p-2">
+                  <div className="rounded-2xl bg-gradient-to-br from-amber-50 to-white p-2 border border-amber-200/40">
                     <div className="font-display text-sm font-bold text-zw-accent-700">
                       +{activeDonation.servings * 3}
                     </div>
                     <div className="text-[9px] text-zw-text-muted">Points</div>
                   </div>
-                  <div className="rounded-lg bg-emerald-50 p-2">
+                  <div className="rounded-2xl bg-gradient-to-br from-emerald-50 to-white p-2 border border-emerald-200/40">
                     <div className="font-display text-sm font-bold text-zw-success">
                       ₹{Math.round(activeDonation.pickupDistanceKm * 12)}
                     </div>
@@ -286,13 +276,13 @@ export function VolunteerMap() {
 
                 {/* Actions */}
                 <div className="mt-3 flex gap-2">
-                  <button className="flex h-11 flex-1 items-center justify-center gap-1.5 rounded-xl border border-zw-border bg-white text-[13px] font-semibold text-zw-text-secondary">
+                  <button className="flex h-11 flex-1 items-center justify-center gap-1.5 rounded-2xl glass text-[13px] font-semibold text-zw-text-secondary">
                     <Navigation size={14} />
                     Navigate
                   </button>
                   <motion.button
                     whileTap={{ scale: 0.96 }}
-                    className="flex h-11 flex-1 items-center justify-center gap-1.5 rounded-xl bg-zw-primary-700 text-[13px] font-semibold text-white shadow-md shadow-zw-primary-700/25"
+                    className="flex h-11 flex-1 items-center justify-center gap-1.5 rounded-2xl glass-primary text-[13px] font-semibold text-white"
                   >
                     <Zap size={14} />
                     Accept Pickup
@@ -305,9 +295,9 @@ export function VolunteerMap() {
                 initial={{ y: 200 }}
                 animate={{ y: 0 }}
                 exit={{ y: 200 }}
-                className="rounded-t-3xl bg-white p-5 shadow-2xl"
+                className="rounded-t-[2rem] glass-strong p-5 shadow-2xl"
               >
-                <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-zw-border-strong" />
+                <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-zw-text-muted/40" />
                 <div className="flex items-center gap-2">
                   <Sparkles size={14} className="text-zw-primary-700" />
                   <span className="text-[12px] font-semibold text-zw-text-primary">
@@ -322,6 +312,39 @@ export function VolunteerMap() {
           </AnimatePresence>
         </div>
       </div>
+    </div>
+  );
+}
+
+function StatMini({
+  icon,
+  label,
+  value,
+  sub,
+  gradient,
+  color,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  sub: string;
+  gradient: string;
+  color: string;
+}) {
+  return (
+    <div
+      className={`rounded-2xl border border-white/60 bg-gradient-to-br ${gradient} p-2.5 shadow-sm backdrop-blur-md`}
+    >
+      <div className={`flex items-center gap-1 ${color}`}>
+        {icon}
+        <span className="text-[10px] font-medium uppercase tracking-wide">
+          {label}
+        </span>
+      </div>
+      <div className="mt-1 font-display text-base font-bold text-zw-text-primary">
+        {value}
+      </div>
+      <div className="text-[9px] text-zw-text-muted">{sub}</div>
     </div>
   );
 }

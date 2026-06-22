@@ -16,7 +16,6 @@ import {
   Bike,
   Store,
   Package,
-  Navigation,
   Phone,
   MessageCircle,
   Star,
@@ -46,29 +45,35 @@ export function Checkout() {
   };
 
   return (
-    <div className="flex h-full flex-col bg-zw-bg-base">
+    <div className="relative flex h-full flex-col">
+      <div className="absolute inset-0 -z-10 bg-zw-aurora" />
+      <div className="blob bg-zw-pink-300/30 zw-float" style={{ width: 240, height: 240, bottom: "10%", right: "-15%" }} />
+
       {/* Header */}
-      <div className="sticky top-0 z-30 flex items-center gap-3 border-b border-zw-border/60 bg-white px-5 py-4">
-        <button
-          onClick={() => setScreen("home")}
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-zw-border bg-white active:scale-95"
-        >
-          <ChevronLeft size={18} />
-        </button>
-        <h1 className="font-display text-lg font-bold text-zw-text-primary">
-          Checkout
-        </h1>
+      <div className="sticky top-0 z-30">
+        <div className="absolute inset-0 -z-10 bg-white/60 backdrop-blur-xl border-b border-zw-border-strong" />
+        <div className="flex items-center gap-3 px-5 py-4">
+          <button
+            onClick={() => setScreen("home")}
+            className="flex h-9 w-9 items-center justify-center rounded-full glass active:scale-95"
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <h1 className="font-display text-lg font-bold tracking-tight text-zw-text-primary">
+            Checkout
+          </h1>
+        </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-5 pb-32 pt-4">
+      <div className="flex-1 overflow-y-auto zw-scroll px-5 pb-32 pt-4">
         {/* Address */}
         <section>
-          <h2 className="mb-2 font-display text-[13px] font-bold uppercase tracking-wide text-zw-text-secondary">
+          <h2 className="mb-2 font-display text-[12px] font-bold uppercase tracking-wide text-zw-text-secondary">
             Delivery Address
           </h2>
-          <div className="rounded-2xl border border-zw-border bg-white p-4">
+          <div className="rounded-3xl glass glass-inset p-4">
             <div className="flex items-start gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zw-primary-50 text-zw-primary-700">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zw-primary-50 text-zw-primary-700">
                 <MapPin size={16} />
               </div>
               <div className="flex-1">
@@ -80,7 +85,7 @@ export function Checkout() {
                   Chennai 600040
                 </div>
               </div>
-              <button className="text-[12px] font-semibold text-zw-primary-700">
+              <button className="rounded-full bg-zw-primary-50 px-3 py-1 text-[12px] font-semibold text-zw-primary-700">
                 Change
               </button>
             </div>
@@ -89,7 +94,7 @@ export function Checkout() {
 
         {/* Slot */}
         <section className="mt-5">
-          <h2 className="mb-2 font-display text-[13px] font-bold uppercase tracking-wide text-zw-text-secondary">
+          <h2 className="mb-2 font-display text-[12px] font-bold uppercase tracking-wide text-zw-text-secondary">
             Delivery Slot
           </h2>
           <div className="grid grid-cols-3 gap-2">
@@ -101,21 +106,25 @@ export function Checkout() {
               <button
                 key={s.id}
                 onClick={() => setSlot(s.id as any)}
-                className={`flex flex-col items-center rounded-xl border p-3 transition-all ${
+                className={`flex flex-col items-center rounded-2xl border p-3 transition-all ${
                   slot === s.id
-                    ? "border-zw-primary-600 bg-zw-primary-50"
-                    : "border-zw-border bg-white"
+                    ? "border-zw-primary-600 bg-zw-primary-50 ring-2 ring-zw-primary-400/40"
+                    : "border-zw-border-strong bg-white/60 backdrop-blur-md"
                 }`}
               >
                 <Clock
                   size={16}
                   className={
-                    slot === s.id ? "text-zw-primary-700" : "text-zw-text-muted"
+                    slot === s.id
+                      ? "text-zw-primary-700"
+                      : "text-zw-text-muted"
                   }
                 />
                 <span
                   className={`mt-1 text-[12px] font-bold ${
-                    slot === s.id ? "text-zw-primary-900" : "text-zw-text-primary"
+                    slot === s.id
+                      ? "text-zw-primary-900"
+                      : "text-zw-text-primary"
                   }`}
                 >
                   {s.label}
@@ -128,22 +137,22 @@ export function Checkout() {
 
         {/* Items summary */}
         <section className="mt-5">
-          <h2 className="mb-2 font-display text-[13px] font-bold uppercase tracking-wide text-zw-text-secondary">
+          <h2 className="mb-2 font-display text-[12px] font-bold uppercase tracking-wide text-zw-text-secondary">
             Order Summary
           </h2>
-          <div className="rounded-2xl border border-zw-border bg-white p-4">
+          <div className="rounded-3xl glass glass-inset p-4">
             {cart.map((item, i) => (
               <div
                 key={item.product.id}
                 className={`flex items-center justify-between py-2 ${
-                  i > 0 ? "border-t border-zw-border" : ""
+                  i > 0 ? "border-t border-zw-divider" : ""
                 }`}
               >
                 <div className="flex items-center gap-2">
                   <div
-                    className={`flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br ${item.product.imageColor}`}
+                    className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${item.product.imageColor}`}
                   >
-                    <span className="font-display text-sm font-bold text-white/70">
+                    <span className="font-display text-sm font-bold text-white/80">
                       {item.product.name.charAt(0)}
                     </span>
                   </div>
@@ -166,7 +175,7 @@ export function Checkout() {
 
         {/* Payment */}
         <section className="mt-5">
-          <h2 className="mb-2 font-display text-[13px] font-bold uppercase tracking-wide text-zw-text-secondary">
+          <h2 className="mb-2 font-display text-[12px] font-bold uppercase tracking-wide text-zw-text-secondary">
             Payment Method
           </h2>
           <div className="space-y-2">
@@ -199,10 +208,10 @@ export function Checkout() {
 
         {/* Bill */}
         <section className="mt-5">
-          <h2 className="mb-2 font-display text-[13px] font-bold uppercase tracking-wide text-zw-text-secondary">
+          <h2 className="mb-2 font-display text-[12px] font-bold uppercase tracking-wide text-zw-text-secondary">
             Bill Details
           </h2>
-          <div className="rounded-2xl border border-zw-border bg-white p-4">
+          <div className="rounded-3xl glass glass-inset p-4">
             <div className="space-y-2 text-[13px]">
               <div className="flex justify-between text-zw-text-secondary">
                 <span>Item total</span>
@@ -218,9 +227,11 @@ export function Checkout() {
               </div>
               <div className="flex justify-between text-zw-success">
                 <span>You saved</span>
-                <span className="font-medium">-{formatINR(cartSavings())}</span>
+                <span className="font-medium">
+                  -{formatINR(cartSavings())}
+                </span>
               </div>
-              <div className="my-2 border-t border-dashed border-zw-border" />
+              <div className="my-2 border-t border-dashed border-zw-border-strong" />
               <div className="flex justify-between">
                 <span className="font-display text-sm font-bold">To Pay</span>
                 <span className="font-display text-base font-bold">
@@ -233,17 +244,18 @@ export function Checkout() {
       </div>
 
       {/* Place order */}
-      <div className="border-t border-zw-border bg-white px-5 py-3">
+      <div className="px-5 py-3">
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-[76px] bg-white/80 backdrop-blur-xl border-t border-zw-border-strong" />
         <motion.button
           whileTap={{ scale: 0.97 }}
           onClick={handlePlace}
-          className="flex h-12 w-full items-center justify-between rounded-xl bg-zw-primary-700 px-4 text-white shadow-lg shadow-zw-primary-700/25"
+          className="flex h-12 w-full items-center justify-between rounded-2xl glass-primary px-4 text-white"
         >
           <div className="text-left">
             <div className="font-display text-base font-bold">
               {formatINR(total)}
             </div>
-            <div className="text-[10px] text-white/70">Tap to place order</div>
+            <div className="text-[10px] text-white/80">Tap to place order</div>
           </div>
           <div className="flex items-center gap-1 text-[13px] font-semibold">
             Place Order
@@ -264,7 +276,7 @@ export function Checkout() {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", stiffness: 200, damping: 14 }}
-              className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-zw-primary-500 to-zw-primary-800 shadow-2xl shadow-zw-primary-700/30"
+              className="flex h-24 w-24 items-center justify-center rounded-full glass-primary shadow-2xl"
             >
               <PartyPopper size={44} className="text-white" />
             </motion.div>
@@ -308,26 +320,32 @@ function PaymentOption({
   return (
     <button
       onClick={onClick}
-      className={`flex w-full items-center gap-3 rounded-xl border p-3.5 transition-all ${
+      className={`flex w-full items-center gap-3 rounded-2xl border p-3.5 transition-all ${
         active
-          ? "border-zw-primary-600 bg-zw-primary-50"
-          : "border-zw-border bg-white"
+          ? "border-zw-primary-600 bg-zw-primary-50 ring-2 ring-zw-primary-400/40"
+          : "border-zw-border-strong bg-white/60 backdrop-blur-md"
       }`}
     >
       <div
-        className={`flex h-9 w-9 items-center justify-center rounded-lg ${
-          active ? "bg-zw-primary-700 text-white" : "bg-zw-bg-muted text-zw-text-secondary"
+        className={`flex h-9 w-9 items-center justify-center rounded-xl ${
+          active
+            ? "bg-gradient-to-br from-zw-primary-500 to-zw-primary-700 text-white"
+            : "bg-white/80 text-zw-text-secondary"
         }`}
       >
         {icon}
       </div>
       <div className="flex-1 text-left">
-        <div className="text-[13px] font-bold text-zw-text-primary">{label}</div>
+        <div className="text-[13px] font-bold text-zw-text-primary">
+          {label}
+        </div>
         <div className="text-[11px] text-zw-text-muted">{sub}</div>
       </div>
       <div
         className={`flex h-5 w-5 items-center justify-center rounded-full border-2 ${
-          active ? "border-zw-primary-700 bg-zw-primary-700" : "border-zw-border"
+          active
+            ? "border-zw-primary-700 bg-zw-primary-700"
+            : "border-zw-border-strong"
         }`}
       >
         {active && <Check size={12} strokeWidth={3} className="text-white" />}
@@ -342,7 +360,12 @@ const TRACKING_STEPS = [
   { id: "placed", label: "Order Placed", icon: Check, sub: "Just now" },
   { id: "accepted", label: "Shop Accepted", icon: Store, sub: "2 min ago" },
   { id: "packing", label: "Packing", icon: Package, sub: "In progress" },
-  { id: "out_for_delivery", label: "Out for Delivery", icon: Bike, sub: "Pending" },
+  {
+    id: "out_for_delivery",
+    label: "Out for Delivery",
+    icon: Bike,
+    sub: "Pending",
+  },
   { id: "delivered", label: "Delivered", icon: Star, sub: "Pending" },
 ];
 
@@ -359,39 +382,47 @@ export function OrderTracking() {
   }, []);
 
   return (
-    <div className="flex h-full flex-col bg-zw-bg-base">
+    <div className="relative flex h-full flex-col">
+      <div className="absolute inset-0 -z-10 bg-zw-aurora" />
+
       {/* Header */}
-      <div className="sticky top-0 z-30 flex items-center gap-3 border-b border-zw-border/60 bg-white px-5 py-4">
-        <button
-          onClick={() => setScreen("home")}
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-zw-border bg-white active:scale-95"
-        >
-          <ChevronLeft size={18} />
-        </button>
-        <div>
-          <h1 className="font-display text-base font-bold text-zw-text-primary">
-            Order Tracking
-          </h1>
-          <p className="text-[11px] text-zw-text-secondary">
-            Order #ZW{Math.floor(Math.random() * 9000) + 1000}
-          </p>
+      <div className="sticky top-0 z-30">
+        <div className="absolute inset-0 -z-10 bg-white/60 backdrop-blur-xl border-b border-zw-border-strong" />
+        <div className="flex items-center gap-3 px-5 py-4">
+          <button
+            onClick={() => setScreen("home")}
+            className="flex h-9 w-9 items-center justify-center rounded-full glass active:scale-95"
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <div>
+            <h1 className="font-display text-base font-bold tracking-tight text-zw-text-primary">
+              Order Tracking
+            </h1>
+            <p className="text-[11px] text-zw-text-secondary">
+              Order #ZW{Math.floor(Math.random() * 9000) + 1000}
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto pb-32">
+      <div className="flex-1 overflow-y-auto zw-scroll pb-32">
         {/* Map */}
-        <div className="relative h-64 overflow-hidden bg-zw-bg-muted">
+        <div className="relative h-64 overflow-hidden">
           <div
-            className="absolute inset-0 opacity-40"
+            className="absolute inset-0 bg-zw-bg-muted"
             style={{
               backgroundImage:
-                "linear-gradient(0deg, var(--color-zw-border) 1px, transparent 1px), linear-gradient(90deg, var(--color-zw-border) 1px, transparent 1px)",
+                "linear-gradient(0deg, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)",
               backgroundSize: "32px 32px",
             }}
           />
 
           {/* Route polyline */}
-          <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none">
+          <svg
+            className="absolute inset-0 h-full w-full"
+            preserveAspectRatio="none"
+          >
             <motion.path
               d="M 50 200 Q 150 100 280 80 T 360 50"
               stroke="var(--color-zw-primary-600)"
@@ -411,7 +442,7 @@ export function OrderTracking() {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="absolute bottom-12 left-8"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-zw-primary-700 ring-4 ring-white">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-zw-primary-600 to-zw-primary-800 ring-4 ring-white shadow-lg">
               <Store size={16} className="text-white" />
             </div>
           </motion.div>
@@ -425,7 +456,7 @@ export function OrderTracking() {
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             className="absolute"
           >
-            <div className="zw-urgency-pulse-amber relative flex h-10 w-10 items-center justify-center rounded-full bg-zw-accent-600 ring-4 ring-white">
+            <div className="zw-urgency-pulse-amber relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-zw-accent-500 to-zw-accent-700 ring-4 ring-white shadow-lg">
               <Bike size={18} className="text-white" />
             </div>
           </motion.div>
@@ -434,32 +465,39 @@ export function OrderTracking() {
           <motion.div
             initial={{ y: -30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 300, damping: 20 }}
+            transition={{
+              delay: 0.2,
+              type: "spring",
+              stiffness: 300,
+              damping: 20,
+            }}
             className="absolute right-8 top-8"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-zw-primary-900 ring-4 ring-white">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-zw-primary-800 to-zw-primary-900 ring-4 ring-white shadow-lg">
               <MapPin size={16} className="text-white" />
             </div>
           </motion.div>
 
           {/* ETA */}
-          <div className="absolute bottom-3 left-3 right-3 rounded-xl bg-white/95 px-4 py-2 backdrop-blur-lg">
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-[10px] font-medium uppercase tracking-wide text-zw-text-muted">
-                  Arriving in
+          <div className="absolute bottom-3 left-3 right-3">
+            <div className="glass-strong rounded-2xl px-4 py-2.5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-[10px] font-medium uppercase tracking-wide text-zw-text-muted">
+                    Arriving in
+                  </div>
+                  <div className="font-display text-base font-bold text-zw-text-primary">
+                    12 mins
+                  </div>
                 </div>
-                <div className="font-display text-base font-bold text-zw-text-primary">
-                  12 mins
+                <div className="flex items-center gap-2">
+                  <button className="flex h-9 w-9 items-center justify-center rounded-xl bg-zw-primary-50 text-zw-primary-700 active:scale-90">
+                    <Phone size={16} />
+                  </button>
+                  <button className="flex h-9 w-9 items-center justify-center rounded-xl bg-zw-primary-50 text-zw-primary-700 active:scale-90">
+                    <MessageCircle size={16} />
+                  </button>
                 </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <button className="flex h-9 w-9 items-center justify-center rounded-lg bg-zw-primary-50 text-zw-primary-700">
-                  <Phone size={16} />
-                </button>
-                <button className="flex h-9 w-9 items-center justify-center rounded-lg bg-zw-primary-50 text-zw-primary-700">
-                  <MessageCircle size={16} />
-                </button>
               </div>
             </div>
           </div>
@@ -467,8 +505,8 @@ export function OrderTracking() {
 
         {/* Volunteer card */}
         <div className="px-5 pt-4">
-          <div className="flex items-center gap-3 rounded-2xl border border-zw-border bg-white p-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-zw-primary-500 to-zw-primary-800 font-display text-base font-bold text-white">
+          <div className="flex items-center gap-3 rounded-3xl glass glass-inset p-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-zw-primary-500 to-zw-primary-800 font-display text-base font-bold text-white">
               A
             </div>
             <div className="flex-1">
@@ -476,7 +514,10 @@ export function OrderTracking() {
                 Arjun K.
               </div>
               <div className="flex items-center gap-1 text-[11px] text-zw-text-secondary">
-                <Star size={10} className="fill-zw-warning text-zw-warning" />
+                <Star
+                  size={10}
+                  className="fill-zw-warning text-zw-warning"
+                />
                 <span className="font-semibold">4.9</span>
                 <span>· 218 deliveries</span>
               </div>
@@ -491,7 +532,7 @@ export function OrderTracking() {
 
         {/* Status timeline */}
         <div className="mt-5 px-5">
-          <h3 className="font-display text-[13px] font-bold uppercase tracking-wide text-zw-text-secondary">
+          <h3 className="font-display text-[12px] font-bold uppercase tracking-wide text-zw-text-secondary">
             Order Status
           </h3>
           <div className="mt-3 space-y-1">
@@ -507,21 +548,25 @@ export function OrderTracking() {
                       animate={{
                         backgroundColor: done
                           ? "var(--color-zw-primary-700)"
-                          : "var(--color-zw-bg-muted)",
+                          : "rgba(0, 0, 0, 0.06)",
                         scale: active ? 1.1 : 1,
                       }}
                       className="flex h-9 w-9 items-center justify-center rounded-full"
                     >
                       <Icon
                         size={16}
-                        className={done ? "text-white" : "text-zw-text-muted"}
+                        className={
+                          done ? "text-white" : "text-zw-text-muted"
+                        }
                       />
                     </motion.div>
                     {i < TRACKING_STEPS.length - 1 && (
-                      <div className="relative my-1 h-8 w-0.5 overflow-hidden bg-zw-border">
+                      <div className="relative my-1 h-8 w-0.5 overflow-hidden rounded-full bg-black/8">
                         <motion.div
                           initial={false}
-                          animate={{ height: i < currentStep ? "100%" : "0%" }}
+                          animate={{
+                            height: i < currentStep ? "100%" : "0%",
+                          }}
                           transition={{ duration: 0.4 }}
                           className="absolute inset-x-0 top-0 bg-zw-primary-700"
                         />
@@ -536,7 +581,9 @@ export function OrderTracking() {
                     >
                       {s.label}
                     </div>
-                    <div className="text-[11px] text-zw-text-muted">{s.sub}</div>
+                    <div className="text-[11px] text-zw-text-muted">
+                      {s.sub}
+                    </div>
                   </div>
                 </div>
               );

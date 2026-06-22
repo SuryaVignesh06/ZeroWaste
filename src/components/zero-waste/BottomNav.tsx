@@ -26,13 +26,13 @@ interface NavItem {
 const NAV_BY_ROLE: Record<Role, NavItem[]> = {
   user: [
     { id: "home", label: "Home", icon: Home, screen: "home" },
-    { id: "marketplace", label: "Market", icon: ShoppingBag, screen: "marketplace" },
+    { id: "marketplace", label: "Shop", icon: ShoppingBag, screen: "marketplace" },
     { id: "donate", label: "Donate", icon: HandHeart, screen: "donate" },
     { id: "impact", label: "Impact", icon: TrendingUp, screen: "impact" },
     { id: "profile", label: "Profile", icon: User, screen: "profile" },
   ],
   shop: [
-    { id: "home", label: "Dashboard", icon: Store, screen: "home" },
+    { id: "home", label: "Shop", icon: Store, screen: "home" },
     { id: "impact", label: "Impact", icon: TrendingUp, screen: "impact" },
     { id: "profile", label: "Profile", icon: User, screen: "profile" },
   ],
@@ -60,82 +60,104 @@ export function BottomNav() {
   if (!role) return null;
   const items = NAV_BY_ROLE[role];
 
+  // Map all valid screens for "active home tab" detection per role
+  const homeScreensByRole: Record<Role, string[]> = {
+    user: ["home", "marketplace", "donate", "impact", "profile", "checkout", "order-tracking"],
+    shop: ["home", "shop-dashboard", "impact", "profile"],
+    ngo: ["home", "ngo-feed", "impact", "profile"],
+    volunteer: ["home", "volunteer-map", "impact", "profile"],
+  };
+
   return (
     <>
-      {/* Floating AI Assistant button (above nav) */}
+      {/* Floating AI Assistant button */}
       <motion.button
         initial={{ scale: 0, y: 50 }}
         animate={{ scale: 1, y: 0 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setAssistantOpen(true)}
-        className="absolute bottom-24 right-4 z-30"
+        className="absolute bottom-28 right-4 z-40"
+        aria-label="AI Assistant"
       >
-        <div className="zw-aura relative flex h-12 w-12 items-center justify-center rounded-full bg-zw-primary-700 shadow-xl shadow-zw-primary-700/30 ring-2 ring-white">
-          <Sparkles size={20} className="text-white" />
+        <div className="zw-aura relative flex h-13 w-13 items-center justify-center rounded-full p-0.5 shadow-xl">
+          <div className="zw-ai-border h-full w-full rounded-full p-[2px]">
+            <div className="flex h-full w-full items-center justify-center rounded-full bg-white/95 backdrop-blur-md">
+              <Sparkles size={20} className="text-zw-primary-700" />
+            </div>
+          </div>
         </div>
       </motion.button>
 
-      {/* Floating cart button (for user role) — shows when cart has items */}
-      {role === "user" && cartCount() > 0 && (
-        <motion.button
-          initial={{ scale: 0, y: 50 }}
-          animate={{ scale: 1, y: 0 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setCartOpen(true)}
-          className="absolute bottom-24 left-4 z-30"
-        >
-          <div className="flex h-12 items-center gap-2 rounded-full bg-zw-primary-700 px-4 shadow-xl shadow-zw-primary-700/30 ring-2 ring-white">
-            <ShoppingBag size={18} className="text-white" />
-            <span className="font-display text-sm font-bold text-white">
-              {cartCount()}
-            </span>
-          </div>
-        </motion.button>
-      )}
+      {/* Floating cart button (user only) */}
+      <AnimatePresence>
+        {role === "user" && cartCount() > 0 && (
+          <motion.button
+            initial={{ scale: 0, y: 50 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0, y: 50 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setCartOpen(true)}
+            className="absolute bottom-28 left-4 z-40"
+            aria-label="Cart"
+          >
+            <div className="glass-strong flex h-12 items-center gap-2 rounded-full px-4 shadow-xl">
+              <ShoppingBag size={16} className="text-zw-primary-700" />
+              <span className="font-display text-sm font-bold text-zw-text-primary">
+                {cartCount()}
+              </span>
+            </div>
+          </motion.button>
+        )}
+      </AnimatePresence>
 
-      {/* Bottom nav */}
-      <div className="absolute inset-x-0 bottom-0 z-20 border-t border-zw-border bg-white/95 backdrop-blur-lg">
-        <div className="flex items-center justify-around px-2 pb-3 pt-2">
+      {/* iOS-style floating glass bottom nav */}
+      <div className="absolute inset-x-0 bottom-0 z-30 px-4 pb-4 pt-2">
+        <div className="glass-strong glass-inset mx-auto flex max-w-md items-center justify-around rounded-[26px] px-2 py-2">
           {items.map((item) => {
             const Icon = item.icon;
             const isActive =
               screen === item.screen ||
               (item.id === "home" &&
-                ["home", "marketplace", "donate", "impact", "profile", "checkout", "order-tracking", "shop-dashboard", "ngo-feed", "volunteer-map"].includes(screen));
+                homeScreensByRole[role].includes(screen));
 
             const isCenter = item.id === "donate";
 
             return (
-              <button
+              <motion.button
                 key={item.id}
                 onClick={() => setScreen(item.screen)}
-                className="relative flex flex-1 flex-col items-center gap-0.5 py-1"
+                whileTap={{ scale: 0.92 }}
+                className="relative flex flex-1 flex-col items-center justify-center gap-0.5 rounded-2xl py-1.5"
               >
                 {isCenter ? (
                   <div
-                    className={`-mt-5 flex h-12 w-12 items-center justify-center rounded-2xl shadow-lg transition-all ${
+                    className={`-mt-6 flex h-12 w-12 items-center justify-center rounded-2xl shadow-lg transition-all ${
                       isActive
-                        ? "bg-zw-primary-700 shadow-zw-primary-700/30"
-                        : "bg-zw-primary-600 shadow-zw-primary-600/20"
+                        ? "bg-gradient-to-br from-zw-primary-500 to-zw-primary-700 shadow-zw-primary-700/40"
+                        : "bg-gradient-to-br from-zw-primary-500 to-zw-primary-700 shadow-zw-primary-700/30"
                     }`}
                   >
-                    <Icon
-                      size={22}
-                      className="text-white"
-                      strokeWidth={2.2}
-                    />
+                    <Icon size={22} className="text-white" strokeWidth={2.4} />
                   </div>
                 ) : (
                   <motion.div
                     animate={{
-                      scale: isActive ? 1.15 : 1,
-                      color: isActive
-                        ? "var(--color-zw-primary-700)"
-                        : "var(--color-zw-text-muted)",
+                      scale: isActive ? 1.1 : 1,
                     }}
                     transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    className="flex items-center justify-center"
                   >
-                    <Icon size={22} strokeWidth={isActive ? 2.4 : 1.8} />
+                    <Icon
+                      size={22}
+                      strokeWidth={isActive ? 2.6 : 1.8}
+                      className={
+                        isActive
+                          ? "text-zw-primary-700"
+                          : "text-zw-text-muted"
+                      }
+                      fill={isActive ? "currentColor" : "none"}
+                      fillOpacity={isActive ? 0.15 : 0}
+                    />
                   </motion.div>
                 )}
                 <motion.span
@@ -144,20 +166,22 @@ export function BottomNav() {
                       ? "var(--color-zw-primary-700)"
                       : "var(--color-zw-text-muted)",
                     fontWeight: isActive ? 700 : 500,
+                    opacity: isActive ? 1 : 0.85,
                   }}
-                  className="text-[10px]"
+                  className="text-[10px] tracking-tight"
                 >
                   {item.label}
                 </motion.span>
 
+                {/* Active indicator dot */}
                 {isActive && !isCenter && (
                   <motion.div
-                    layoutId="nav-active"
-                    className="absolute -top-0.5 h-1 w-8 rounded-full bg-zw-primary-700"
+                    layoutId="nav-active-dot"
+                    className="absolute -bottom-0.5 h-1 w-1 rounded-full bg-zw-primary-700"
                     transition={{ type: "spring", stiffness: 400, damping: 32 }}
                   />
                 )}
-              </button>
+              </motion.button>
             );
           })}
         </div>

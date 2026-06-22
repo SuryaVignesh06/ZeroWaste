@@ -19,7 +19,7 @@ const SUGGESTIONS = [
 ];
 
 const AI_RESPONSES: Record<string, string> = {
-  milk: "I found 3 milk options near you. The cheapest is Amul Toned Milk 1L at ₹30 (was ₹80) from FreshMart Anna Nagar, 0.8km away. It expires in 2 days but our AI predicts it's safe for 3 more days.",
+  milk: "I found 3 milk options near you. The cheapest is Amul Toned Milk 1L at \u20B930 (was \u20B980) from FreshMart Anna Nagar, 0.8km away. It expires in 2 days but our AI predicts it's safe for 3 more days.",
   donate:
     "To donate food: tap the Donate button at the bottom center of the home screen, then take a photo of your food. Our AI will identify it and auto-fill the details. Add your pickup address and confirm — nearby NGOs will be notified instantly.",
   impact:
@@ -91,7 +91,7 @@ export function AiAssistant() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setOpen(false)}
-            className="absolute inset-0 z-50 bg-black/40 backdrop-blur-sm"
+            className="absolute inset-0 z-50 bg-black/40 backdrop-blur-md"
           />
           <motion.div
             initial={{ y: "100%" }}
@@ -104,21 +104,19 @@ export function AiAssistant() {
             onDragEnd={(_, info) => {
               if (info.offset.y > 100) setOpen(false);
             }}
-            className="absolute inset-x-0 bottom-0 z-50 flex h-[80%] flex-col rounded-t-3xl bg-white shadow-2xl"
+            className="absolute inset-x-0 bottom-0 z-50 flex h-[80%] flex-col rounded-t-[2rem] glass-strong shadow-2xl"
           >
             {/* Header */}
-            <div className="flex items-center gap-3 border-b border-zw-border px-5 py-3">
-              <div className="mx-auto absolute left-1/2 top-1.5 h-1.5 w-10 -translate-x-1/2 rounded-full bg-zw-border-strong" />
-              <div className="relative">
-                <div className="zw-ai-border h-9 w-9 rounded-full p-0.5">
-                  <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                    <Sparkles size={16} className="text-zw-primary-700" />
-                  </div>
+            <div className="relative flex items-center gap-3 border-b border-zw-divider px-5 py-3">
+              <div className="mx-auto absolute left-1/2 top-1.5 h-1.5 w-10 -translate-x-1/2 rounded-full bg-zw-text-muted/40" />
+              <div className="zw-ai-border h-9 w-9 rounded-full p-[2px]">
+                <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
+                  <Sparkles size={16} className="text-zw-primary-700" />
                 </div>
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-1.5">
-                  <h3 className="font-display text-sm font-bold text-zw-text-primary">
+                  <h3 className="font-display text-sm font-bold tracking-tight text-zw-text-primary">
                     Zira AI
                   </h3>
                   <span className="rounded-full bg-zw-primary-100 px-1.5 py-0.5 text-[8px] font-bold uppercase text-zw-primary-800">
@@ -132,7 +130,7 @@ export function AiAssistant() {
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-zw-bg-muted"
+                className="flex h-8 w-8 items-center justify-center rounded-full glass active:scale-95"
               >
                 <X size={14} className="text-zw-text-secondary" />
               </button>
@@ -141,7 +139,7 @@ export function AiAssistant() {
             {/* Messages */}
             <div
               ref={scrollRef}
-              className="flex-1 space-y-3 overflow-y-auto px-5 py-4"
+              className="flex-1 space-y-3 overflow-y-auto zw-scroll px-5 py-4"
             >
               {messages.map((m) => (
                 <motion.div
@@ -150,11 +148,18 @@ export function AiAssistant() {
                   animate={{ y: 0, opacity: 1 }}
                   className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
                 >
+                  {m.role === "ai" && (
+                    <div className="zw-ai-border mr-2 mt-1 h-7 w-7 flex-shrink-0 rounded-full p-[1.5px]">
+                      <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
+                        <Sparkles size={12} className="text-zw-primary-700" />
+                      </div>
+                    </div>
+                  )}
                   <div
-                    className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-[12px] leading-relaxed ${
+                    className={`max-w-[78%] rounded-3xl px-4 py-2.5 text-[12px] leading-relaxed ${
                       m.role === "user"
-                        ? "bg-zw-primary-700 text-white rounded-br-md"
-                        : "bg-zw-bg-muted text-zw-text-primary rounded-bl-md"
+                        ? "glass-primary text-white rounded-br-md"
+                        : "glass text-zw-text-primary rounded-bl-md"
                     }`}
                   >
                     {m.text}
@@ -168,7 +173,12 @@ export function AiAssistant() {
                   animate={{ y: 0, opacity: 1 }}
                   className="flex justify-start"
                 >
-                  <div className="flex items-center gap-1 rounded-2xl bg-zw-bg-muted px-4 py-3">
+                  <div className="zw-ai-border mr-2 mt-1 h-7 w-7 flex-shrink-0 rounded-full p-[1.5px]">
+                    <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
+                      <Sparkles size={12} className="text-zw-primary-700" />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 rounded-3xl glass px-4 py-3">
                     {[0, 1, 2].map((i) => (
                       <motion.div
                         key={i}
@@ -201,7 +211,7 @@ export function AiAssistant() {
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.2 + i * 0.08 }}
                       onClick={() => send(s)}
-                      className="flex w-full items-center gap-2 rounded-xl border border-zw-primary-200 bg-zw-primary-50 px-3 py-2.5 text-left text-[12px] font-medium text-zw-primary-900 transition-all hover:bg-zw-primary-100"
+                      className="flex w-full items-center gap-2 rounded-2xl glass px-3 py-2.5 text-left text-[12px] font-medium text-zw-text-primary transition-all hover:bg-white/80 active:scale-98"
                     >
                       <Sparkles size={12} className="text-zw-primary-700" />
                       {s}
@@ -212,8 +222,8 @@ export function AiAssistant() {
             </div>
 
             {/* Input */}
-            <div className="border-t border-zw-border p-3">
-              <div className="flex items-center gap-2 rounded-xl border border-zw-border bg-white px-3 py-1.5">
+            <div className="border-t border-zw-divider p-3">
+              <div className="flex items-center gap-2 rounded-2xl glass px-3 py-1.5">
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -223,13 +233,13 @@ export function AiAssistant() {
                   placeholder="Ask Zira anything..."
                   className="h-9 flex-1 bg-transparent text-[13px] placeholder:text-zw-text-muted focus:outline-none"
                 />
-                <button className="flex h-8 w-8 items-center justify-center rounded-lg text-zw-text-muted">
+                <button className="flex h-8 w-8 items-center justify-center rounded-xl glass text-zw-text-muted active:scale-90">
                   <Mic size={16} />
                 </button>
                 <motion.button
                   whileTap={{ scale: 0.9 }}
                   onClick={() => send(input)}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-zw-primary-700 text-white"
+                  className="flex h-8 w-8 items-center justify-center rounded-xl glass-primary text-white"
                 >
                   <Send size={14} />
                 </motion.button>

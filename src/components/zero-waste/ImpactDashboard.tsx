@@ -44,25 +44,33 @@ export function ImpactDashboard() {
   const badges = useAppStore((s) => s.badges);
   const events = useAppStore((s) => s.events);
 
-  // Compute level
   const levels = [
     { name: "Bronze", min: 0, color: "from-orange-400 to-amber-600" },
     { name: "Silver", min: 500, color: "from-slate-300 to-slate-500" },
     { name: "Gold", min: 1000, color: "from-amber-300 to-yellow-500" },
     { name: "Platinum", min: 2000, color: "from-cyan-300 to-teal-500" },
   ];
-  const currentLevel = [...levels].reverse().find((l) => impactPoints >= l.min)!;
+  const currentLevel = [...levels]
+    .reverse()
+    .find((l) => impactPoints >= l.min)!;
   const nextLevel = levels.find((l) => l.min > impactPoints);
   const levelProgress = nextLevel
-    ? ((impactPoints - currentLevel.min) / (nextLevel.min - currentLevel.min)) * 100
+    ? ((impactPoints - currentLevel.min) /
+        (nextLevel.min - currentLevel.min)) *
+      100
     : 100;
 
   const maxMeals = Math.max(...MOCK_MONTHLY_IMPACT.map((d) => d.meals));
 
   return (
-    <div className="flex h-full flex-col bg-zw-bg-base">
-      <div className="sticky top-0 z-30 border-b border-zw-border/60 bg-zw-bg-base/90 px-5 py-4 backdrop-blur-lg">
-        <h1 className="font-display text-lg font-bold text-zw-text-primary">
+    <div className="relative flex h-full flex-col">
+      <div className="absolute inset-0 -z-10 bg-zw-aurora" />
+      <div className="blob bg-zw-primary-300/40 zw-float-slow" style={{ width: 280, height: 280, top: "-10%", right: "-20%" }} />
+      <div className="blob bg-zw-pink-200/40 zw-float" style={{ width: 220, height: 220, top: "30%", left: "-15%" }} />
+
+      <div className="sticky top-0 z-30 px-5 py-4">
+        <div className="absolute inset-0 -z-10 bg-white/60 backdrop-blur-xl border-b border-zw-border-strong" />
+        <h1 className="font-display text-[22px] font-bold tracking-tight text-zw-text-primary">
           Your Impact
         </h1>
         <p className="text-[11px] text-zw-text-secondary">
@@ -70,13 +78,13 @@ export function ImpactDashboard() {
         </p>
       </div>
 
-      <div className="flex-1 overflow-y-auto pb-24">
+      <div className="flex-1 overflow-y-auto zw-scroll pb-32">
         {/* Hero stat card */}
         <div className="px-5 pt-4">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-zw-primary-700 via-zw-primary-800 to-teal-900 p-5 text-white shadow-xl shadow-zw-primary-700/20"
+            className="relative overflow-hidden rounded-3xl glass-primary p-5 text-white shadow-xl"
           >
             <motion.div
               animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.2, 0.15] }}
@@ -92,12 +100,12 @@ export function ImpactDashboard() {
             <div className="relative z-10">
               <div className="flex items-center gap-2">
                 <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${currentLevel.color} shadow-lg ring-2 ring-white/30`}
+                  className={`flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br ${currentLevel.color} shadow-lg ring-2 ring-white/40`}
                 >
                   <Crown size={20} className="text-white" />
                 </div>
                 <div>
-                  <div className="text-[10px] font-medium uppercase tracking-wider text-white/70">
+                  <div className="text-[10px] font-medium uppercase tracking-wider text-white/80">
                     Impact Level
                   </div>
                   <div className="font-display text-base font-bold">
@@ -107,25 +115,37 @@ export function ImpactDashboard() {
               </div>
 
               <div className="mt-4">
-                <div className="text-[11px] text-white/70">Total Impact Points</div>
-                <AnimatedCounter value={impactPoints} />
+                <div className="text-[11px] text-white/80">
+                  Total Impact Points
+                </div>
+                <div className="font-display text-4xl font-bold">
+                  <motion.span
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    {impactPoints.toLocaleString("en-IN")}
+                  </motion.span>
+                  <span className="ml-2 text-base font-medium text-white/80">
+                    pts
+                  </span>
+                </div>
               </div>
 
-              {/* Level progress */}
               {nextLevel && (
                 <div className="mt-3">
-                  <div className="mb-1 flex items-center justify-between text-[10px] text-white/80">
+                  <div className="mb-1 flex items-center justify-between text-[10px] text-white/85">
                     <span>{currentLevel.name}</span>
                     <span>
                       {Math.round(levelProgress)}% to {nextLevel.name}
                     </span>
                   </div>
-                  <div className="h-2 overflow-hidden rounded-full bg-white/20">
+                  <div className="h-2 overflow-hidden rounded-full bg-white/25">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${levelProgress}%` }}
                       transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-                      className="h-full rounded-full bg-gradient-to-r from-zw-primary-200 to-white"
+                      className="h-full rounded-full bg-gradient-to-r from-white to-zw-primary-100"
                     />
                   </div>
                 </div>
@@ -140,28 +160,28 @@ export function ImpactDashboard() {
             icon={<Utensils size={16} />}
             label="Meals saved"
             value={String(mealsSaved)}
-            color="bg-emerald-50 text-zw-primary-700"
+            color="bg-gradient-to-br from-emerald-50 to-white text-zw-primary-700"
           />
           <SubStat
             icon={<Leaf size={16} />}
             label="CO2 saved"
             value={`${co2Saved}kg`}
-            color="bg-teal-50 text-teal-700"
+            color="bg-gradient-to-br from-teal-50 to-white text-teal-700"
           />
           <SubStat
             icon={<TrendingUp size={16} />}
             label="Money saved"
-            value={`₹${moneySaved}`}
-            color="bg-amber-50 text-zw-accent-700"
+            value={`\u20B9${moneySaved}`}
+            color="bg-gradient-to-br from-amber-50 to-white text-zw-accent-700"
           />
         </div>
 
         {/* Weekly chart */}
         <div className="mt-5 px-5">
-          <h3 className="mb-3 font-display text-[13px] font-bold uppercase tracking-wide text-zw-text-secondary">
+          <h3 className="mb-3 font-display text-[12px] font-bold uppercase tracking-wide text-zw-text-secondary">
             This Week
           </h3>
-          <div className="rounded-2xl border border-zw-border bg-white p-4">
+          <div className="rounded-3xl glass glass-inset p-4">
             <div className="flex h-32 items-end justify-between gap-2">
               {MOCK_MONTHLY_IMPACT.map((d, i) => {
                 const heightPct = (d.meals / maxMeals) * 100;
@@ -206,11 +226,12 @@ export function ImpactDashboard() {
         {/* Badges */}
         <div className="mt-5 px-5">
           <div className="mb-3 flex items-center justify-between">
-            <h3 className="font-display text-[13px] font-bold uppercase tracking-wide text-zw-text-secondary">
+            <h3 className="font-display text-[12px] font-bold uppercase tracking-wide text-zw-text-secondary">
               Badges
             </h3>
             <span className="text-[11px] font-semibold text-zw-primary-700">
-              {badges.filter((b) => b.unlocked).length}/{badges.length} unlocked
+              {badges.filter((b) => b.unlocked).length}/{badges.length}{" "}
+              unlocked
             </span>
           </div>
           <div className="grid grid-cols-3 gap-3">
@@ -222,25 +243,23 @@ export function ImpactDashboard() {
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ delay: i * 0.06 }}
-                  className={`flex flex-col items-center rounded-2xl border p-3 text-center ${
+                  className={`flex flex-col items-center rounded-3xl border p-3 text-center ${
                     b.unlocked
-                      ? "border-zw-primary-200 bg-gradient-to-br from-zw-primary-50 to-white"
-                      : "border-zw-border bg-zw-bg-muted opacity-70"
+                      ? "border-zw-primary-200/50 bg-gradient-to-br from-zw-primary-50 to-white shadow-sm backdrop-blur-md"
+                      : "border-zw-border-strong bg-white/50 backdrop-blur-md opacity-70"
                   }`}
                 >
                   <div
                     className={`relative flex h-12 w-12 items-center justify-center rounded-full ${
                       b.unlocked
-                        ? "bg-gradient-to-br from-zw-primary-500 to-zw-primary-800 shadow-md shadow-zw-primary-700/20"
+                        ? "bg-gradient-to-br from-zw-primary-500 to-zw-primary-800 shadow-md"
                         : "bg-zw-bg-muted"
                     }`}
                   >
                     <Icon
                       size={22}
                       className={
-                        b.unlocked
-                          ? "text-white"
-                          : "text-zw-text-muted"
+                        b.unlocked ? "text-white" : "text-zw-text-muted"
                       }
                     />
                     {b.unlocked && (
@@ -261,16 +280,14 @@ export function ImpactDashboard() {
                   </div>
                   <span
                     className={`mt-2 text-[10px] font-bold leading-tight ${
-                      b.unlocked
-                        ? "text-zw-primary-900"
-                        : "text-zw-text-muted"
+                      b.unlocked ? "text-zw-primary-900" : "text-zw-text-muted"
                     }`}
                   >
                     {b.name}
                   </span>
                   {!b.unlocked && b.progress !== undefined && (
                     <div className="mt-1 w-full">
-                      <div className="h-1 overflow-hidden rounded-full bg-zw-border">
+                      <div className="h-1 overflow-hidden rounded-full bg-zw-border-strong">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${b.progress}%` }}
@@ -291,7 +308,7 @@ export function ImpactDashboard() {
 
         {/* Recent activity */}
         <div className="mt-5 px-5">
-          <h3 className="mb-3 font-display text-[13px] font-bold uppercase tracking-wide text-zw-text-secondary">
+          <h3 className="mb-3 font-display text-[12px] font-bold uppercase tracking-wide text-zw-text-secondary">
             Recent Activity
           </h3>
           <div className="space-y-2">
@@ -303,9 +320,9 @@ export function ImpactDashboard() {
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: i * 0.06 }}
-                  className="flex items-center gap-3 rounded-2xl border border-zw-border bg-white p-3"
+                  className="flex items-center gap-3 rounded-3xl glass glass-inset p-3"
                 >
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-zw-primary-50 text-zw-primary-700">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-zw-primary-50 to-white text-zw-primary-700 border border-zw-primary-200/40">
                     <Icon size={16} />
                   </div>
                   <div className="flex-1">
@@ -327,7 +344,7 @@ export function ImpactDashboard() {
                     )}
                     {e.moneySaved > 0 && (
                       <span className="text-[10px] font-bold text-zw-accent-700">
-                        ₹{e.moneySaved}
+                        \u20B9{e.moneySaved}
                       </span>
                     )}
                   </div>
@@ -337,13 +354,10 @@ export function ImpactDashboard() {
           </div>
         </div>
 
-        {/* Inspirational quote */}
+        {/* Quote */}
         <div className="mt-5 px-5">
-          <div className="rounded-2xl bg-gradient-to-br from-zw-accent-50 to-zw-primary-50 p-4 text-center">
-            <Sparkles
-              size={20}
-              className="mx-auto text-zw-primary-700"
-            />
+          <div className="rounded-3xl bg-gradient-to-br from-zw-accent-50 to-zw-primary-50 p-4 text-center border border-white/60 backdrop-blur-md">
+            <Sparkles size={20} className="mx-auto text-zw-primary-700" />
             <p className="mt-2 font-display text-[13px] font-semibold italic text-zw-text-primary">
               "Food should nourish people, not landfills."
             </p>
@@ -355,25 +369,6 @@ export function ImpactDashboard() {
         </div>
       </div>
     </div>
-  );
-}
-
-function AnimatedCounter({ value }: { value: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 5 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="font-display text-4xl font-bold"
-    >
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-      >
-        {value.toLocaleString("en-IN")}
-      </motion.span>
-      <span className="ml-2 text-base font-medium text-white/70">pts</span>
-    </motion.div>
   );
 }
 
@@ -389,10 +384,10 @@ function SubStat({
   color: string;
 }) {
   return (
-    <div className="rounded-2xl border border-zw-border bg-white p-3">
-      <div
-        className={`flex h-8 w-8 items-center justify-center rounded-lg ${color}`}
-      >
+    <div
+      className={`rounded-3xl border border-white/60 p-3 shadow-sm backdrop-blur-md ${color}`}
+    >
+      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/80">
         {icon}
       </div>
       <div className="mt-2 font-display text-base font-bold text-zw-text-primary">

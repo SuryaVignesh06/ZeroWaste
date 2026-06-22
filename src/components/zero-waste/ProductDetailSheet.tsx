@@ -27,7 +27,7 @@ export function ProductDetailSheet() {
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
 
-  // Reset state when a different product opens (use a key-based reset via derived state)
+  // Reset state when a different product opens
   const [lastProductId, setLastProductId] = useState<string | null>(null);
   if (product && product.id !== lastProductId) {
     setLastProductId(product.id);
@@ -62,7 +62,7 @@ export function ProductDetailSheet() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setActiveProduct(null)}
-            className="absolute inset-0 z-40 bg-black/40 backdrop-blur-sm"
+            className="absolute inset-0 z-40 bg-black/40 backdrop-blur-md"
           />
           <motion.div
             initial={{ y: "100%" }}
@@ -75,38 +75,39 @@ export function ProductDetailSheet() {
             onDragEnd={(_, info) => {
               if (info.offset.y > 100) setActiveProduct(null);
             }}
-            className="absolute inset-x-0 bottom-0 z-50 max-h-[92%] overflow-y-auto rounded-t-3xl bg-white shadow-2xl no-scrollbar"
+            className="absolute inset-x-0 bottom-0 z-50 max-h-[92%] overflow-y-auto zw-scroll rounded-t-[2rem] glass-strong no-scrollbar"
           >
             {/* Drag handle */}
-            <div className="sticky top-0 z-10 flex justify-center bg-white pt-3">
-              <div className="h-1.5 w-10 rounded-full bg-zw-border-strong" />
+            <div className="sticky top-0 z-10 flex justify-center bg-white/40 backdrop-blur-xl pt-3 pb-2">
+              <div className="h-1.5 w-10 rounded-full bg-zw-text-muted/40" />
             </div>
 
             {/* Close */}
             <button
               onClick={() => setActiveProduct(null)}
-              className="absolute right-4 top-5 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 backdrop-blur-md shadow-md"
+              className="absolute right-4 top-5 z-20 flex h-9 w-9 items-center justify-center rounded-full glass-strong shadow-md"
             >
               <X size={18} className="text-zw-text-primary" />
             </button>
 
             {/* Hero image */}
             <div
-              className={`relative h-56 w-full bg-gradient-to-br ${product.imageColor}`}
+              className={`relative h-60 w-full overflow-hidden rounded-t-[2rem] bg-gradient-to-br ${product.imageColor}`}
             >
-              <div className="absolute left-4 top-4 rounded-lg bg-zw-primary-700 px-3 py-1.5 text-[12px] font-bold text-white shadow-md">
+              <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/30 blur-2xl" />
+              <div className="absolute left-4 top-4 rounded-full bg-white/95 backdrop-blur-md px-3 py-1.5 text-[12px] font-bold text-zw-primary-700 shadow-md">
                 {discountPct}% OFF
               </div>
               {product.isAiMatch && (
-                <div className="absolute right-16 top-4 flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 shadow-md backdrop-blur-sm">
-                  <Sparkles size={12} className="text-zw-primary-600" />
-                  <span className="text-[11px] font-bold uppercase text-zw-primary-700">
+                <div className="absolute right-16 top-4 flex items-center gap-1.5 rounded-full bg-zw-primary-700/95 backdrop-blur-md px-3 py-1.5 shadow-md">
+                  <Sparkles size={12} className="text-white" />
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-white">
                     AI Matched
                   </span>
                 </div>
               )}
               <div className="flex h-full items-center justify-center">
-                <span className="font-display text-7xl font-bold text-white/60">
+                <span className="font-display text-8xl font-bold text-white/80 drop-shadow-md">
                   {product.name.charAt(0)}
                 </span>
               </div>
@@ -122,7 +123,7 @@ export function ProductDetailSheet() {
                     {product.shopName} · {product.shopDistanceKm}km away
                   </span>
                 </div>
-                <div className="flex items-center gap-1 rounded-md bg-zw-primary-50 px-2 py-0.5">
+                <div className="flex items-center gap-1 rounded-full bg-zw-primary-50 px-2 py-0.5">
                   <Star size={11} className="fill-zw-warning text-zw-warning" />
                   <span className="font-bold text-zw-text-primary">
                     {product.shopRating}
@@ -131,7 +132,7 @@ export function ProductDetailSheet() {
               </div>
 
               {/* Title */}
-              <h2 className="mt-2 font-display text-2xl font-bold leading-tight text-zw-text-primary">
+              <h2 className="mt-2 font-display text-2xl font-bold leading-tight tracking-tight text-zw-text-primary">
                 {product.name}
               </h2>
 
@@ -143,38 +144,40 @@ export function ProductDetailSheet() {
                 <span className="mb-1 text-base text-zw-text-muted line-through">
                   {formatINR(product.originalPrice)}
                 </span>
-                <span className="mb-1.5 rounded-md bg-zw-primary-100 px-2 py-0.5 text-[11px] font-bold text-zw-primary-800">
+                <span className="mb-1.5 rounded-full bg-zw-primary-100 px-2.5 py-1 text-[11px] font-bold text-zw-primary-800">
                   Save {formatINR(product.originalPrice - product.discountedPrice)}
                 </span>
               </div>
 
               {/* AI freshness card */}
-              <div className="mt-4 rounded-2xl border border-zw-primary-200 bg-gradient-to-br from-zw-primary-50 to-white p-4">
+              <div className="mt-4 overflow-hidden rounded-3xl glass glass-inset p-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-zw-primary-700">
-                    <Sparkles size={14} className="text-white" />
+                  <div className="zw-ai-border h-7 w-7 rounded-lg p-[1.5px]">
+                    <div className="flex h-full w-full items-center justify-center rounded-[6px] bg-white">
+                      <Sparkles size={13} className="text-zw-primary-700" />
+                    </div>
                   </div>
-                  <span className="text-[13px] font-bold text-zw-primary-900">
+                  <span className="text-[13px] font-bold text-zw-text-primary">
                     AI Freshness Analysis
                   </span>
                   <span className="ml-auto text-[11px] font-bold text-zw-primary-700">
-                    {Math.round(product.aiConfidence * 100)}% confidence
+                    {Math.round(product.aiConfidence * 100)}%
                   </span>
                 </div>
                 <div className="mt-3 grid grid-cols-2 gap-3">
-                  <div>
+                  <div className="rounded-2xl bg-white/60 p-2.5">
                     <div className="text-[10px] font-medium uppercase tracking-wide text-zw-text-muted">
                       Best before
                     </div>
-                    <div className="text-[13px] font-semibold text-zw-text-primary">
+                    <div className="text-[13px] font-bold text-zw-text-primary">
                       {daysUntil(product.bestBefore)} days
                     </div>
                   </div>
-                  <div>
+                  <div className="rounded-2xl bg-gradient-to-br from-zw-primary-50 to-white p-2.5">
                     <div className="text-[10px] font-medium uppercase tracking-wide text-zw-text-muted">
-                      Safe to consume until
+                      Safe until (AI)
                     </div>
-                    <div className="text-[13px] font-semibold text-zw-primary-700">
+                    <div className="text-[13px] font-bold text-zw-primary-700">
                       {daysUntil(product.aiPredictedSafeUntil)} days
                     </div>
                   </div>
@@ -205,19 +208,19 @@ export function ProductDetailSheet() {
                   icon={
                     <ShoppingBag size={16} className="text-zw-primary-700" />
                   }
-                  label={product.quantity + " " + product.unit + " left"}
+                  label={`${product.quantity} ${product.unit} left`}
                 />
               </div>
             </div>
 
             {/* Sticky bottom CTA */}
-            <div className="absolute inset-x-0 bottom-0 border-t border-zw-border bg-white/95 px-5 py-3 backdrop-blur-lg">
+            <div className="absolute inset-x-0 bottom-0 px-5 py-3">
+              <div className="absolute inset-0 -z-10 bg-white/80 backdrop-blur-xl border-t border-zw-border-strong" />
               <div className="flex items-center gap-3">
-                {/* Quantity stepper */}
-                <div className="flex h-12 items-center rounded-xl border border-zw-border bg-zw-bg-muted px-1">
+                <div className="flex h-12 items-center rounded-2xl glass px-1">
                   <button
                     onClick={() => setQty((q) => Math.max(1, q - 1))}
-                    className="flex h-10 w-10 items-center justify-center text-zw-text-primary active:scale-90"
+                    className="flex h-10 w-10 items-center justify-center rounded-xl text-zw-text-primary active:scale-90"
                   >
                     <Minus size={16} />
                   </button>
@@ -225,18 +228,19 @@ export function ProductDetailSheet() {
                     {qty}
                   </span>
                   <button
-                    onClick={() => setQty((q) => Math.min(product.quantity, q + 1))}
-                    className="flex h-10 w-10 items-center justify-center text-zw-text-primary active:scale-90"
+                    onClick={() =>
+                      setQty((q) => Math.min(product.quantity, q + 1))
+                    }
+                    className="flex h-10 w-10 items-center justify-center rounded-xl text-zw-text-primary active:scale-90"
                   >
                     <Plus size={16} />
                   </button>
                 </div>
 
-                {/* Add to cart */}
                 <motion.button
                   whileTap={{ scale: 0.96 }}
                   onClick={handleAddToCart}
-                  className="flex h-12 flex-1 items-center justify-between rounded-xl bg-zw-primary-700 px-4 text-white shadow-lg shadow-zw-primary-700/25"
+                  className="flex h-12 flex-1 items-center justify-between rounded-2xl glass-primary px-4 text-white"
                 >
                   <span className="text-[13px] font-semibold">
                     {added ? "Added!" : "Add to cart"}
@@ -281,7 +285,7 @@ function TrustBadge({
   label: string;
 }) {
   return (
-    <div className="flex flex-col items-center gap-1 rounded-xl border border-zw-border bg-white p-2.5 text-center">
+    <div className="flex flex-col items-center gap-1 rounded-2xl glass p-2.5 text-center">
       {icon}
       <span className="text-[10px] font-medium leading-tight text-zw-text-secondary">
         {label}
@@ -320,7 +324,7 @@ export function CartSheet() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setCartOpen(false)}
-            className="absolute inset-0 z-40 bg-black/40 backdrop-blur-sm"
+            className="absolute inset-0 z-40 bg-black/40 backdrop-blur-md"
           />
           <motion.div
             initial={{ y: "100%" }}
@@ -333,12 +337,12 @@ export function CartSheet() {
             onDragEnd={(_, info) => {
               if (info.offset.y > 100) setCartOpen(false);
             }}
-            className="absolute inset-x-0 bottom-0 z-50 max-h-[85%] overflow-y-auto rounded-t-3xl bg-white shadow-2xl no-scrollbar"
+            className="absolute inset-x-0 bottom-0 z-50 max-h-[85%] overflow-y-auto zw-scroll rounded-t-[2rem] glass-strong no-scrollbar"
           >
-            <div className="sticky top-0 z-10 flex items-center justify-between border-b border-zw-border bg-white px-5 py-3">
+            <div className="sticky top-0 z-10 flex items-center justify-between bg-white/60 backdrop-blur-xl px-5 py-3 border-b border-zw-border-strong">
               <div className="flex items-center gap-2">
-                <div className="h-1.5 w-10 rounded-full bg-zw-border-strong absolute left-1/2 top-1.5 -translate-x-1/2" />
-                <h3 className="font-display text-lg font-bold text-zw-text-primary">
+                <div className="h-1.5 w-10 rounded-full bg-zw-text-muted/40 absolute left-1/2 top-1.5 -translate-x-1/2" />
+                <h3 className="font-display text-lg font-bold tracking-tight text-zw-text-primary">
                   Your Cart
                 </h3>
                 <span className="rounded-full bg-zw-primary-100 px-2 py-0.5 text-[11px] font-bold text-zw-primary-800">
@@ -347,7 +351,7 @@ export function CartSheet() {
               </div>
               <button
                 onClick={() => setCartOpen(false)}
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-zw-bg-muted"
+                className="flex h-8 w-8 items-center justify-center rounded-full glass"
               >
                 <X size={16} className="text-zw-text-secondary" />
               </button>
@@ -355,7 +359,7 @@ export function CartSheet() {
 
             {cart.length === 0 ? (
               <div className="flex flex-col items-center justify-center px-5 py-16 text-center">
-                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-zw-bg-muted">
+                <div className="flex h-20 w-20 items-center justify-center rounded-full glass">
                   <ShoppingBag size={32} className="text-zw-text-muted" />
                 </div>
                 <h4 className="mt-4 font-display text-base font-bold text-zw-text-primary">
@@ -369,14 +373,13 @@ export function CartSheet() {
                     setCartOpen(false);
                     setScreen("marketplace");
                   }}
-                  className="mt-4 rounded-xl bg-zw-primary-700 px-5 py-2.5 text-[13px] font-semibold text-white"
+                  className="mt-4 rounded-2xl glass-primary px-5 py-2.5 text-[13px] font-semibold text-white"
                 >
                   Browse marketplace
                 </button>
               </div>
             ) : (
               <>
-                {/* Items */}
                 <div className="px-5 py-4">
                   {cart.map((item, i) => (
                     <motion.div
@@ -386,12 +389,12 @@ export function CartSheet() {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: 20 }}
                       transition={{ delay: i * 0.05 }}
-                      className="mb-3 flex gap-3 rounded-2xl border border-zw-border bg-white p-3"
+                      className="mb-3 flex gap-3 rounded-3xl glass glass-inset p-3"
                     >
                       <div
-                        className={`flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${item.product.imageColor}`}
+                        className={`flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${item.product.imageColor}`}
                       >
-                        <span className="font-display text-2xl font-bold text-white/70">
+                        <span className="font-display text-2xl font-bold text-white/80">
                           {item.product.name.charAt(0)}
                         </span>
                       </div>
@@ -414,11 +417,11 @@ export function CartSheet() {
                       <div className="flex flex-col items-end justify-between">
                         <button
                           onClick={() => removeFromCart(item.product.id)}
-                          className="flex h-7 w-7 items-center justify-center rounded-lg text-zw-danger hover:bg-zw-danger/10"
+                          className="flex h-7 w-7 items-center justify-center rounded-lg glass text-zw-danger active:scale-90"
                         >
                           <Trash2 size={14} />
                         </button>
-                        <div className="flex h-8 items-center rounded-lg border border-zw-border bg-white">
+                        <div className="flex h-8 items-center rounded-xl glass">
                           <button
                             onClick={() =>
                               updateQty(item.product.id, item.qty - 1)
@@ -445,15 +448,15 @@ export function CartSheet() {
                 </div>
 
                 {/* Savings banner */}
-                <div className="mx-5 mb-3 flex items-center gap-2 rounded-xl bg-zw-primary-50 p-3">
-                  <Sparkles size={16} className="text-zw-primary-700" />
-                  <span className="text-[12px] font-semibold text-zw-primary-900">
+                <div className="mx-5 mb-3 flex items-center gap-2 rounded-2xl glass-primary px-4 py-3">
+                  <Sparkles size={16} className="text-white" />
+                  <span className="text-[12px] font-semibold text-white">
                     You're saving {formatINR(cartSavings())} on this order
                   </span>
                 </div>
 
                 {/* Bill summary */}
-                <div className="mx-5 mb-3 rounded-2xl border border-zw-border p-4">
+                <div className="mx-5 mb-3 rounded-3xl glass glass-inset p-4">
                   <h4 className="font-display text-sm font-bold text-zw-text-primary">
                     Bill Details
                   </h4>
@@ -470,7 +473,7 @@ export function CartSheet() {
                         {formatINR(deliveryFee)}
                       </span>
                     </div>
-                    <div className="my-2 border-t border-dashed border-zw-border" />
+                    <div className="my-2 border-t border-dashed border-zw-border-strong" />
                     <div className="flex justify-between">
                       <span className="font-display font-bold text-zw-text-primary">
                         To Pay
@@ -483,17 +486,18 @@ export function CartSheet() {
                 </div>
 
                 {/* Checkout CTA */}
-                <div className="sticky bottom-0 border-t border-zw-border bg-white px-5 py-3">
+                <div className="sticky bottom-0 px-5 py-3">
+                  <div className="absolute inset-0 -z-10 bg-white/80 backdrop-blur-xl border-t border-zw-border-strong" />
                   <motion.button
                     whileTap={{ scale: 0.97 }}
                     onClick={handleCheckout}
-                    className="flex h-12 w-full items-center justify-between rounded-xl bg-zw-primary-700 px-4 text-white shadow-lg shadow-zw-primary-700/25"
+                    className="flex h-12 w-full items-center justify-between rounded-2xl glass-primary px-4 text-white"
                   >
                     <div className="text-left">
                       <div className="font-display text-base font-bold">
                         {formatINR(total)}
                       </div>
-                      <div className="text-[10px] text-white/70">
+                      <div className="text-[10px] text-white/80">
                         {cartCount()} items
                       </div>
                     </div>
