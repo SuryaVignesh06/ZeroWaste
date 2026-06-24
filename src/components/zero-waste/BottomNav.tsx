@@ -3,41 +3,45 @@
 import { motion } from "framer-motion";
 import { useAppStore } from "@/lib/store";
 import type { Role } from "@/lib/types";
-import { Home, MapPin, ShoppingBag, User, Inbox, Sparkles, HeartHandshake, Bike, Store } from "lucide-react";
+import { Home, MapPin, ShoppingBag, User, Inbox, Sparkles, HeartHandshake, Bike, Store, Users, Clock, Camera } from "lucide-react";
 
 interface TabDef {
   id: string;
   icon: any;
-  screen: any;
+  screen: string;
+  label: string;
+  center?: boolean;
 }
 
 const TABS_BY_ROLE: Record<Role, TabDef[]> = {
   user: [
-    { id: "home", icon: Home, screen: "home" },
-    { id: "rescue", icon: MapPin, screen: "ngo-feed" },
-    { id: "market", icon: ShoppingBag, screen: "marketplace" },
-    { id: "profile", icon: User, screen: "impact" },
+    { id: "home", icon: Home, screen: "userHome", label: "Home" },
+    { id: "donate", icon: Camera, screen: "donateFood", label: "Donate", center: true },
+    { id: "track", icon: MapPin, screen: "donationTracking", label: "Track" },
+    { id: "profile", icon: User, screen: "userProfile", label: "Profile" },
   ],
   ngo: [
-    { id: "feed", icon: Inbox, screen: "ngo-feed" },
-    { id: "map", icon: MapPin, screen: "volunteer-map" },
-    { id: "profile", icon: User, screen: "impact" },
+    { id: "feed", icon: Inbox, screen: "ngoFeed", label: "Feed" },
+    { id: "map", icon: MapPin, screen: "ngoMap", label: "Map" },
+    { id: "volunteers", icon: Users, screen: "ngoVolunteers", label: "Team" },
+    { id: "profile", icon: User, screen: "ngoProfile", label: "Profile" },
   ],
   shop: [
-    { id: "home", icon: Store, screen: "shop-dashboard" },
-    { id: "profile", icon: User, screen: "impact" },
+    { id: "home", icon: Store, screen: "shop-dashboard", label: "Shop" },
+    { id: "profile", icon: User, screen: "impact", label: "Profile" },
   ],
   volunteer: [
-    { id: "home", icon: Bike, screen: "volunteer-map" },
-    { id: "profile", icon: User, screen: "impact" },
+    { id: "home", icon: Home, screen: "volunteerHome", label: "Home" },
+    { id: "history", icon: Clock, screen: "volunteerHistory", label: "History" },
+    { id: "profile", icon: User, screen: "volunteerProfile", label: "Profile" },
   ],
 };
 
 const homeScreensByRole: Record<Role, string[]> = {
-  user: ["home", "marketplace", "checkout", "order-tracking", "donate"],
-  ngo: ["ngo-feed", "volunteer-map"],
+  user: ["home", "userHome", "checkout", "orderStatus", "donateFood", "donationTracking"],
+  ngo: ["ngoFeed", "ngoMap"],
   shop: ["shop-dashboard"],
-  volunteer: ["volunteer-map"],
+  volunteer: ["volunteerHome"],
 };
 
 export function BottomNav() {
@@ -49,6 +53,8 @@ export function BottomNav() {
   const setCartOpen = useAppStore((s) => s.setCartOpen);
 
   if (!role) return null;
+  if (["checkout", "order-tracking", "donate", "donation-tracking", "delivery-tracking", "volunteerMap"].includes(screen)) return null;
+
   const tabs = TABS_BY_ROLE[role];
 
   return (
@@ -99,18 +105,19 @@ export function BottomNav() {
       )}
 
       {/* Liquid glassmorphism bottom navigation */}
-      <div className="absolute inset-x-0 z-30 flex justify-center px-5" style={{ bottom: "16px", pointerEvents: "none" }}>
+      <div className="absolute inset-x-0 z-30 flex justify-center px-4" style={{ bottom: "16px", pointerEvents: "none" }}>
         <div
           className="flex items-center justify-between rounded-[28px] p-2"
           style={{
             width: "100%",
-            maxWidth: "340px",
+            maxWidth: "350px",
+            height: "64px",
             pointerEvents: "auto",
-            background: "rgba(255,255,255,0.72)",
-            backdropFilter: "blur(28px) saturate(200%)",
-            WebkitBackdropFilter: "blur(28px) saturate(200%)",
-            border: "1px solid rgba(255,255,255,0.60)",
-            boxShadow: "0px -1px 0px rgba(0,0,0,0.04), 0px -8px 32px rgba(0,0,0,0.08), inset 0px 1px 0px rgba(255,255,255,0.6)",
+            background: "rgba(255, 255, 255, 0.88)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(255, 255, 255, 0.60)",
+            boxShadow: "0px -8px 32px rgba(0,0,0,0.08)",
           }}
         >
           {tabs.map((tab) => {
@@ -126,24 +133,26 @@ export function BottomNav() {
                 style={{ height: "48px" }}
                 aria-label={tab.id}
               >
-                {isActive && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute flex items-center justify-center"
-                    style={{
-                      width: "48px",
-                      height: "36px",
-                      borderRadius: "14px",
-                      background: "linear-gradient(135deg, #0A0A0A, #1a1a1a)",
-                      boxShadow: "0px 4px 16px rgba(0,0,0,0.2), inset 0px 1px 0px rgba(255,255,255,0.15)",
-                    }}
-                    transition={{ type: "spring", stiffness: 350, damping: 28 }}
-                  >
-                    <Icon size={20} className="text-white" strokeWidth={2.4} />
-                  </motion.div>
-                )}
-                {!isActive && (
-                  <Icon size={22} className="text-[#8A8A8A]" strokeWidth={1.8} />
+                {isActive ? (
+                  <div className="relative flex flex-col items-center justify-center w-full h-full">
+                    <motion.div
+                      layoutId="activeTabSquircle"
+                      className="absolute"
+                      style={{
+                        width: "52px",
+                        height: "44px",
+                        borderRadius: "14px",
+                        background: "#0A0A0A",
+                      }}
+                      transition={{ type: "spring", stiffness: 300, damping: 28 }}
+                    />
+                    <Icon size={20} className="relative z-10 text-white mt-0.5" strokeWidth={2.4} />
+                    <span className="relative z-10 text-white mt-0.5" style={{ fontSize: "10px", fontWeight: 600, fontFamily: "var(--font-jakarta)" }}>
+                      {tab.label}
+                    </span>
+                  </div>
+                ) : (
+                  <Icon size={22} className="text-[#8A8A8A]" strokeWidth={2} />
                 )}
               </motion.button>
             );

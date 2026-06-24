@@ -12,30 +12,30 @@
   --font-mono: "SF Mono", ui-monospace, monospace;
 
   /* === Exact Color Palette from Spec === */
-  --color-zw-bg: #F7F5F0;
+  --color-zw-bg: #F4EAE1;
   --color-zw-surface: #FFFFFF;
   --color-zw-surface-elevated: #FAFAF8;
 
-  --color-pastel-blue: #C8D8F0;
-  --color-pastel-yellow: #F5E6C8;
-  --color-pastel-green: #C8E8D0;
-  --color-pastel-clay: #F0D8C8;
+  --color-pastel-blue: #C0C6EF;
+  --color-pastel-yellow: #E9DDA2;
+  --color-pastel-green: #C5DECD;
+  --color-pastel-clay: #E6DFD6;
 
-  --color-zw-green: #1A6B3C;
-  --color-zw-green-light: #22C55E;
-  --color-zw-blue: #1E3A8A;
-  --color-zw-blue-light: #3B82F6;
+  --color-zw-green: #A1C4B5;
+  --color-zw-green-light: #C5DECD;
+  --color-zw-blue: #B0B5E5;
+  --color-zw-blue-light: #C0C6EF;
 
-  --color-zw-ink: #0A0A0A;
+  --color-zw-ink: #1A1A1A;
   --color-zw-ink-secondary: #4A4A4A;
   --color-zw-ink-tertiary: #8A8A8A;
 
-  --color-zw-urgent-red: #DC2626;
-  --color-zw-urgent-amber: #D97706;
-  --color-zw-success: #16A34A;
+  --color-zw-urgent-red: #EFA69E;
+  --color-zw-urgent-amber: #E9DDA2;
+  --color-zw-success: #C5DECD;
 
-  --color-zw-divider: #E8E8E4;
-  --color-zw-input-border: #E8E8E4;
+  --color-zw-divider: #E6DFD6;
+  --color-zw-input-border: #E6DFD6;
   --color-zw-input-bg: #FAFAF8;
 
   /* shadcn compat */
@@ -45,25 +45,25 @@
   --color-card-foreground: var(--color-zw-ink);
   --color-popover: #ffffff;
   --color-popover-foreground: var(--color-zw-ink);
-  --color-primary: var(--color-zw-green);
+  --color-primary: var(--color-zw-ink);
   --color-primary-foreground: #ffffff;
-  --color-secondary: #F5F5F7;
+  --color-secondary: #E6DFD6;
   --color-secondary-foreground: var(--color-zw-ink);
-  --color-muted: #F5F5F7;
+  --color-muted: #E6DFD6;
   --color-muted-foreground: var(--color-zw-ink-tertiary);
-  --color-accent: #F0F7F2;
-  --color-accent-foreground: var(--color-zw-green);
+  --color-accent: #C5DECD;
+  --color-accent-foreground: var(--color-zw-ink);
   --color-destructive: var(--color-zw-urgent-red);
   --color-border: var(--color-zw-divider);
   --color-input: var(--color-zw-divider);
-  --color-ring: var(--color-zw-green);
+  --color-ring: var(--color-zw-ink);
 
   /* Radius from spec */
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 20px;
-  --radius-xl: 24px;
-  --radius-2xl: 32px;
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-2xl: 40px;
   --radius-3xl: 9999px;
 }
 

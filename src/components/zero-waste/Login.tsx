@@ -1,15 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/lib/store";
-import { Info } from "lucide-react";
+import { ShieldCheck, CheckCircle2, Loader2 } from "lucide-react";
 
 export function Login() {
   const setScreen = useAppStore((s) => s.setScreen);
   const setPhoneNumber = useAppStore((s) => s.setPhoneNumber);
+  const isNewUser = useAppStore((s) => s.isNewUser);
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const isValid = phone.length === 10;
 
@@ -17,172 +19,165 @@ export function Login() {
     if (!isValid) return;
     setLoading(true);
     setPhoneNumber(phone);
+    
+    // Simulate sending OTP
     setTimeout(() => {
       setLoading(false);
-      setScreen("otp");
+      setSuccess(true);
+      setTimeout(() => {
+        setScreen("otp");
+      }, 400);
     }, 1500);
   };
 
-  const handleBack = () => {
-    setScreen("role-select");
-  };
-
   return (
-    <div className="flex h-full flex-col" style={{ background: "#F7F5F0" }}>
-      {/* Back button */}
-      <button
-        onClick={handleBack}
-        className="absolute left-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-white/20 backdrop-blur-md"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path d="M19 12H5M12 19l-7-7 7-7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </button>
-      {/* Top visual zone — 44% */}
-      <div
-        className="relative flex flex-col items-center justify-center gap-4"
-        style={{
-          height: "44%",
-          background: "linear-gradient(180deg, #0A2E1A 0%, #1A6B3C 80%, #F7F5F0 100%)",
-          borderBottomLeftRadius: "40px",
-          borderBottomRightRadius: "40px",
+    <div className="flex h-full flex-col bg-[#F7F5F0]">
+      {/* Top Visual Zone */}
+      <div 
+        className="relative flex flex-col items-center justify-center overflow-hidden px-8" 
+        style={{ 
+          height: "45%", 
+          background: "linear-gradient(180deg, #0A2E1A 0%, #1A6B3C 75%, transparent 100%)",
+          borderRadius: "0 0 48px 48px",
+          zIndex: 10
         }}
       >
-        {/* Logo mark — diamond shape */}
+        {/* Decorative Elements */}
+        <div className="absolute top-[-20px] left-[-20px] h-[80px] w-[80px] rounded-full bg-white/5" />
+        <div className="absolute bottom-[40px] right-[-40px] h-[200px] w-[200px] rounded-full bg-white/5" />
+
         <motion.div
-          initial={{ scale: 0, rotate: -45 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: "spring", stiffness: 200, damping: 15 }}
-          className="flex h-14 w-14 items-center justify-center"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="mb-4 flex h-12 w-12 items-center justify-center rounded-[12px] bg-white/10 backdrop-blur-md"
         >
-          <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+          <svg width="32" height="32" viewBox="0 0 56 56" fill="none">
             <rect x="14" y="14" width="28" height="28" rx="8" transform="rotate(45 28 28)" fill="white" />
             <path d="M28 20 L33 28 L28 36 L23 28 Z" fill="#1A6B3C" />
           </svg>
         </motion.div>
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-[24px] font-extrabold text-white"
-          style={{ fontFamily: "var(--font-outfit)", letterSpacing: "3px" }}
-        >
-          ZERO WASTE
-        </motion.span>
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="text-[14px] text-white/75"
-          style={{ fontFamily: "var(--font-jakarta)" }}
-        >
-          Food should feed people.
-        </motion.span>
-      </div>
 
-      {/* Bottom auth panel */}
-      <div
-        className="flex flex-1 flex-col px-8 pt-9"
-        style={{
-          background: "#FFFFFF",
-          borderTopLeftRadius: "32px",
-          borderTopRightRadius: "32px",
-          marginTop: "-32px",
-          boxShadow: "0px -8px 40px rgba(0,0,0,0.08)",
-        }}
-      >
         <motion.h1
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-[28px] font-bold text-[#0A0A0A]"
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
+          className="text-[24px] font-extrabold tracking-[2px] text-white"
           style={{ fontFamily: "var(--font-outfit)" }}
         >
-          Welcome back.
+          ZERO WASTE
         </motion.h1>
+
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mt-2 text-[15px] text-[#4A4A4A]"
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.25 }}
+          className="mt-3 text-center text-[14px] font-normal leading-relaxed text-white/75"
           style={{ fontFamily: "var(--font-jakarta)" }}
         >
-          Enter your mobile number to continue.
+          Food rescue. Affordable groceries. Community impact.
         </motion.p>
+      </div>
 
-        {/* Phone input */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mt-8 flex h-[60px] items-center"
+      {/* Bottom Auth Panel */}
+      <motion.div
+        initial={{ y: 40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", damping: 28, stiffness: 200, delay: 0.3 }}
+        className="relative z-20 mx-4 -mt-6 flex flex-1 flex-col bg-white"
+        style={{
+          borderRadius: "32px 32px 0 0",
+          boxShadow: "0px -8px 40px rgba(0,0,0,0.08)",
+          padding: "32px 24px 40px"
+        }}
+      >
+        <h2 className="text-[30px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
+          Welcome
+        </h2>
+        <p className="mt-1 text-[15px] text-[#4A4A4A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+          Enter your mobile number to get started.
+        </p>
+
+        {/* Phone Input */}
+        <div 
+          className="mt-7 flex h-[60px] w-full items-center rounded-[16px] transition-all duration-200"
           style={{
-            borderRadius: "16px",
-            border: `2px solid ${phone ? "#1A6B3C" : "#E8E8E4"}`,
             background: "#FAFAF8",
-            transition: "border-color 200ms",
+            border: `1.5px solid ${isValid ? "#1A6B3C" : "#E8E8E4"}`,
+            boxShadow: isValid ? "0 0 0 4px rgba(26,107,60,0.08)" : "none"
           }}
         >
-          <span className="px-4 text-[17px] font-semibold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)", borderRight: "1px solid #E8E8E4", height: "60%", display: "flex", alignItems: "center" }}>
-            +91
-          </span>
-          <input
-            type="tel"
-            maxLength={10}
-            value={phone}
-            onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-            placeholder="Mobile number"
-            className="h-full flex-1 bg-transparent px-4 text-[17px] font-medium text-[#0A0A0A] placeholder:text-[#8A8A8A] focus:outline-none"
-            style={{ fontFamily: "var(--font-outfit)" }}
-          />
-        </motion.div>
+          <div className="flex h-[60%] items-center border-r border-[#E8E8E4] px-4">
+            <span className="text-[17px] font-semibold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
+              +91
+            </span>
+          </div>
+          <div className="flex flex-1 items-center px-4 relative">
+            <input
+              type="tel"
+              maxLength={10}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
+              placeholder="Mobile number"
+              className="w-full bg-transparent text-[17px] font-medium text-[#0A0A0A] placeholder:text-[#8A8A8A] focus:outline-none tracking-wide"
+              style={{ fontFamily: "var(--font-outfit)" }}
+            />
+            <AnimatePresence>
+              {isValid && (
+                <motion.div
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.5, opacity: 0 }}
+                  transition={{ type: "spring", duration: 0.2 }}
+                  className="absolute right-4"
+                >
+                  <CheckCircle2 size={20} className="text-[#1A6B3C]" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
 
-        {/* Send OTP button */}
+        {/* Send OTP Button */}
         <motion.button
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          whileTap={{ scale: 0.97 }}
+          whileTap={{ scale: isValid && !loading ? 0.96 : 1 }}
           onClick={handleSendOtp}
-          disabled={!isValid || loading}
-          className="mt-5 flex h-14 w-full items-center justify-center rounded-full text-[17px] font-semibold transition-all"
+          disabled={!isValid || loading || success}
+          className="mt-5 flex h-[56px] w-full items-center justify-center rounded-full transition-all duration-200"
           style={{
-            background: isValid ? "#1A6B3C" : "#E8E8E4",
-            color: isValid ? "#FFFFFF" : "#8A8A8A",
-            boxShadow: isValid ? "0px 8px 24px rgba(26,107,60,0.25)" : "none",
-            fontFamily: "var(--font-outfit)",
+            background: success ? "#22C55E" : isValid ? "#1A6B3C" : "#E8E8E4",
+            color: isValid || success ? "white" : "#8A8A8A",
+            boxShadow: isValid && !success ? "0px 8px 24px rgba(26,107,60,0.25)" : "none"
           }}
         >
           {loading ? (
-            <div className="flex items-center gap-1.5">
-              {[0, 1, 2].map((i) => (
-                <motion.div
-                  key={i}
-                  animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1, 0.8] }}
-                  transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15 }}
-                  className="h-2 w-2 rounded-full bg-white"
-                />
-              ))}
+            <div className="flex items-center gap-2">
+              <Loader2 size={20} className="animate-spin text-white" />
+              <span className="text-[15px] font-medium text-white" style={{ fontFamily: "var(--font-jakarta)" }}>Sending...</span>
+            </div>
+          ) : success ? (
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={20} className="text-white" />
+              <span className="text-[17px] font-semibold text-white" style={{ fontFamily: "var(--font-outfit)" }}>OTP Sent!</span>
             </div>
           ) : (
-            "Send OTP"
+            <span className="text-[17px] font-semibold" style={{ fontFamily: "var(--font-outfit)" }}>Send OTP</span>
           )}
         </motion.button>
 
-        {/* Aadhaar note */}
-        <div className="mt-6 flex items-center justify-center gap-1.5">
-          <Info size={12} className="text-[#8A8A8A]" />
+        {/* Privacy Note */}
+        <div className="mt-5 flex items-center justify-center gap-1.5">
+          <ShieldCheck size={13} className="text-[#8A8A8A]" />
           <span className="text-[12px] text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
-            Aadhaar verification for NGOs — coming soon
+            Your number is only used for verification.
           </span>
         </div>
 
         {/* Terms */}
-        <p className="mt-4 text-center text-[11px] text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
-          By continuing you agree to our{" "}
-          <span className="underline text-[#1A6B3C]">Terms</span> and{" "}
-          <span className="underline text-[#1A6B3C]">Privacy Policy</span>
-        </p>
-      </div>
+        <div className="mt-3 text-center text-[11px] text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+          By continuing you agree to our <button className="font-semibold text-[#1A6B3C] underline">Terms of Service</button> and <button className="font-semibold text-[#1A6B3C] underline">Privacy Policy</button>
+        </div>
+      </motion.div>
     </div>
   );
 }

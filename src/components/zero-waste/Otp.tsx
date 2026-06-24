@@ -3,15 +3,17 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/lib/store";
-import { ArrowLeft, Check } from "lucide-react";
+import { ArrowLeft, CheckCircle2, ShieldCheck } from "lucide-react";
 
 export function Otp() {
   const setScreen = useAppStore((s) => s.setScreen);
   const phoneNumber = useAppStore((s) => s.phoneNumber);
+  const isNewUser = useAppStore((s) => s.isNewUser);
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [error, setError] = useState(false);
   const [countdown, setCountdown] = useState(30);
   const [success, setSuccess] = useState(false);
+  const [readingSms, setReadingSms] = useState(true);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
@@ -23,6 +25,13 @@ export function Otp() {
 
   useEffect(() => {
     inputRefs.current[0]?.focus();
+    
+    // Simulate Web OTP API reading
+    const smsTimer = setTimeout(() => {
+      setReadingSms(false);
+    }, 2500);
+    
+    return () => clearTimeout(smsTimer);
   }, []);
 
   const handleChange = (i: number, val: string) => {
@@ -51,12 +60,17 @@ export function Otp() {
     if (code.length === 4) {
       setSuccess(true);
       setTimeout(() => {
-        const role = useAppStore.getState().role;
-        if (role === "ngo") setScreen("ngo-feed");
-        else if (role === "volunteer") setScreen("volunteer-map");
-        else if (role === "shop") setScreen("shop-dashboard");
-        else setScreen("home");
-      }, 1400);
+        // Navigate based on whether the user is new
+        if (isNewUser) {
+          setScreen("role-select");
+        } else {
+          // If not new, send to their respective dashboard
+          const role = useAppStore.getState().role;
+          if (role === "ngo") setScreen("ngo-feed");
+          else if (role === "volunteer") setScreen("volunteer-map");
+          else setScreen("home");
+        }
+      }, 1500); // Wait for the expanding green circle animation
     } else {
       setError(true);
     }
@@ -69,47 +83,24 @@ export function Otp() {
   const allFilled = otp.every((d) => d);
 
   return (
-    <div className="relative flex h-full flex-col" style={{ background: "#F7F5F0" }}>
-      {/* Decorative top gradient blob */}
-      <div
-        className="pointer-events-none absolute -top-20 left-1/2 h-60 w-60 -translate-x-1/2 rounded-full opacity-20"
-        style={{ background: "radial-gradient(circle, #1A6B3C 0%, transparent 70%)" }}
-      />
-
+    <div className="relative flex h-full flex-col bg-[#F7F5F0]">
       {/* Back button */}
       <button
         onClick={() => setScreen("login")}
-        className="absolute left-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white"
-        style={{ boxShadow: "0px 2px 16px rgba(0,0,0,0.06), 0px 1px 4px rgba(0,0,0,0.04)" }}
+        className="absolute left-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-sm"
       >
         <ArrowLeft size={20} className="text-[#0A0A0A]" />
       </button>
 
       {/* Content */}
-      <div className="relative flex flex-1 flex-col items-center px-8 pt-24">
-        {/* Icon — shield with check */}
-        <motion.div
-          initial={{ scale: 0, rotate: -20 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.1 }}
-          className="flex h-20 w-20 items-center justify-center rounded-[24px]"
-          style={{
-            background: "linear-gradient(135deg, #1A6B3C, #0A2E1A)",
-            boxShadow: "0px 8px 24px rgba(26,107,60,0.25)",
-          }}
-        >
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3z" stroke="white" strokeWidth="1.8" strokeLinejoin="round" fill="none"/>
-            <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </motion.div>
-
+      <div className="relative flex flex-1 flex-col px-8 pt-28">
+        
         {/* Title */}
         <motion.h1
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mt-7 text-[28px] font-bold text-[#0A0A0A]"
+          transition={{ delay: 0.1 }}
+          className="text-[30px] font-bold text-[#0A0A0A]"
           style={{ fontFamily: "var(--font-outfit)" }}
         >
           Verify your number
@@ -119,161 +110,177 @@ export function Otp() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="mt-3 flex flex-col items-center gap-1"
+          transition={{ delay: 0.2 }}
+          className="mt-3 flex flex-col items-start gap-1"
         >
           <p className="text-[16px] font-medium text-[#4A4A4A]" style={{ fontFamily: "var(--font-jakarta)" }}>
             Enter the 4-digit code sent to
           </p>
-          <p className="text-[17px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
-            {maskedPhone}
-          </p>
+          <div className="flex items-center gap-3">
+            <p className="text-[17px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
+              {maskedPhone}
+            </p>
+            <button
+              onClick={() => setScreen("login")}
+              className="text-[14px] font-semibold text-[#1A6B3C] underline"
+              style={{ fontFamily: "var(--font-jakarta)" }}
+            >
+              Change
+            </button>
+          </div>
         </motion.div>
 
-        {/* Change number link */}
-        <button
-          onClick={() => setScreen("login")}
-          className="mt-2 text-[14px] font-semibold text-[#1A6B3C] underline"
-          style={{ fontFamily: "var(--font-jakarta)" }}
-        >
-          Change mobile number
-        </button>
-
         {/* OTP input grid */}
-        <div className="mt-10 flex justify-center gap-3.5">
+        <div className="mt-12 flex justify-between gap-2">
           {otp.map((digit, i) => (
             <motion.input
               key={i}
               ref={(el) => { inputRefs.current[i] = el; }}
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0 }}
               animate={{
                 scale: 1,
                 opacity: 1,
-                x: error ? [0, -8, 8, -6, 6, 0] : 0,
+                x: error ? [0, -10, 10, -10, 10, 0] : 0,
               }}
-              transition={{ delay: i * 0.06, duration: error ? 0.4 : 0.4 }}
+              transition={{ delay: i * 0.05, duration: error ? 0.4 : 0.3 }}
               type="tel"
               maxLength={1}
               value={digit}
               onChange={(e) => handleChange(i, e.target.value)}
               onKeyDown={(e) => handleKeyDown(i, e)}
-              className="h-[72px] w-[64px] rounded-[18px] text-center text-[30px] font-bold text-[#0A0A0A] focus:outline-none"
+              className="h-[72px] w-[72px] rounded-[20px] text-center text-[32px] font-bold text-[#0A0A0A] focus:outline-none transition-all duration-200"
               style={{
                 fontFamily: "var(--font-outfit)",
-                border: `2px solid ${error ? "#DC2626" : digit ? "#1A6B3C" : "#E8E8E4"}`,
+                border: `2px solid ${error ? "#EF4444" : digit ? "#1A6B3C" : "#E8E8E4"}`,
                 background: digit ? "#F0F7F2" : "#FFFFFF",
-                boxShadow: digit
-                  ? "0 0 0 4px rgba(26,107,60,0.12), 0px 2px 16px rgba(0,0,0,0.06)"
-                  : "0px 2px 16px rgba(0,0,0,0.06), 0px 1px 4px rgba(0,0,0,0.04)",
-                transition: "border-color 200ms, background 200ms",
+                boxShadow: digit && !error
+                  ? "0 0 0 4px rgba(26,107,60,0.1)"
+                  : "0px 4px 12px rgba(0,0,0,0.03)",
               }}
             />
           ))}
         </div>
 
-        {/* Error message */}
-        <AnimatePresence>
-          {error && (
-            <motion.p
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="mt-4 text-[13px] font-medium text-[#DC2626]"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              Invalid code. Please try again.
-            </motion.p>
-          )}
-        </AnimatePresence>
-
-        {/* Resend row */}
-        <div className="mt-6">
-          {countdown > 0 ? (
-            <p className="text-[14px] text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
-              Resend OTP in{" "}
-              <span className="font-bold text-[#0A0A0A]">0:{countdown.toString().padStart(2, "0")}</span>
-            </p>
-          ) : (
-            <button
-              onClick={() => {
-                setCountdown(30);
-                setOtp(["", "", "", ""]);
-                setError(false);
-                inputRefs.current[0]?.focus();
-              }}
-              className="text-[14px] font-bold text-[#1A6B3C]"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              Resend OTP
-            </button>
-          )}
+        {/* Status / Error row */}
+        <div className="mt-6 flex h-6 items-center justify-center">
+          <AnimatePresence mode="wait">
+            {error ? (
+              <motion.p
+                key="error"
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="text-[14px] font-medium text-[#EF4444]"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Invalid code. Please try again.
+              </motion.p>
+            ) : readingSms ? (
+              <motion.div
+                key="reading"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex items-center gap-2 text-[#8A8A8A]"
+              >
+                <ShieldCheck size={16} />
+                <span className="text-[13px] font-medium" style={{ fontFamily: "var(--font-jakarta)" }}>Reading SMS...</span>
+                <motion.div
+                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="h-1.5 w-1.5 rounded-full bg-[#1A6B3C]"
+                />
+              </motion.div>
+            ) : countdown > 0 ? (
+              <motion.p
+                key="countdown"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-[14px] text-[#8A8A8A]" 
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Resend OTP in <span className="font-bold text-[#0A0A0A]">0:{countdown.toString().padStart(2, "0")}</span>
+              </motion.p>
+            ) : (
+              <motion.button
+                key="resend"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                onClick={() => {
+                  setCountdown(30);
+                  setOtp(["", "", "", ""]);
+                  setError(false);
+                  inputRefs.current[0]?.focus();
+                }}
+                className="text-[14px] font-bold text-[#1A6B3C]"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Resend OTP
+              </motion.button>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
       {/* Verify button */}
-      <div className="px-8 pb-8">
+      <div className="px-8 pb-10">
         <motion.button
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          whileTap={{ scale: 0.97 }}
+          transition={{ delay: 0.3 }}
+          whileTap={{ scale: allFilled ? 0.96 : 1 }}
           onClick={() => handleVerify(otp.join(""))}
           disabled={!allFilled}
-          className="flex h-14 w-full items-center justify-center gap-2 rounded-full text-[17px] font-semibold transition-all disabled:opacity-40"
+          className="relative flex h-[56px] w-full items-center justify-center rounded-full text-[17px] font-semibold transition-all duration-200 disabled:opacity-50 overflow-hidden"
           style={{
             background: allFilled ? "#1A6B3C" : "#E8E8E4",
-            color: allFilled ? "#FFFFFF" : "#8A8A8A",
+            color: allFilled ? "white" : "#8A8A8A",
             fontFamily: "var(--font-outfit)",
             boxShadow: allFilled ? "0px 8px 24px rgba(26,107,60,0.25)" : "none",
           }}
         >
-          Verify and Continue
-          <Check size={20} strokeWidth={2.5} />
+          <span className="relative z-10">Verify and Continue</span>
+          
+          {/* Expanding Green Circle Success Transition */}
+          <AnimatePresence>
+            {success && (
+              <motion.div
+                initial={{ scale: 0, opacity: 1 }}
+                animate={{ scale: 40, opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="absolute left-1/2 top-1/2 z-0 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#1A6B3C]"
+              />
+            )}
+          </AnimatePresence>
         </motion.button>
       </div>
-
-      {/* Success overlay */}
+      
+      {/* Success full screen overlay overlay to maintain state during transition */}
       <AnimatePresence>
         {success && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-50 flex flex-col items-center justify-center"
-            style={{ background: "linear-gradient(135deg, #0A2E1A, #1A6B3C)" }}
+            transition={{ delay: 0.5, duration: 0.3 }}
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#1A6B3C]"
           >
-            <motion.div
+             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 200, damping: 14 }}
-              className="flex h-24 w-24 items-center justify-center rounded-full bg-white/20"
+              transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.2 }}
+              className="flex h-20 w-20 items-center justify-center rounded-full bg-white/20"
             >
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.2, type: "spring" }}
-              >
-                <Check size={48} strokeWidth={3} className="text-white" />
-              </motion.div>
+              <CheckCircle2 size={40} className="text-white" />
             </motion.div>
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.4 }}
               className="mt-6 text-[22px] font-bold text-white"
               style={{ fontFamily: "var(--font-outfit)" }}
             >
-              Verified!
+              Verified Successfully!
             </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="mt-2 text-[14px] text-white/80"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              Setting up your account...
-            </motion.p>
           </motion.div>
         )}
       </AnimatePresence>

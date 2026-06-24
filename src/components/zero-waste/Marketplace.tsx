@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/lib/store";
 import { formatINR } from "./Countdown";
 import { staggerContainer, cardVariants } from "@/lib/animations";
@@ -18,6 +18,8 @@ export function Marketplace() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [query, setQuery] = useState("");
   const [addedItems, setAddedItems] = useState<Record<string, number>>({});
+  const [showFilters, setShowFilters] = useState(false);
+  const [maxPrice, setMaxPrice] = useState<number>(500);
 
   const filtered = useMemo(() => {
     let list = [...products];
@@ -28,8 +30,9 @@ export function Marketplace() {
     if (activeCategory !== "All") {
       list = list.filter((p) => p.category.toLowerCase() === activeCategory.toLowerCase());
     }
+    list = list.filter((p) => p.discountedPrice <= maxPrice);
     return list;
-  }, [products, activeCategory, query]);
+  }, [products, activeCategory, query, maxPrice]);
 
   const handleAdd = (e: React.MouseEvent, productId: string) => {
     e.stopPropagation();
@@ -41,48 +44,53 @@ export function Marketplace() {
   };
 
   return (
-    <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }} className="bg-[#F7F5F0]">
-      {/* Header */}
-      <div className="px-5 pt-4" style={{ flexShrink: 0 }}>
+    <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }} className="bg-[var(--color-zw-bg)] relative">
+      {/* Sticky Header */}
+      <div className="px-5 pt-6 pb-2 bg-[var(--color-zw-bg)] z-20" style={{ flexShrink: 0 }}>
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-[28px] font-extrabold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
+            <h1 className="text-[32px] font-bold text-[var(--color-zw-ink)] tracking-tight" style={{ fontFamily: "var(--font-outfit)" }}>
               Marketplace
             </h1>
-            <p className="mt-1 text-[13px] text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+            <p className="mt-1 text-[14px] font-medium text-[var(--color-zw-ink-secondary)]" style={{ fontFamily: "var(--font-jakarta)" }}>
               Near-expiry deals — up to 70% off
             </p>
           </div>
           <button
             onClick={() => setCartOpen(true)}
-            className="relative flex h-11 w-11 items-center justify-center rounded-full bg-[#0A0A0A]"
+            className="relative flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm transition-transform active:scale-95"
           >
-            <ShoppingCart size={20} className="text-white" />
+            <ShoppingCart size={22} className="text-[var(--color-zw-ink)]" />
             {cartCount() > 0 && (
               <span
-                className="absolute -right-1 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#DC2626] px-1 text-[10px] font-bold text-white"
-                style={{ fontFamily: "var(--font-outfit)" }}
+                className="absolute right-0 top-0 flex h-5 min-w-5 items-center justify-center rounded-full bg-[var(--color-zw-urgent-red)] px-1.5 text-[11px] font-bold text-[var(--color-zw-ink)] shadow-sm"
+                style={{ fontFamily: "var(--font-jakarta)" }}
               >
                 {cartCount()}
               </span>
             )}
           </button>
         </div>
+      </div>
 
+      <main style={{ flex: 1, minHeight: 0, overflowY: "auto", paddingBottom: "120px" }}>
         {/* Search + filter */}
-        <div className="mt-4 flex gap-2.5">
-          <div className="flex h-[46px] flex-1 items-center rounded-[14px] bg-white px-3.5" style={{ boxShadow: "0px 2px 16px rgba(0,0,0,0.06), 0px 1px 4px rgba(0,0,0,0.04)" }}>
-            <Search size={16} className="text-[#8A8A8A]" />
+        <div className="mt-3 px-5 flex gap-3">
+          <div className="flex h-14 flex-1 items-center rounded-full bg-white px-5 shadow-sm">
+            <Search size={20} className="text-[var(--color-zw-ink-secondary)]" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search products..."
-              className="ml-3 flex-1 bg-transparent text-[14px] text-[#0A0A0A] placeholder:text-[#8A8A8A] focus:outline-none"
+              className="ml-3 flex-1 bg-transparent text-[15px] font-medium text-[var(--color-zw-ink)] placeholder:text-[var(--color-zw-ink-tertiary)] focus:outline-none"
               style={{ fontFamily: "var(--font-jakarta)" }}
             />
           </div>
-          <button className="flex h-[46px] w-[46px] items-center justify-center rounded-[14px] bg-white" style={{ boxShadow: "0px 2px 16px rgba(0,0,0,0.06), 0px 1px 4px rgba(0,0,0,0.04)" }}>
-            <SlidersHorizontal size={20} className="text-[#0A0A0A]" />
+          <button 
+            onClick={() => setShowFilters(true)}
+            className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-white shadow-sm transition-transform active:scale-95"
+          >
+            <SlidersHorizontal size={20} className="text-[var(--color-zw-ink)]" />
           </button>
         </div>
 
@@ -90,44 +98,43 @@ export function Marketplace() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative mt-4 flex h-20 items-center justify-between overflow-hidden rounded-[20px] px-5"
-          style={{ background: "linear-gradient(135deg, #DC2626 0%, #D97706 100%)", boxShadow: "0px 4px 20px rgba(220,38,38,0.30)" }}
+          className="relative mt-6 mx-5 flex h-24 items-center justify-between overflow-hidden px-6 shadow-sm"
+          style={{ borderRadius: "32px", background: "var(--color-pastel-clay)" }}
         >
           <div className="relative z-10">
-            <h3 className="text-[18px] font-bold text-white" style={{ fontFamily: "var(--font-outfit)" }}>
+            <h3 className="text-[20px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
               Flash Deals
             </h3>
-            <p className="mt-1 text-[12px] text-white/85" style={{ fontFamily: "var(--font-jakarta)" }}>
+            <p className="mt-1 text-[13px] font-medium text-[var(--color-zw-ink-secondary)]" style={{ fontFamily: "var(--font-jakarta)" }}>
               Ending soon — save up to 70%
             </p>
           </div>
           <div className="relative z-10 text-right">
-            <div className="text-[22px] font-bold text-white" style={{ fontFamily: "var(--font-outfit)" }}>
+            <div className="text-[24px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
               02:14:33
             </div>
-            <p className="text-[10px] text-white/75" style={{ fontFamily: "var(--font-jakarta)" }}>
+            <p className="text-[12px] font-bold text-[var(--color-zw-ink-secondary)]" style={{ fontFamily: "var(--font-jakarta)" }}>
               Hurry up!
             </p>
           </div>
           {/* Decorative circles */}
-          <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-white/8" />
-          <div className="absolute -bottom-12 right-12 h-20 w-20 rounded-full bg-white/8" />
+          <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-white/40" />
+          <div className="absolute -bottom-12 right-12 h-20 w-20 rounded-full bg-white/40" />
         </motion.div>
 
         {/* Category tabs */}
-        <div className="-mx-5 mt-5 flex gap-2 overflow-x-auto px-5 pb-1">
+        <div className="mt-6 flex gap-3 overflow-x-auto px-5 pb-2">
           {CATEGORIES.map((cat) => {
             const active = activeCategory === cat;
             return (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className="flex h-9 flex-shrink-0 items-center rounded-full px-4 text-[13px] font-semibold transition-all"
+                className="flex h-10 flex-shrink-0 items-center rounded-full px-5 text-[14px] font-bold transition-all shadow-sm active:scale-95"
                 style={{
-                  background: active ? "#0A0A0A" : "#FFFFFF",
-                  color: active ? "#FFFFFF" : "#4A4A4A",
-                  border: active ? "none" : "1px solid #E8E8E4",
-                  fontFamily: active ? "var(--font-outfit)" : "var(--font-jakarta)",
+                  background: active ? "var(--color-zw-ink)" : "white",
+                  color: active ? "white" : "var(--color-zw-ink)",
+                  fontFamily: "var(--font-jakarta)",
                 }}
               >
                 {cat}
@@ -135,10 +142,8 @@ export function Marketplace() {
             );
           })}
         </div>
-      </div>
 
-      {/* Product grid */}
-      <main style={{ flex: 1, minHeight: 0, overflowY: "auto", paddingBottom: "120px" }}>
+        {/* Product grid */}
         <motion.div
           variants={staggerContainer}
           initial="initial"
@@ -153,46 +158,50 @@ export function Marketplace() {
               <motion.div
                 key={p.id}
                 variants={cardVariants}
-                whileTap={{ scale: 0.98 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveProduct(p)}
-                className="overflow-hidden bg-white"
-                style={{ borderRadius: "20px", boxShadow: "0px 2px 16px rgba(0,0,0,0.06), 0px 1px 4px rgba(0,0,0,0.04)" }}
+                className="overflow-hidden bg-white shadow-sm"
+                style={{ borderRadius: "32px" }}
               >
                 {/* Image zone */}
-                <div className={`relative flex h-[120px] items-center justify-center bg-gradient-to-br ${p.imageColor}`}>
-                  <span className="text-5xl font-bold text-white/80">{p.name.charAt(0)}</span>
+                <div className={`relative flex h-[140px] items-center justify-center bg-[var(--color-pastel-clay)]`}>
+                  {p.imageUrl ? (
+                    <img src={p.imageUrl} alt={p.name} className="absolute inset-0 h-full w-full object-cover" />
+                  ) : (
+                    <span className="text-[48px] font-bold text-[var(--color-zw-ink)]">{p.name.charAt(0)}</span>
+                  )}
                   {/* Discount badge */}
-                  <div className="absolute left-1.5 top-1.5 flex h-[22px] items-center justify-center rounded-full bg-[#DC2626] px-2 text-[9px] font-extrabold text-white" style={{ fontFamily: "var(--font-outfit)" }}>
+                  <div className="absolute left-2.5 top-2.5 flex items-center justify-center rounded-full bg-[var(--color-zw-urgent-red)] px-2.5 py-1 text-[10px] font-bold text-[var(--color-zw-ink)] shadow-sm" style={{ fontFamily: "var(--font-jakarta)" }}>
                     {discountPct}% OFF
                   </div>
                   {/* Expiry badge */}
-                  <div className="absolute right-1.5 top-1.5 rounded-full bg-[#D97706] px-2 py-0.5 text-[9px] font-bold text-white" style={{ fontFamily: "var(--font-outfit)" }}>
+                  <div className="absolute right-2.5 top-2.5 rounded-full bg-[var(--color-pastel-yellow)] px-2.5 py-1 text-[10px] font-bold text-[var(--color-zw-ink)] shadow-sm" style={{ fontFamily: "var(--font-jakarta)" }}>
                     {days}d left
                   </div>
                   {/* AI badge */}
                   {p.isAiMatch && (
-                    <div className="absolute bottom-1.5 left-1.5 rounded-full px-2 py-0.5 text-[8px] font-bold text-[#22C55E]" style={{ background: "rgba(0,0,0,0.7)", backdropFilter: "blur(8px)", fontFamily: "var(--font-outfit)" }}>
+                    <div className="absolute bottom-2.5 left-2.5 rounded-full px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-wider text-[var(--color-zw-ink)] bg-[var(--color-pastel-green)] shadow-sm" style={{ fontFamily: "var(--font-jakarta)" }}>
                       AI Pick
                     </div>
                   )}
                 </div>
                 {/* Content */}
-                <div className="p-3">
-                  <h4 className="line-clamp-2 text-[14px] font-semibold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
+                <div className="p-4">
+                  <h4 className="line-clamp-2 text-[15px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
                     {p.name}
                   </h4>
-                  <p className="mt-0.5 text-[11px] text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                  <p className="mt-1 text-[12px] font-medium text-[var(--color-zw-ink-secondary)]" style={{ fontFamily: "var(--font-jakarta)" }}>
                     {p.shopName}
                   </p>
-                  <p className="mt-1 text-[10px] font-medium text-[#D97706]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                  <p className="mt-1.5 text-[11px] font-bold text-[var(--color-zw-ink-secondary)]" style={{ fontFamily: "var(--font-jakarta)" }}>
                     Best before: {days} days
                   </p>
-                  <div className="mt-2 flex items-center justify-between">
+                  <div className="mt-3 flex items-center justify-between">
                     <div className="flex items-baseline gap-1.5">
-                      <span className="text-[12px] text-[#8A8A8A] line-through" style={{ fontFamily: "var(--font-jakarta)" }}>
+                      <span className="text-[12px] font-medium text-[var(--color-zw-ink-tertiary)] line-through" style={{ fontFamily: "var(--font-jakarta)" }}>
                         {formatINR(p.originalPrice)}
                       </span>
-                      <span className="text-[18px] font-bold text-[#1A6B3C]" style={{ fontFamily: "var(--font-outfit)" }}>
+                      <span className="text-[18px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
                         {formatINR(p.discountedPrice)}
                       </span>
                     </div>
@@ -201,21 +210,21 @@ export function Marketplace() {
                       <motion.button
                         whileTap={{ scale: 0.9 }}
                         onClick={(e) => handleAdd(e, p.id)}
-                        className="flex h-8 w-8 items-center justify-center rounded-[10px] border-[1.5px] border-[#E8E8E4] bg-white"
+                        className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-zw-bg)] text-[var(--color-zw-ink)] active:scale-90 transition-transform"
                       >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                          <path d="M12 5v14M5 12h14" stroke="#0A0A0A" strokeWidth="2.5" strokeLinecap="round"/>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                          <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
                         </svg>
                       </motion.button>
                     ) : (
                       <motion.div
-                        initial={{ width: 32, scale: 0.9 }}
-                        animate={{ width: 70, scale: 1 }}
-                        className="flex h-8 items-center justify-between rounded-[10px] bg-[#1A6B3C] px-2"
+                        initial={{ width: 40, scale: 0.9 }}
+                        animate={{ width: 80, scale: 1 }}
+                        className="flex h-10 items-center justify-between rounded-full bg-[var(--color-zw-ink)] px-2.5"
                       >
-                        <button onClick={(e) => { e.stopPropagation(); setAddedItems((prev) => ({ ...prev, [p.id]: Math.max(0, qty - 1) })); }} className="text-white text-sm font-bold">−</button>
-                        <span className="text-[13px] font-semibold text-white" style={{ fontFamily: "var(--font-outfit)" }}>{qty}</span>
-                        <button onClick={(e) => handleAdd(e, p.id)} className="text-white text-sm font-bold">+</button>
+                        <button onClick={(e) => { e.stopPropagation(); setAddedItems((prev) => ({ ...prev, [p.id]: Math.max(0, qty - 1) })); }} className="text-white text-base font-bold active:scale-90 transition-transform">−</button>
+                        <span className="text-[14px] font-bold text-white" style={{ fontFamily: "var(--font-outfit)" }}>{qty}</span>
+                        <button onClick={(e) => handleAdd(e, p.id)} className="text-white text-base font-bold active:scale-90 transition-transform">+</button>
                       </motion.div>
                     )}
                   </div>
@@ -225,6 +234,67 @@ export function Marketplace() {
           })}
         </motion.div>
       </main>
+
+      {/* Filter bottom sheet */}
+      <AnimatePresence>
+        {showFilters && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowFilters(false)}
+              className="absolute inset-0 z-40"
+              style={{ background: "rgba(0,0,0,0.4)" }}
+            />
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 28, stiffness: 300 }}
+              className="absolute inset-x-0 bottom-0 z-50 bg-white p-5"
+              style={{ borderRadius: "28px 28px 0 0", boxShadow: "0px -8px 32px rgba(0,0,0,0.1)" }}
+            >
+              <div className="mx-auto mb-5 h-1 w-10 rounded-full bg-[#E8E8E4]" />
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-[20px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
+                  Filter Products
+                </h3>
+              </div>
+
+              <div className="space-y-6">
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <label className="text-[16px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
+                      Max Price
+                    </label>
+                    <span className="text-[14px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
+                      {formatINR(maxPrice)}
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="10"
+                    max="500"
+                    step="10"
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(Number(e.target.value))}
+                    className="w-full accent-[var(--color-zw-ink)]"
+                  />
+                </div>
+              </div>
+
+              <button
+                onClick={() => setShowFilters(false)}
+                className="mt-8 flex h-14 w-full items-center justify-center rounded-full text-[18px] font-bold text-white transition-transform active:scale-95"
+                style={{ background: "var(--color-zw-ink)", fontFamily: "var(--font-outfit)" }}
+              >
+                Apply Filters ({filtered.length})
+              </button>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

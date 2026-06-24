@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useAppStore } from "@/lib/store";
-import { ChevronRight, MapPin, CreditCard, Bell, Shield, HelpCircle, Settings, LogOut, Award, Star, Recycle, ShoppingBag, Heart, Package } from "lucide-react";
+import { ChevronRight, MapPin, CreditCard, Bell, Shield, HelpCircle, Settings, LogOut, Award, Star, Recycle, ShoppingBag, Heart, Package, Leaf, CheckCircle, Clock } from "lucide-react";
+import { staggerContainer, cardVariants } from "@/lib/animations";
 
 export function Profile() {
   const setScreen = useAppStore((s) => s.setScreen);
@@ -10,11 +11,17 @@ export function Profile() {
   const impactPoints = useAppStore((s) => s.impactPoints);
   const mealsSaved = useAppStore((s) => s.mealsSaved);
   const moneySaved = useAppStore((s) => s.moneySaved);
+  const donationHistory = useAppStore((s) => s.donationHistory);
+  const setActiveDonationId = useAppStore((s) => s.setActiveDonationId);
 
   const MENU_SECTIONS = [
     { title: "Account", items: [{ icon: MapPin, label: "Saved Addresses", sub: "2 addresses" }, { icon: CreditCard, label: "Payment Methods", sub: "UPI, 1 card" }, { icon: Bell, label: "Notifications", sub: "Push, Email" }] },
-    { title: "Orders & Donations", items: [{ icon: ShoppingBag, label: "My Orders", sub: "12 orders" }, { icon: Heart, label: "Donation History", sub: "8 donations" }, { icon: Package, label: "Saved Products", sub: "5 items" }] },
-    { title: "Preferences", items: [{ icon: Recycle, label: "Switch Role", sub: role, action: "switch" }, { icon: Shield, label: "Privacy & Security", sub: "Verified account" }, { icon: Settings, label: "App Settings", sub: "Theme, Language" }] },
+    { title: "Preferences", items: [
+      { icon: Recycle, label: "Donor Type", sub: "Individual", action: "none" },
+      { icon: Recycle, label: "Switch Role", sub: role, action: "switch" }, 
+      { icon: Shield, label: "Privacy & Security", sub: "Verified account" }, 
+      { icon: Settings, label: "App Settings", sub: "Theme, Language" }
+    ]},
     { title: "Support", items: [{ icon: HelpCircle, label: "Help Center", sub: "FAQs, Contact" }, { icon: Star, label: "Rate Zero-Waste", sub: "on Play Store" }] },
   ];
 
@@ -37,6 +44,75 @@ export function Profile() {
               <div><div className="text-lg font-bold">\u20B9{moneySaved}</div><div className="text-[10px] text-white/80">Saved</div></div>
             </div>
           </motion.div>
+
+          {/* Donation History Section */}
+          {role === "user" && (
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+              <div className="flex items-center justify-between mb-3 px-1">
+                <h2 className="text-[20px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>My Donations</h2>
+                {donationHistory.length > 0 && (
+                  <button className="text-[13px] font-medium text-[#1A6B3C]" style={{ fontFamily: "var(--font-jakarta)" }}>See all</button>
+                )}
+              </div>
+              
+              {donationHistory.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-8">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#C8E8D0]">
+                    <Leaf size={48} className="text-[#1A6B3C]" />
+                  </div>
+                  <h3 className="mt-4 text-[18px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>No donations yet</h3>
+                  <p className="text-[14px] text-[#4A4A4A] mt-1 text-center" style={{ fontFamily: "var(--font-jakarta)" }}>Your first donation is just a tap away.</p>
+                  <button 
+                    onClick={() => setScreen("donate")}
+                    className="mt-5 flex h-12 items-center justify-center rounded-full bg-[#1A6B3C] px-8 text-[15px] font-semibold text-white transition-transform active:scale-95 shadow-[0px_8px_24px_rgba(26,107,60,0.25)]"
+                    style={{ fontFamily: "var(--font-outfit)" }}
+                  >
+                    Donate Food
+                  </button>
+                </div>
+              ) : (
+                <motion.div variants={staggerContainer} initial="initial" animate="animate" className="flex flex-col gap-3">
+                  {donationHistory.slice(0, 3).map((d) => (
+                    <motion.div 
+                      key={d.id} 
+                      variants={cardVariants}
+                      onClick={() => {
+                        setActiveDonationId(d.id);
+                        setScreen("donation-tracking");
+                      }}
+                      className="flex items-center gap-3 rounded-[16px] bg-white p-4 shadow-[0px_2px_16px_rgba(0,0,0,0.06)] active:scale-98 transition-transform cursor-pointer"
+                    >
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] bg-gradient-to-br from-[#1A6B3C] to-[#22C55E]">
+                        <Leaf size={22} className="text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-[14px] font-semibold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>{d.foodName}</div>
+                        <div className="text-[12px] font-normal text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                          {new Date(d.listedAt).toLocaleDateString()}
+                        </div>
+                        <div className="mt-1">
+                          {d.status === "delivered" ? (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-[#F0F7F2] px-2 py-0.5 text-[10px] font-semibold text-[#1A6B3C]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                              <CheckCircle size={12} /> Delivered
+                            </span>
+                          ) : d.status === "picked_up" || d.status === "accepted" ? (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-[#FFF8EC] px-2 py-0.5 text-[10px] font-semibold text-[#D97706]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                              <Clock size={12} /> In Progress
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-[#F0F4FF] px-2 py-0.5 text-[10px] font-semibold text-[#1E3A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                              <Bell size={12} /> Available
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <ChevronRight size={16} className="text-[#8A8A8A]" />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+            </motion.div>
+          )}
 
           {MENU_SECTIONS.map((section, si) => (
             <motion.div key={si} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + si * 0.08 }}>

@@ -20,7 +20,31 @@ export type Screen =
   | "shop-dashboard"
   | "shop-inventory"
   | "shop-orders"
-  | "ai-assistant";
+  | "ai-assistant"
+  // Master Prompt Screens
+  | "splash"
+  | "roleSelect"
+  | "userHome"
+  | "donateFood"
+  | "donationTracking"
+  | "rescueMap"
+  | "productDetail"
+  | "orderStatus"
+  | "userProfile"
+  | "impactDashboard"
+  | "ngoMap"
+  | "ngoDeliveryTracking"
+  | "ngoVolunteers"
+  | "ngoProfile"
+  | "ngoReports"
+  | "volunteerPickup"
+  | "volunteerHistory"
+  | "volunteerProfile"
+  | "recipientHome"
+  | "recipientMap"
+  | "foodRequest"
+  | "requestStatus"
+  | "recipientProfile";
 
 export interface Product {
   id: string;
@@ -43,6 +67,7 @@ export interface Product {
   batchNo: string;
   storageType: "ambient" | "refrigerated" | "frozen";
   isAiMatch?: boolean;
+  imageUrl?: string;
 }
 
 export type ProductCategory =
@@ -74,6 +99,7 @@ export interface Donation {
   aiMatchScore?: number; // 0-100, for volunteer matching
   status: "listed" | "accepted" | "picked_up" | "delivered" | "expired";
   imageColor: string;
+  imageUrl?: string;
   ngoAssigned?: string;
   volunteerAssigned?: string;
 }
@@ -123,6 +149,77 @@ export interface ShopListing {
   discountPct: number;
   daysToExpiry: number;
   imageColor: string;
+  imageUrl?: string;
   soldToday: number;
   revenueToday: number;
+}
+
+export interface ImpactData {
+  mealsRescued: number;
+  co2Prevented: number;
+  moneySaved: number;
+  impactPoints: number;
+}
+
+export interface NGOProfile {
+  id: string;
+  name: string;
+  verified: boolean;
+  location: string;
+  mealsReceived: number;
+  volunteersCount: number;
+  successRate: number;
+}
+
+export interface Volunteer {
+  id: string;
+  name: string;
+  status: "online" | "on-duty" | "offline";
+  rating: number;
+  rescues: number;
+  zone: number;
+}
+
+export interface VolunteerRequest {
+  id: string;
+  volunteerId: string;
+  status: "pending" | "accepted" | "declined";
+}
+
+export interface Pickup {
+  id: string;
+  donationId: string;
+  status: "assigned" | "in_transit" | "completed";
+}
+
+export interface VolunteerStats {
+  mealsToday: number;
+  points: number;
+  rescues: number;
+}
+
+export interface PickupRecord {
+  id: string;
+  donationId: string;
+  timestamp: Date;
+}
+
+export interface RecipientProfile {
+  id: string;
+  name: string;
+  location: string;
+}
+
+export interface DistributionPoint {
+  id: string;
+  name: string;
+  location: string;
+  distance: number;
+}
+
+export interface FoodRequest {
+  id: string;
+  recipientId: string;
+  servings: number;
+  status: "pending" | "fulfilled";
 }

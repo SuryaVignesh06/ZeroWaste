@@ -3,36 +3,36 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/lib/store";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { ArrowRight, Sparkles, MapPin, Tag, BrainCircuit } from "lucide-react";
 
 const SLIDES = [
   {
-    bg: "linear-gradient(160deg, #0A2E1A 0%, #1A6B3C 60%, #22C55E 100%)",
-    eyebrow: "Rescue Surplus Food",
-    title: "Rescue Surplus Food",
-    subtitle: "Surplus meals from weddings, events, and homes reach those who need it most — in real time.",
-    visual: "network",
+    id: "rescue",
+    eyebrow: "Food Rescue Network",
+    title: "Food should feed people.",
+    subtitle: "Real-time alerts when surplus food is available nearby. Rescue meals from weddings, restaurants, and homes before they go to waste.",
+    color: "var(--color-pastel-green)",
+    textColor: "var(--color-zw-ink)",
+    Icon: MapPin,
   },
   {
-    bg: "linear-gradient(160deg, #1a1a3e 0%, #1E3A8A 60%, #3B82F6 100%)",
+    id: "market",
     eyebrow: "Affordable Marketplace",
-    title: "Affordable Marketplace",
-    subtitle: "Near-expiry groceries at up to 70% off. Real savings for families, students, and daily earners.",
-    visual: "pills",
+    title: "Premium groceries, up to 70% off.",
+    subtitle: "Buy perfectly safe, near-expiry products from local supermarkets at a fraction of the cost. Good for your wallet, good for the planet.",
+    color: "var(--color-pastel-blue)",
+    textColor: "var(--color-zw-ink)",
+    Icon: Tag,
   },
   {
-    bg: "linear-gradient(160deg, #0A0A0A 0%, #1a1a1a 60%, #2a2a2a 100%)",
-    eyebrow: "AI-Powered Logistics",
-    title: "AI-Powered Logistics",
-    subtitle: "Smart volunteer matching, optimal routes, and real-time coordination. Zero waste. Zero delay.",
-    visual: "ai",
+    id: "ai",
+    eyebrow: "AI-Powered",
+    title: "Zero waste. Zero delay.",
+    subtitle: "Our AI instantly matches surplus food with the right NGOs, optimizes delivery routes, and calculates your personal environmental impact.",
+    color: "var(--color-pastel-yellow)",
+    textColor: "var(--color-zw-ink)",
+    Icon: BrainCircuit,
   },
-];
-
-const PRICE_PILLS = [
-  { text: "Milk  ₹80 → ₹30", delay: 0, duration: 2800 },
-  { text: "Bread  ₹50 → ₹15", delay: 200, duration: 3200 },
-  { text: "Vegetables  ₹100 → ₹40", delay: 400, duration: 3600 },
 ];
 
 export function Onboarding() {
@@ -42,197 +42,215 @@ export function Onboarding() {
   const slide = SLIDES[index];
   const isLast = index === SLIDES.length - 1;
 
-  const goNext = () => {
-    if (isLast) { completeOnboarding(); return; }
-    setIndex((i) => i + 1);
+  const nextSlide = () => {
+    if (isLast) {
+      completeOnboarding();
+    } else {
+      setIndex((i) => i + 1);
+    }
   };
-  const goBack = () => { if (index > 0) setIndex((i) => i - 1); };
 
   return (
-    <div className="relative flex h-full flex-col overflow-hidden" style={{ background: slide.bg }}>
-      <AnimatePresence mode="wait">
+    <div className="relative flex h-full flex-col overflow-hidden bg-[var(--color-zw-bg)]">
+      {/* Dynamic Background Elements */}
+      <AnimatePresence mode="popLayout">
         <motion.div
           key={index}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
-          className="relative flex h-full flex-col"
-        >
-          {/* Visual zone — 52% top */}
-          <div className="flex h-[52%] items-center justify-center px-8">
-            <SlideVisual variant={slide.visual} pills={PRICE_PILLS} />
-          </div>
-
-          {/* Text zone — bottom 48% */}
-          <div className="flex flex-1 flex-col justify-end px-8 pb-32">
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="mb-3 inline-block w-fit rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white/80"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              {slide.eyebrow}
-            </motion.span>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="text-[38px] font-extrabold leading-[1.1] text-white"
-              style={{ fontFamily: "var(--font-outfit)" }}
-            >
-              {slide.title}
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, duration: 0.5 }}
-              className="mt-4 text-[16px] leading-[1.6] text-white/75"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              {slide.subtitle}
-            </motion.p>
-          </div>
-        </motion.div>
+          initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          exit={{ opacity: 0, scale: 1.2, rotate: 10 }}
+          transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+          className="absolute -top-32 -right-32 h-96 w-96 rounded-full blur-[80px]"
+          style={{ background: slide.color, opacity: 0.4 }}
+        />
+      </AnimatePresence>
+      <AnimatePresence mode="popLayout">
+        <motion.div
+          key={`bottom-${index}`}
+          initial={{ opacity: 0, scale: 0.8, rotate: 10 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          exit={{ opacity: 0, scale: 1.2, rotate: -10 }}
+          transition={{ duration: 0.8, type: "spring", bounce: 0.4, delay: 0.1 }}
+          className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full blur-[80px]"
+          style={{ background: slide.color, opacity: 0.3 }}
+        />
       </AnimatePresence>
 
-      {/* Slide indicator */}
-      <div className="absolute bottom-32 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
-        {SLIDES.map((_, i) => (
-          <motion.div
-            key={i}
-            animate={{
-              width: i === index ? 28 : 8,
-              backgroundColor: i === index ? "#FFFFFF" : "rgba(255,255,255,0.35)",
-            }}
-            transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
-            style={{ height: 8, borderRadius: 9999 }}
-          />
-        ))}
-      </div>
-
-      {/* Navigation */}
-      <div className="absolute bottom-12 left-0 right-0 z-20 flex items-center justify-between px-8">
-        {!isLast ? (
-          <button onClick={completeOnboarding} className="text-[15px] font-medium text-white/65" style={{ fontFamily: "var(--font-jakarta)" }}>
-            Skip
-          </button>
-        ) : (
-          <div />
-        )}
-
-        {isLast ? (
+      <div className="relative z-10 flex flex-1 flex-col justify-between px-8 pt-16 pb-12">
+        {/* Skip button */}
+        <div className="flex justify-end">
           <motion.button
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.6, type: "spring" }}
-            whileTap={{ scale: 0.97 }}
+            whileTap={{ scale: 0.95 }}
             onClick={completeOnboarding}
-            className="flex h-14 w-full items-center justify-center rounded-full bg-white text-[17px] font-semibold text-[#0A0A0A]"
-            style={{ fontFamily: "var(--font-outfit)", boxShadow: "0px 4px 20px rgba(255,255,255,0.25)" }}
+            className="rounded-full bg-white/50 px-4 py-2 text-[14px] font-bold text-[var(--color-zw-ink)] shadow-sm backdrop-blur-md"
+            style={{ fontFamily: "var(--font-jakarta)" }}
           >
-            Get Started
+            Skip
           </motion.button>
-        ) : (
-          <div className="flex items-center gap-3">
-            {index > 0 && (
-              <button onClick={goBack} className="flex h-12 w-12 items-center justify-center rounded-full bg-white/15 backdrop-blur-md">
-                <ArrowLeft size={20} className="text-white" />
-              </button>
-            )}
-            <motion.button
-              whileTap={{ scale: 0.94 }}
-              onClick={goNext}
-              className="flex h-14 w-14 items-center justify-center rounded-full bg-white"
-              style={{ boxShadow: "0px 8px 24px rgba(26,107,60,0.25)" }}
+        </div>
+
+        {/* Visual Zone */}
+        <div className="flex h-[40%] items-center justify-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -40, scale: 0.8 }}
+              transition={{ duration: 0.5, type: "spring", bounce: 0.5 }}
+              className="relative flex h-64 w-full items-center justify-center"
             >
-              <ArrowRight size={24} className="text-[#1A6B3C]" />
-            </motion.button>
+              {/* Epic Floating Visuals based on slide */}
+              {index === 0 && (
+                <div className="relative h-48 w-48">
+                  <motion.div
+                    animate={{ y: [-10, 10, -10], rotate: [0, 5, -5, 0] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute inset-0 rounded-[40px] shadow-xl"
+                    style={{ background: slide.color, border: "4px solid white" }}
+                  />
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.3, type: "spring", bounce: 0.6 }}
+                    className="absolute -right-6 -top-6 flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-lg"
+                  >
+                    <slide.Icon size={32} className="text-[var(--color-zw-ink)]" />
+                  </motion.div>
+                  {/* Floating badge */}
+                  <motion.div
+                    animate={{ y: [5, -5, 5] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                    className="absolute -bottom-4 -left-8 rounded-2xl bg-white px-4 py-3 shadow-lg"
+                  >
+                    <span className="text-[14px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>+50 Meals Rescued</span>
+                  </motion.div>
+                </div>
+              )}
+              {index === 1 && (
+                <div className="relative h-48 w-48">
+                  <motion.div
+                    animate={{ y: [-10, 10, -10], rotate: [0, -5, 5, 0] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute inset-0 rounded-[40px] shadow-xl"
+                    style={{ background: slide.color, border: "4px solid white" }}
+                  />
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.3, type: "spring", bounce: 0.6 }}
+                    className="absolute -left-6 -bottom-6 flex h-20 w-20 items-center justify-center rounded-full bg-[var(--color-zw-ink)] shadow-lg"
+                  >
+                    <span className="text-[20px] font-bold text-white" style={{ fontFamily: "var(--font-outfit)" }}>-70%</span>
+                  </motion.div>
+                  {/* Floating badge */}
+                  <motion.div
+                    animate={{ y: [-5, 5, -5] }}
+                    transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                    className="absolute -right-12 top-12 rounded-2xl bg-white px-4 py-3 shadow-lg"
+                  >
+                    <div className="flex flex-col">
+                      <span className="text-[10px] font-bold text-[var(--color-zw-ink-secondary)] line-through" style={{ fontFamily: "var(--font-jakarta)" }}>₹120</span>
+                      <span className="text-[16px] font-bold text-[var(--color-pastel-green)]" style={{ fontFamily: "var(--font-outfit)" }}>₹35</span>
+                    </div>
+                  </motion.div>
+                </div>
+              )}
+              {index === 2 && (
+                <div className="relative h-48 w-48">
+                  <motion.div
+                    animate={{ scale: [1, 1.05, 1], rotate: [0, 180, 360] }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-0 rounded-full border-[8px] border-dashed border-[var(--color-zw-ink)] opacity-10"
+                  />
+                  <motion.div
+                    animate={{ y: [-10, 10, -10] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute inset-4 rounded-full shadow-xl"
+                    style={{ background: slide.color, border: "4px solid white" }}
+                  />
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.3, type: "spring", bounce: 0.6 }}
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    <slide.Icon size={48} className="text-[var(--color-zw-ink)]" />
+                  </motion.div>
+                  <motion.div
+                    animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -top-2 right-4 text-[var(--color-zw-ink)]"
+                  >
+                    <Sparkles size={24} />
+                  </motion.div>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Text Zone */}
+        <div className="mt-8 flex flex-col">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
+              <div
+                className="mb-4 inline-flex items-center rounded-full px-4 py-1.5 shadow-sm"
+                style={{ background: slide.color }}
+              >
+                <span className="text-[12px] font-bold uppercase tracking-wider text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                  {slide.eyebrow}
+                </span>
+              </div>
+              <h1 className="text-[36px] font-extrabold leading-[1.1] text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
+                {slide.title}
+              </h1>
+              <p className="mt-4 text-[16px] font-medium leading-[1.6] text-[var(--color-zw-ink-secondary)]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                {slide.subtitle}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Bottom Navigation */}
+        <div className="mt-12 flex items-center justify-between">
+          <div className="flex gap-2">
+            {SLIDES.map((_, i) => (
+              <motion.div
+                key={i}
+                animate={{
+                  width: i === index ? 32 : 8,
+                  backgroundColor: i === index ? "var(--color-zw-ink)" : "var(--color-zw-divider)",
+                }}
+                transition={{ duration: 0.5, type: "spring", bounce: 0.5 }}
+                className="h-2 rounded-full"
+              />
+            ))}
           </div>
-        )}
+
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={nextSlide}
+            className="flex h-16 w-16 items-center justify-center rounded-full shadow-xl transition-all"
+            style={{
+              background: "var(--color-zw-ink)",
+              color: "#FFFFFF",
+            }}
+          >
+            {isLast ? (
+              <span className="text-[16px] font-bold" style={{ fontFamily: "var(--font-outfit)" }}>Go</span>
+            ) : (
+              <ArrowRight size={28} />
+            )}
+          </motion.button>
+        </div>
       </div>
     </div>
-  );
-}
-
-function SlideVisual({ variant, pills }: { variant: string; pills: typeof PRICE_PILLS }) {
-  if (variant === "network") {
-    return (
-      <motion.svg
-        initial={{ scale: 0.88, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        width="280" height="280" viewBox="0 0 280 280" fill="none"
-      >
-        {/* Interconnected nodes */}
-        <motion.path d="M140 50 L80 140 L140 230 L200 140 Z" stroke="white" strokeOpacity="0.2" strokeWidth="1.5" fill="none"
-          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.6 }} />
-        <motion.path d="M80 140 L200 140" stroke="white" strokeOpacity="0.2" strokeWidth="1.5" fill="none"
-          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.6, delay: 0.3 }} />
-        <motion.path d="M140 50 L140 230" stroke="white" strokeOpacity="0.15" strokeWidth="1" fill="none"
-          initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.6, delay: 0.5 }} />
-
-        {/* Nodes */}
-        {[[140,50],[80,140],[200,140],[140,230],[50,90],[230,90],[50,190],[230,190]].map(([cx,cy],i) => (
-          <motion.circle key={i} cx={cx} cy={cy} r={i < 4 ? 8 : 5} fill="white" fillOpacity={i < 4 ? 0.9 : 0.5}
-            initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.5 + i * 0.1, type: "spring" }} />
-        ))}
-      </motion.svg>
-    );
-  }
-
-  if (variant === "pills") {
-    return (
-      <div className="flex flex-col items-center gap-5">
-        {pills.map((pill, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: pill.delay / 1000 + 0.3, type: "spring" }}
-            className="flex items-center gap-3 rounded-2xl px-5 py-3"
-            style={{
-              background: "rgba(255,255,255,0.15)",
-              backdropFilter: "blur(12px)",
-              border: "1px solid rgba(255,255,255,0.25)",
-            }}
-          >
-            <motion.span
-              animate={{ y: [-8, 8, -8] }}
-              transition={{ duration: pill.duration / 1000, repeat: Infinity, ease: "easeInOut" }}
-              className="text-[16px] font-semibold text-white"
-              style={{ fontFamily: "var(--font-outfit)" }}
-            >
-              {pill.text}
-            </motion.span>
-          </motion.div>
-        ))}
-      </div>
-    );
-  }
-
-  // ai network graph
-  return (
-    <motion.svg
-      initial={{ scale: 0.88, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      width="280" height="280" viewBox="0 0 280 280" fill="none"
-    >
-      {/* Center node */}
-      <motion.circle cx="140" cy="140" r="20" fill="#22C55E"
-        animate={{ scale: [1, 1.15, 1] }} transition={{ duration: 2, repeat: Infinity }} />
-
-      {/* Connection lines */}
-      {[[60,60],[220,60],[60,220],[220,220],[140,40],[140,240],[40,140],[240,140]].map(([x,y],i) => (
-        <g key={i}>
-          <motion.line x1="140" y1="140" x2={x} y2={y} stroke="#22C55E" strokeOpacity="0.3" strokeWidth="1.5"
-            initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1, delay: i * 0.1 }} />
-          <motion.circle cx={x} cy={y} r="8" fill="#3B82F6" fillOpacity="0.7"
-            initial={{ scale: 0 }} animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 2, repeat: Infinity, delay: i * 0.15 }} />
-        </g>
-      ))}
-    </motion.svg>
   );
 }

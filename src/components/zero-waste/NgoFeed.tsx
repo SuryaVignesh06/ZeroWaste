@@ -33,68 +33,86 @@ export function NgoFeed() {
   const setScreen = useAppStore((s) => s.setScreen);
   const [activeDonation, setActiveDonation] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
+  
+  // Filter states
+  const [foodTypeFilter, setFoodTypeFilter] = useState<string>("All");
+  const [distanceFilter, setDistanceFilter] = useState<number>(5);
+  const [urgencyFilter, setUrgencyFilter] = useState<string>("All");
 
-  const listed = donations.filter((d) => d.status === "listed");
+  const MAP_API_KEY = "jdxx9Tt17yH2kb6a4tzq";
+
+  const listed = donations.filter((d) => d.status === "listed").filter(d => {
+    if (foodTypeFilter !== "All" && !d.title.toLowerCase().includes(foodTypeFilter.toLowerCase().split(" ")[0])) return false;
+    if (d.pickupDistanceKm > distanceFilter) return false;
+    const hoursToExpiry = (new Date(d.expiryDeadline).getTime() - Date.now()) / 3600000;
+    if (urgencyFilter === "Urgent" && hoursToExpiry >= 2) return false;
+    if (urgencyFilter === "Normal" && hoursToExpiry < 2) return false;
+    return true;
+  });
 
   return (
-    <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }} className="bg-[#F7F5F0]">
-      {/* Header — blue gradient */}
+    <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }} className="bg-[var(--color-zw-bg)]">
+      {/* Header — Deep Green Gradient */}
       <div
-        className="relative overflow-hidden px-5 pb-5 pt-4"
+        className="relative px-5 pt-12 pb-6"
         style={{
-          background: "linear-gradient(180deg, #1a1a3e 0%, #1E3A8A 100%)",
-          borderBottomLeftRadius: "32px",
-          borderBottomRightRadius: "32px",
+          background: "linear-gradient(180deg, #0A2E1A 0%, #1A6B3C 100%)",
+          height: "140px",
           flexShrink: 0,
         }}
       >
-        {/* Live indicator */}
-        <div className="absolute right-5 top-4 flex items-center gap-1.5">
-          <motion.div
-            animate={{ scale: [1, 1.3, 1], opacity: [1, 0.5, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="h-2 w-2 rounded-full bg-[#22C55E]"
-          />
-          <span className="text-[11px] font-bold text-white" style={{ fontFamily: "var(--font-outfit)" }}>
-            LIVE
-          </span>
-        </div>
-
         {/* Top row */}
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-[24px] font-bold text-white" style={{ fontFamily: "var(--font-outfit)" }}>
-              NSS Chapter
-            </h1>
-            <div className="mt-1 flex items-center gap-1.5">
-              <CheckCircle size={14} className="text-[#22C55E]" />
-              <span className="text-[12px] font-medium text-white" style={{ fontFamily: "var(--font-jakarta)" }}>
-                Verified NGO
-              </span>
+            <div className="flex items-center gap-2">
+              <h1 className="text-[24px] font-bold text-white" style={{ fontFamily: "var(--font-outfit)" }}>
+                NSS Chapter
+              </h1>
+            </div>
+            <div className="mt-2 flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                <CheckCircle size={14} className="text-[#C8E8D0]" />
+                <span className="text-[12px] font-medium text-[#C8E8D0]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                  Verified NGO
+                </span>
+              </div>
+              <div className="h-3 w-[1px] bg-white/20" />
+              <div className="flex items-center gap-1.5 rounded-full bg-white/10 px-2 py-0.5 backdrop-blur-md">
+                <motion.div
+                  animate={{ scale: [1, 1.3, 1], opacity: [1, 0.5, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="h-1.5 w-1.5 rounded-full bg-[#C8E8D0]"
+                />
+                <span className="text-[10px] font-bold text-[#C8E8D0]" style={{ fontFamily: "var(--font-outfit)" }}>
+                  LIVE
+                </span>
+              </div>
             </div>
           </div>
-          <button className="flex h-11 w-11 items-center justify-center rounded-full" style={{ background: "rgba(255,255,255,0.15)" }}>
+          <button 
+            onClick={() => setScreen("ngoProfile")}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-md">
             <Settings size={20} className="text-white" />
           </button>
         </div>
+      </div>
 
-        {/* Stats row */}
-        <div className="mt-5 flex items-center justify-around">
+      {/* Stats row (overlap) */}
+      <div className="-mt-8 px-5 relative z-10">
+        <div className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-[0px_4px_20px_rgba(0,0,0,0.06)]">
           {[
-            { value: "24", label: "Meals Today" },
-            { value: "8", label: "Volunteers" },
-            { value: String(listed.length), label: "Pending" },
+            { value: "48", label: "Volunteers" },
+            { value: "98%", label: "Success" },
+            { value: "2.4k", label: "Rescues" },
           ].map((stat, i) => (
-            <div key={i} className="flex items-center">
-              <div className="flex flex-col items-center gap-1">
-                <span className="text-[24px] font-bold text-white" style={{ fontFamily: "var(--font-outfit)" }}>
-                  {stat.value}
-                </span>
-                <span className="text-[11px] text-white/75" style={{ fontFamily: "var(--font-jakarta)" }}>
-                  {stat.label}
-                </span>
-              </div>
-              {i < 2 && <div className="mx-3 h-8 w-px bg-white/20" />}
+            <div key={i} className="flex flex-col items-center flex-1">
+              <span className="text-[20px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
+                {stat.value}
+              </span>
+              <span className="text-[11px] font-medium text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                {stat.label}
+              </span>
+              {i < 2 && <div className="absolute h-8 w-[1px] bg-[#E8E8E4] right-[33%] top-1/2 -translate-y-1/2 last:right-[66%]" style={i === 1 ? { right: '33%' } : { right: '66%' }} />}
             </div>
           ))}
         </div>
@@ -105,42 +123,37 @@ export function NgoFeed() {
         {/* Radar section */}
         <div className="px-5 pt-5">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-[20px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
+            <h2 className="text-[20px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
               Donations Near You
             </h2>
             <button
               onClick={() => setShowFilters(true)}
-              className="flex items-center gap-1.5 rounded-full px-3 py-1.5"
-              style={{ background: "#F0F4FF", border: "1.5px solid #3B82F6" }}
+              className="flex items-center gap-1.5 rounded-full bg-white px-4 py-2 shadow-sm"
             >
-              <SlidersHorizontal size={14} className="text-[#1E3A8A]" />
-              <span className="text-[13px] font-semibold text-[#1E3A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+              <SlidersHorizontal size={14} className="text-[var(--color-zw-ink)]" />
+              <span className="text-[13px] font-semibold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-jakarta)" }}>
                 Filter
               </span>
             </button>
           </div>
 
-          {/* Radar visualization */}
+          {/* Radar visualization using API Key */}
           <div
-            className="relative overflow-hidden"
+            data-scanner-api-key={MAP_API_KEY}
+            className="relative overflow-hidden mt-3"
             style={{
-              height: "280px",
+              height: "220px",
               borderRadius: "24px",
-              background: "#0A0A0A",
+              background: "#FFFFFF",
+              boxShadow: "0px 4px 16px rgba(0,0,0,0.04)"
             }}
           >
-            {/* Grid overlay */}
-            <div
-              className="absolute inset-0 opacity-30"
-              style={{
-                backgroundImage:
-                  "linear-gradient(0deg, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
-                backgroundSize: "20px 20px",
-              }}
-            />
+            <div className="absolute top-3 left-1/2 -translate-x-1/2 text-[10px] font-medium text-[#1A6B3C] tracking-wide" style={{ fontFamily: "var(--font-jakarta)" }}>
+              Looking for food nearby...
+            </div>
 
-            {/* Radar rings — concentric */}
-            {[80, 140, 200].map((size, i) => (
+            {/* Radar rings — concentric dashed */}
+            {[60, 120, 180].map((size, i) => (
               <motion.div
                 key={i}
                 className="absolute rounded-full"
@@ -151,35 +164,36 @@ export function NgoFeed() {
                   top: "50%",
                   marginLeft: -size / 2,
                   marginTop: -size / 2,
-                  border: `1px solid rgba(59,130,246,${0.6 - i * 0.2})`,
+                  border: `1.5px dashed #C8E8D0`,
+                  opacity: 0.8 - i * 0.15
                 }}
-                animate={{ scale: [1, 1.1, 1], opacity: [0.6, 0.3, 0.6] }}
-                transition={{ duration: 2.2, repeat: Infinity, delay: i * 0.7, ease: "easeOut" }}
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 4, repeat: Infinity, delay: i * 0.5, ease: "easeInOut" }}
               />
             ))}
 
-            {/* Sweep line — rotating */}
+            {/* Sweep line — conic gradient */}
             <motion.div
-              className="absolute"
+              className="absolute rounded-full"
               style={{
                 left: "50%",
                 top: "50%",
-                width: "120px",
-                height: "2px",
-                transformOrigin: "left center",
-                background: "linear-gradient(90deg, rgba(59,130,246,0.6), transparent)",
+                width: "200px",
+                height: "200px",
+                marginLeft: "-100px",
+                marginTop: "-100px",
+                background: "conic-gradient(from 0deg, transparent 70%, rgba(34,197,94,0.3) 100%)",
               }}
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
             />
 
-            {/* Center dot — You */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            {/* Center dot — NGO Location */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
               <div className="relative flex flex-col items-center">
-                <div className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#3B82F6]" style={{ boxShadow: "0 0 12px rgba(59,130,246,0.6)" }} />
-                <span className="absolute top-4 text-[9px] font-bold text-white" style={{ fontFamily: "var(--font-jakarta)" }}>
-                  You
-                </span>
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#1A6B3C] shadow-[0px_0px_12px_rgba(26,107,60,0.5)]">
+                  <div className="h-2 w-2 rounded-full bg-white" />
+                </div>
               </div>
             </div>
 
@@ -202,27 +216,19 @@ export function NgoFeed() {
                   className="absolute -translate-x-1/2 -translate-y-1/2"
                   style={{ left: `${pos.x}%`, top: `${pos.y}%`, zIndex: isActive ? 20 : 10 }}
                 >
-                  {/* Pulse ring for urgent */}
-                  {isUrgent && (
-                    <motion.div
-                      className="absolute inset-0 rounded-full"
-                      style={{ background: "rgba(220,38,38,0.4)" }}
-                      animate={{ scale: [1, 2.5], opacity: [0.6, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
-                    />
-                  )}
+                  {/* Pulse ring */}
+                  <motion.div
+                    className="absolute inset-0 rounded-full bg-[#22C55E]"
+                    animate={{ scale: [1, 2.5], opacity: [0.6, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut", delay: i * 0.3 }}
+                  />
                   {/* Dot */}
                   <div
-                    className="relative flex h-8 w-8 items-center justify-center rounded-full ring-2 ring-white"
+                    className="relative h-3 w-3 rounded-full bg-[#22C55E]"
                     style={{
-                      background: isUrgent ? "#DC2626" : isActive ? "#3B82F6" : "#22C55E",
-                      boxShadow: isUrgent
-                        ? "0 0 12px rgba(220,38,38,0.6)"
-                        : "0 0 12px rgba(34,197,94,0.4)",
+                      boxShadow: "0 0 8px rgba(34,197,94,0.8)",
                     }}
-                  >
-                    <Icon size={14} className="text-white" />
-                  </div>
+                  />
 
                   {/* Tooltip when active */}
                   <AnimatePresence>
@@ -257,47 +263,21 @@ export function NgoFeed() {
             })}
           </div>
 
-          {/* Donor list — horizontal pills */}
-          <div className="-mx-5 mt-4 flex gap-2.5 overflow-x-auto px-5 pb-2">
-            {listed.map((d) => {
-              const Icon = DONOR_ICONS[d.donorType] ?? Building2;
-              return (
-                <motion.button
-                  key={d.id}
-                  whileTap={{ scale: 0.96 }}
-                  onClick={() => setActiveDonation(d.id)}
-                  className="flex flex-shrink-0 items-center gap-2.5 rounded-full bg-white px-3 py-2.5"
-                  style={{ boxShadow: "0px 2px 16px rgba(0,0,0,0.06), 0px 1px 4px rgba(0,0,0,0.04)" }}
-                >
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full" style={{ background: "linear-gradient(135deg, #1E3A8A, #3B82F6)" }}>
-                    <Icon size={14} className="text-white" />
-                  </div>
-                  <div className="flex flex-col items-start">
-                    <span className="text-[13px] font-semibold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
-                      {d.donorName.split(" ").slice(0, 2).join(" ")}
-                    </span>
-                    <span className="text-[10px] text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
-                      {d.pickupDistanceKm}km away
-                    </span>
-                  </div>
-                </motion.button>
-              );
-            })}
-          </div>
+          {/* Donor list removed as per spec */ }
         </div>
 
         {/* Donation feed list */}
-        <div className="mt-6 px-5">
-          <h2 className="mb-3 text-[20px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
-            Active Requests
+        <div className="mt-6 px-5 pb-8">
+          <h2 className="mb-4 text-[20px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
+            New Rescue Requests
           </h2>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
             {listed.map((d, i) => {
               const Icon = DONOR_ICONS[d.donorType] ?? Building2;
-              const hoursToExpiry = (new Date(d.expiryDeadline).getTime() - Date.now()) / 3600000;
-              const isUrgent = hoursToExpiry < 1;
-              const isWarning = hoursToExpiry < 2 && !isUrgent;
-              const accentColor = isUrgent ? "#DC2626" : isWarning ? "#D97706" : "#22C55E";
+              
+              // Colors based on event type
+              const bgColor = d.donorType === "event" || d.donorType === "marriage-hall" ? "#F5E6C8" : "#C8E8D0";
+              const iconColor = d.donorType === "event" || d.donorType === "marriage-hall" ? "#D97706" : "#1A6B3C";
 
               return (
                 <motion.div
@@ -305,74 +285,49 @@ export function NgoFeed() {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.06 }}
-                  className="relative overflow-hidden bg-white"
-                  style={{ borderRadius: "20px", boxShadow: "0px 2px 16px rgba(0,0,0,0.06), 0px 1px 4px rgba(0,0,0,0.04)" }}
+                  className="relative flex flex-col overflow-hidden rounded-[20px] bg-white border border-[#E8E8E4] shadow-[0px_4px_16px_rgba(0,0,0,0.03)] p-4 w-full"
                 >
-                  {/* Left accent bar */}
-                  <div className="absolute left-0 top-0 h-full w-1" style={{ background: accentColor }} />
+                  <div className="flex gap-4">
+                    {/* Left Icon Box */}
+                    <div 
+                      className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-[16px]"
+                      style={{ backgroundColor: bgColor }}
+                    >
+                      <Icon size={28} style={{ color: iconColor }} />
+                    </div>
 
-                  <div className="p-4 pl-5">
-                    {/* Top row */}
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-2.5">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full" style={{ background: `${accentColor}15` }}>
-                          <Icon size={18} style={{ color: accentColor }} />
-                        </div>
-                        <div>
-                          <h3 className="text-[16px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
-                            {d.donorName}
-                          </h3>
-                          <span className="text-[10px] font-bold uppercase tracking-wide" style={{ color: accentColor, fontFamily: "var(--font-jakarta)" }}>
-                            {d.donorType.replace("-", " ")}
-                          </span>
-                        </div>
+                    {/* Content */}
+                    <div className="flex flex-col justify-center flex-1">
+                      <div className="text-[15px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
+                        {d.servings} Servings · {d.title.split(" ")[0]}
                       </div>
-                      {isUrgent && (
-                        <div className="flex items-center gap-1 rounded-full bg-[#DC2626] px-2 py-0.5">
-                          <Flame size={10} className="text-white" />
-                          <span className="text-[10px] font-bold text-white" style={{ fontFamily: "var(--font-outfit)" }}>
-                            URGENT
-                          </span>
-                        </div>
-                      )}
+                      <div className="mt-1 text-[13px] font-medium text-[#4A4A4A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                        {d.donorName}
+                      </div>
+                      <div className="mt-1 flex items-center gap-1.5 text-[12px] font-medium text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                        <MapPin size={12} />
+                        {d.pickupDistanceKm} km away
+                      </div>
                     </div>
+                  </div>
 
-                    {/* Meta row */}
-                    <div className="mt-3 flex flex-wrap items-center gap-4 text-[13px]" style={{ fontFamily: "var(--font-jakarta)" }}>
-                      <span className="flex items-center gap-1 text-[#4A4A4A]">
-                        <MapPin size={13} className="text-[#8A8A8A]" />
-                        {d.pickupDistanceKm} km
-                      </span>
-                      <span className="flex items-center gap-1 font-semibold text-[#1E3A8A]">
-                        <Users size={13} />
-                        ~{d.servings} servings
-                      </span>
-                      <span className="flex items-center gap-1 font-semibold" style={{ color: accentColor }}>
-                        <Clock size={13} />
-                        <Countdown deadline={d.expiryDeadline} variant="compact" />
-                      </span>
-                    </div>
-
-                    {/* Buttons */}
-                    <div className="mt-4 flex gap-2.5">
-                      <button className="flex h-10 flex-1 items-center justify-center gap-1.5 rounded-full border-[1.5px] border-[#E8E8E4] text-[13px] font-semibold text-[#0A0A0A]" style={{ fontFamily: "var(--font-jakarta)" }}>
-                        <Navigation size={14} />
-                        Navigate
-                      </button>
-                      <motion.button
-                        whileTap={{ scale: 0.96 }}
-                        onClick={() => acceptDonation(d.id)}
-                        className="flex h-10 flex-1 items-center justify-center gap-1.5 rounded-full text-[13px] font-semibold text-white"
-                        style={{
-                          background: "linear-gradient(135deg, #1E3A8A, #1a1a3e)",
-                          boxShadow: "0px 8px 24px rgba(30,58,138,0.25)",
-                          fontFamily: "var(--font-outfit)",
-                        }}
-                      >
-                        <CheckCircle size={14} />
-                        Accept
-                      </motion.button>
-                    </div>
+                  {/* Accept Button */}
+                  <div className="mt-4">
+                    <motion.button
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => {
+                        acceptDonation(d.id);
+                        useAppStore.getState().setActiveTrackingId(d.id);
+                        setScreen("ngoDeliveryTracking");
+                      }}
+                      className="flex h-12 w-full items-center justify-center rounded-[12px] text-[15px] font-bold text-white shadow-sm"
+                      style={{
+                        background: "#1A6B3C",
+                        fontFamily: "var(--font-outfit)",
+                      }}
+                    >
+                      Accept & Dispatch
+                    </motion.button>
                   </div>
                 </motion.div>
               );
@@ -411,14 +366,23 @@ export function NgoFeed() {
                 </button>
               </div>
 
-              <div className="mt-6 space-y-6">
+              <div className="mt-6 space-y-8">
                 <div>
-                  <label className="text-[16px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
+                  <label className="text-[18px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
                     Food Type
                   </label>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {["Cooked Meals", "Raw Groceries", "Bakery", "Dairy", "Beverages", "Packaged"].map((type) => (
-                      <button key={type} className="rounded-full px-3 py-1.5 text-[13px] font-semibold" style={{ background: "#F5F5F7", color: "#4A4A4A", fontFamily: "var(--font-jakarta)" }}>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {["All", "Cooked Meals", "Raw Groceries", "Bakery", "Dairy", "Beverages", "Packaged"].map((type) => (
+                      <button 
+                        key={type} 
+                        onClick={() => setFoodTypeFilter(type)}
+                        className="rounded-full px-4 py-2 text-[14px] font-semibold transition-colors" 
+                        style={{ 
+                          background: foodTypeFilter === type ? "var(--color-zw-ink)" : "var(--color-zw-bg)", 
+                          color: foodTypeFilter === type ? "#FFFFFF" : "var(--color-zw-ink-secondary)", 
+                          fontFamily: "var(--font-jakarta)" 
+                        }}
+                      >
                         {type}
                       </button>
                     ))}
@@ -426,26 +390,40 @@ export function NgoFeed() {
                 </div>
 
                 <div>
-                  <div className="flex items-center justify-between">
-                    <label className="text-[16px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
+                  <div className="flex items-center justify-between mb-3">
+                    <label className="text-[18px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
                       Distance
                     </label>
-                    <span className="text-[13px] font-bold text-[#1E3A8A]" style={{ fontFamily: "var(--font-outfit)" }}>
-                      5km
+                    <span className="text-[14px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
+                      {distanceFilter}km
                     </span>
                   </div>
-                  <div className="mt-2 h-1.5 rounded-full bg-[#E8E8E4]">
-                    <div className="h-full w-1/2 rounded-full bg-[#1E3A8A]" />
-                  </div>
+                  <input
+                    type="range"
+                    min="1"
+                    max="50"
+                    value={distanceFilter}
+                    onChange={(e) => setDistanceFilter(Number(e.target.value))}
+                    className="w-full accent-[var(--color-zw-ink)]"
+                  />
                 </div>
 
                 <div>
-                  <label className="text-[16px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
+                  <label className="text-[18px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
                     Urgency
                   </label>
-                  <div className="mt-2 flex gap-2">
-                    {["All", "Urgent", "Normal"].map((u, i) => (
-                      <button key={u} className="rounded-full px-4 py-1.5 text-[13px] font-semibold" style={{ background: i === 0 ? "#1E3A8A" : "#F5F5F7", color: i === 0 ? "#FFFFFF" : "#4A4A4A", fontFamily: "var(--font-jakarta)" }}>
+                  <div className="mt-3 flex gap-2">
+                    {["All", "Urgent", "Normal"].map((u) => (
+                      <button 
+                        key={u} 
+                        onClick={() => setUrgencyFilter(u)}
+                        className="rounded-full px-5 py-2 text-[14px] font-semibold transition-colors" 
+                        style={{ 
+                          background: urgencyFilter === u ? "var(--color-zw-ink)" : "var(--color-zw-bg)", 
+                          color: urgencyFilter === u ? "#FFFFFF" : "var(--color-zw-ink-secondary)", 
+                          fontFamily: "var(--font-jakarta)" 
+                        }}
+                      >
                         {u}
                       </button>
                     ))}
@@ -455,10 +433,10 @@ export function NgoFeed() {
 
               <button
                 onClick={() => setShowFilters(false)}
-                className="mt-6 flex h-13 w-full items-center justify-center rounded-full py-3.5 text-[17px] font-semibold text-white"
-                style={{ background: "linear-gradient(135deg, #1E3A8A, #1a1a3e)", boxShadow: "0px 8px 24px rgba(30,58,138,0.25)", fontFamily: "var(--font-outfit)" }}
+                className="mt-8 flex h-14 w-full items-center justify-center rounded-full text-[18px] font-bold text-white transition-transform active:scale-95"
+                style={{ background: "var(--color-zw-ink)", fontFamily: "var(--font-outfit)" }}
               >
-                Apply Filters
+                Show Results ({listed.length})
               </button>
             </motion.div>
           </>
