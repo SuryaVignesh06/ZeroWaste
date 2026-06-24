@@ -16,10 +16,16 @@ export function UserSetup() {
   // Step 1 Data
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
-  const [showLocationDrawer, setShowLocationDrawer] = useState(false);
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setProfileImage(URL.createObjectURL(e.target.files[0]));
+    }
+  };
 
   // Step 2 Data
-  const [interest, setInterest] = useState("");
+  const [interest, setInterest] = useState<string[]>([]);
   const [dietary, setDietary] = useState<string[]>([]);
   const [alertsEnabled, setAlertsEnabled] = useState(true);
 
@@ -34,11 +40,11 @@ export function UserSetup() {
     if (step === 1) {
       if (name && location) setStep(2);
     } else if (step === 2) {
-      if (interest) {
+      if (interest.length > 0) {
         saveUserProfile({
           userName: name,
           userLocationText: location,
-          userPreferences: { interest, dietary, alertsEnabled },
+          userPreferences: { interest: interest.join(", "), dietary, alertsEnabled },
         });
         setSuccess(true);
       }
@@ -92,18 +98,21 @@ export function UserSetup() {
 
                 {/* Avatar Uploader */}
                 <div className="mt-8 flex justify-center">
-                  <div className="relative">
+                  <label className="relative cursor-pointer">
+                    <input type="file" accept="image/*" capture="user" className="hidden" onChange={handleImageUpload} />
                     <div className="flex h-24 w-24 items-center justify-center rounded-full bg-[#E8E8E4] overflow-hidden border-4 border-white shadow-sm">
-                      {initials ? (
+                      {profileImage ? (
+                        <img src={profileImage} alt="Profile" className="h-full w-full object-cover" />
+                      ) : initials ? (
                         <span className="text-[32px] font-bold text-[#1A6B3C]" style={{ fontFamily: "var(--font-outfit)" }}>{initials}</span>
                       ) : (
                         <UserPlaceholder />
                       )}
                     </div>
-                    <button className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-[#1A6B3C] border-2 border-white text-white shadow-sm">
+                    <div className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-[#1A6B3C] border-2 border-white text-white shadow-sm">
                       <Camera size={14} />
-                    </button>
-                  </div>
+                    </div>
+                  </label>
                 </div>
 
                 {/* Fields */}
@@ -125,14 +134,15 @@ export function UserSetup() {
                     <label className="mb-2 block text-[13px] font-bold text-[#4A4A4A] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta)" }}>
                       Location
                     </label>
-                    <div
-                      onClick={() => setShowLocationDrawer(true)}
-                      className="flex w-full items-center gap-3 rounded-[16px] border border-[#E8E8E4] bg-white px-4 py-4 text-[16px]"
-                    >
-                      <MapPin size={18} className="text-[#8A8A8A]" />
-                      <span className={`font-medium ${location ? "text-[#0A0A0A]" : "text-[#8A8A8A]"}`}>
-                        {location || "Search your area"}
-                      </span>
+                    <div className="relative">
+                      <MapPin size={18} className="absolute left-4 top-4 text-[#8A8A8A]" />
+                      <input
+                        type="text"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        placeholder="e.g. Koramangala, Bangalore"
+                        className="w-full rounded-[16px] border border-[#E8E8E4] bg-white p-4 pl-11 text-[16px] font-medium text-[#0A0A0A] focus:border-[#1A6B3C] focus:outline-none"
+                      />
                     </div>
                     <button className="mt-2 text-[13px] font-semibold text-[#1A6B3C]" style={{ fontFamily: "var(--font-jakarta)" }}>
                       Use my current location
@@ -155,19 +165,18 @@ export function UserSetup() {
                   What are you most interested in?
                 </p>
 
-                {/* 2x2 Grid */}
+                {/* Grid */}
                 <div className="mt-8 grid grid-cols-2 gap-3">
                   {[
                     { id: "buy", icon: ShoppingBag, label: "Buying Groceries" },
                     { id: "donate", icon: HeartHandshake, label: "Donating Food" },
                     { id: "volunteer", icon: Bike, label: "Volunteering" },
-                    { id: "all", icon: Sparkles, label: "All of the above" },
                   ].map((item) => (
                     <button
                       key={item.id}
-                      onClick={() => setInterest(item.id)}
+                      onClick={() => setInterest((prev) => prev.includes(item.id) ? prev.filter(i => i !== item.id) : [...prev, item.id])}
                       className={`flex flex-col items-center justify-center gap-3 rounded-[20px] border p-4 transition-all ${
-                        interest === item.id
+                        interest.includes(item.id)
                           ? "border-[#1A6B3C] bg-[#F0F7F2] text-[#1A6B3C]"
                           : "border-[#E8E8E4] bg-white text-[#4A4A4A]"
                       }`}
@@ -240,7 +249,7 @@ export function UserSetup() {
         <div className="fixed bottom-0 left-0 right-0 bg-white p-6 shadow-[0_-8px_20px_rgba(0,0,0,0.04)]">
           <button
             onClick={handleNext}
-            disabled={(step === 1 && (!name || !location)) || (step === 2 && !interest)}
+            disabled={(step === 1 && (!name || !location)) || (step === 2 && interest.length === 0)}
             className="flex h-14 w-full items-center justify-center rounded-full bg-[#1A6B3C] text-[17px] font-bold text-white transition-opacity disabled:opacity-50 shadow-[0_8px_20px_rgba(26,107,60,0.25)]"
             style={{ fontFamily: "var(--font-outfit)" }}
           >
@@ -249,45 +258,7 @@ export function UserSetup() {
         </div>
       )}
 
-      {/* Location Bottom Sheet (Mock) */}
-      <AnimatePresence>
-        {showLocationDrawer && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setShowLocationDrawer(false)}
-              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
-            />
-            <motion.div
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed bottom-0 left-0 right-0 z-50 rounded-t-[32px] bg-white px-6 pb-10 pt-4"
-            >
-              <div className="mx-auto mb-6 h-1.5 w-12 rounded-full bg-[#E8E8E4]" />
-              <h3 className="text-[20px] font-bold text-[#0A0A0A] mb-4" style={{ fontFamily: "var(--font-outfit)" }}>Select Area</h3>
-              <div className="flex flex-col gap-2">
-                {CITIES.map((city) => (
-                  <button
-                    key={city}
-                    onClick={() => {
-                      setLocation(city);
-                      setShowLocationDrawer(false);
-                    }}
-                    className="flex items-center gap-3 rounded-[16px] p-4 text-left transition-colors hover:bg-[#F7F5F0] active:bg-[#F7F5F0]"
-                  >
-                    <MapPin size={18} className="text-[#8A8A8A]" />
-                    <span className="text-[16px] font-medium text-[#0A0A0A]">{city}</span>
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+
 
       {/* Success Screen */}
       <AnimatePresence>

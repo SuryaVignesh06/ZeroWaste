@@ -16,6 +16,7 @@ interface TabDef {
 const TABS_BY_ROLE: Record<Role, TabDef[]> = {
   user: [
     { id: "home", icon: Home, screen: "userHome", label: "Home" },
+    { id: "shop", icon: Store, screen: "marketplace", label: "Shop" },
     { id: "donate", icon: Camera, screen: "donateFood", label: "Donate", center: true },
     { id: "track", icon: MapPin, screen: "donationTracking", label: "Track" },
     { id: "profile", icon: User, screen: "userProfile", label: "Profile" },
@@ -38,7 +39,7 @@ const TABS_BY_ROLE: Record<Role, TabDef[]> = {
 };
 
 const homeScreensByRole: Record<Role, string[]> = {
-  user: ["home", "userHome", "checkout", "orderStatus", "donateFood", "donationTracking"],
+  user: ["home", "userHome", "checkout", "orderStatus", "donateFood", "donationTracking", "marketplace"],
   ngo: ["ngoFeed", "ngoMap"],
   shop: ["shop-dashboard"],
   volunteer: ["volunteerHome"],

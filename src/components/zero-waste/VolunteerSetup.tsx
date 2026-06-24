@@ -18,7 +18,13 @@ export function VolunteerSetup() {
   const [location, setLocation] = useState("");
   const [vehicle, setVehicle] = useState("");
   const [availability, setAvailability] = useState("");
-  const [showLocationDrawer, setShowLocationDrawer] = useState(false);
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setProfileImage(URL.createObjectURL(e.target.files[0]));
+    }
+  };
 
   // Step 2
   const [radius, setRadius] = useState(5);
@@ -98,18 +104,21 @@ export function VolunteerSetup() {
 
                 {/* Avatar Uploader */}
                 <div className="mt-8 flex justify-center">
-                  <div className="relative">
+                  <label className="relative cursor-pointer">
+                    <input type="file" accept="image/*" capture="user" className="hidden" onChange={handleImageUpload} />
                     <div className="flex h-24 w-24 items-center justify-center rounded-full bg-[#E8E8E4] overflow-hidden border-4 border-white shadow-sm">
-                      {initials ? (
+                      {profileImage ? (
+                        <img src={profileImage} alt="Profile" className="h-full w-full object-cover" />
+                      ) : initials ? (
                         <span className="text-[32px] font-bold text-[#D97706]" style={{ fontFamily: "var(--font-outfit)" }}>{initials}</span>
                       ) : (
                         <UserPlaceholder />
                       )}
                     </div>
-                    <button className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-[#D97706] border-2 border-white text-white shadow-sm">
+                    <div className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-[#D97706] border-2 border-white text-white shadow-sm">
                       <Camera size={14} />
-                    </button>
-                  </div>
+                    </div>
+                  </label>
                 </div>
 
                 <div className="mt-10 flex flex-col gap-6">
@@ -130,14 +139,15 @@ export function VolunteerSetup() {
                     <label className="mb-2 block text-[13px] font-bold text-[#4A4A4A] uppercase tracking-wider" style={{ fontFamily: "var(--font-jakarta)" }}>
                       Primary Location
                     </label>
-                    <div
-                      onClick={() => setShowLocationDrawer(true)}
-                      className="flex w-full items-center gap-3 rounded-[16px] border border-[#E8E8E4] bg-white px-4 py-4 text-[16px]"
-                    >
-                      <MapPin size={18} className="text-[#8A8A8A]" />
-                      <span className={`font-medium ${location ? "text-[#0A0A0A]" : "text-[#8A8A8A]"}`}>
-                        {location || "Select operating area"}
-                      </span>
+                    <div className="relative">
+                      <MapPin size={18} className="absolute left-4 top-4 text-[#8A8A8A]" />
+                      <input
+                        type="text"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        placeholder="e.g. Indiranagar, Bangalore"
+                        className="w-full rounded-[16px] border border-[#E8E8E4] bg-white p-4 pl-11 text-[16px] font-medium text-[#0A0A0A] focus:border-[#D97706] focus:outline-none"
+                      />
                     </div>
                   </div>
 
@@ -282,45 +292,7 @@ export function VolunteerSetup() {
         </div>
       )}
 
-      {/* Location Drawer */}
-      <AnimatePresence>
-        {showLocationDrawer && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setShowLocationDrawer(false)}
-              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
-            />
-            <motion.div
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed bottom-0 left-0 right-0 z-50 rounded-t-[32px] bg-white px-6 pb-10 pt-4"
-            >
-              <div className="mx-auto mb-6 h-1.5 w-12 rounded-full bg-[#E8E8E4]" />
-              <h3 className="text-[20px] font-bold text-[#0A0A0A] mb-4" style={{ fontFamily: "var(--font-outfit)" }}>Select Area</h3>
-              <div className="flex flex-col gap-2">
-                {CITIES.map((city) => (
-                  <button
-                    key={city}
-                    onClick={() => {
-                      setLocation(city);
-                      setShowLocationDrawer(false);
-                    }}
-                    className="flex items-center gap-3 rounded-[16px] p-4 text-left transition-colors hover:bg-[#F7F5F0] active:bg-[#F7F5F0]"
-                  >
-                    <MapPin size={18} className="text-[#8A8A8A]" />
-                    <span className="text-[16px] font-medium text-[#0A0A0A]">{city}</span>
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+
 
       {/* Success Screen */}
       <AnimatePresence>

@@ -126,11 +126,28 @@ function Step1({ form, setForm }: { form: DonationForm, setForm: any }) {
       <p className="mt-1.5 text-[14px] text-[#4A4A4A]" style={{ fontFamily: "var(--font-jakarta)" }}>Be accurate so NGOs can plan effectively.</p>
 
       {/* Photo Upload Zone */}
-      <div className="mt-6 flex h-[200px] w-full flex-col items-center justify-center gap-3 rounded-[24px] border-2 border-dashed border-[#D0D0CC] bg-white shadow-[0px_2px_16px_rgba(0,0,0,0.06)]">
-        <Camera size={36} className="text-[#8A8A8A]" />
-        <div className="text-[16px] font-semibold text-[#4A4A4A]" style={{ fontFamily: "var(--font-outfit)" }}>Add food photos</div>
-        <div className="text-[13px] font-normal text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>Tap to take photo or upload from gallery</div>
-      </div>
+      <label className="mt-6 flex h-[200px] w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-[24px] border-2 border-dashed border-[#D0D0CC] bg-white shadow-[0px_2px_16px_rgba(0,0,0,0.06)] overflow-hidden relative">
+        <input 
+          type="file" 
+          accept="image/*" 
+          capture="environment" 
+          className="hidden" 
+          onChange={(e) => {
+            if (e.target.files && e.target.files[0]) {
+              setForm({ photos: [URL.createObjectURL(e.target.files[0])] });
+            }
+          }}
+        />
+        {form.photos && form.photos.length > 0 ? (
+          <img src={form.photos[0]} alt="Food" className="absolute inset-0 h-full w-full object-cover" />
+        ) : (
+          <>
+            <Camera size={36} className="text-[#8A8A8A]" />
+            <div className="text-[16px] font-semibold text-[#4A4A4A]" style={{ fontFamily: "var(--font-outfit)" }}>Add food photos</div>
+            <div className="text-[13px] font-normal text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>Tap to take photo or upload from gallery</div>
+          </>
+        )}
+      </label>
 
       {/* Food Name */}
       <div className="mt-6">
