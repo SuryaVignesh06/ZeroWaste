@@ -105,14 +105,14 @@ export function NgoFeed() {
             { value: "98%", label: "Success" },
             { value: "2.4k", label: "Rescues" },
           ].map((stat, i) => (
-            <div key={i} className="flex flex-col items-center flex-1">
+            <div key={i} className="flex flex-col items-center flex-1 relative">
               <span className="text-[20px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
                 {stat.value}
               </span>
               <span className="text-[11px] font-medium text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
                 {stat.label}
               </span>
-              {i < 2 && <div className="absolute h-8 w-[1px] bg-[#E8E8E4] right-[33%] top-1/2 -translate-y-1/2 last:right-[66%]" style={i === 1 ? { right: '33%' } : { right: '66%' }} />}
+              {i < 2 && <div className="absolute h-8 w-[1px] bg-[#E8E8E4] -right-[1px] top-1/2 -translate-y-1/2" />}
             </div>
           ))}
         </div>
@@ -135,6 +135,36 @@ export function NgoFeed() {
                 Filter
               </span>
             </button>
+          </div>
+
+          {/* Available Volunteers Section */}
+          <div className="mb-8 mt-2">
+            <h3 className="text-[15px] font-bold text-[#0A0A0A] mb-3" style={{ fontFamily: "var(--font-outfit)" }}>
+              Active Volunteers Directory
+            </h3>
+            <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar -mx-5 px-5">
+              {[
+                { name: "Rahul S.", dist: "0.8km", phone: "9876543210" },
+                { name: "Ayesha M.", dist: "1.2km", phone: "9876543211" },
+                { name: "Vikram K.", dist: "2.1km", phone: "9876543212" },
+                { name: "Pooja R.", dist: "3.4km", phone: "9876543213" },
+              ].map((vol, i) => (
+                <div key={i} className="flex min-w-[140px] flex-col items-center rounded-[20px] border border-[#E8E8E4] bg-white p-4 shadow-[0px_4px_16px_rgba(0,0,0,0.03)] shrink-0">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#F5E6C8]">
+                    <Users size={24} className="text-[#D97706]" />
+                  </div>
+                  <div className="mt-3 text-center">
+                    <div className="text-[14px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>{vol.name}</div>
+                    <div className="mt-0.5 flex items-center justify-center gap-1 text-[11px] font-medium text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                      <MapPin size={10} /> {vol.dist}
+                    </div>
+                  </div>
+                  <a href={`tel:${vol.phone}`} className="mt-4 flex h-9 w-full items-center justify-center rounded-full bg-[#1A6B3C] text-[13px] font-bold text-white shadow-sm transition-transform active:scale-95" style={{ fontFamily: "var(--font-outfit)" }}>
+                    Call
+                  </a>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Radar visualization using API Key */}
@@ -304,13 +334,23 @@ export function NgoFeed() {
                         {isBulk && (
                           <span className="rounded-full bg-[#86198F] px-1.5 py-0.5 text-[9px] font-bold text-white uppercase tracking-wider">Bulk</span>
                         )}
+                        {((new Date(d.expiryDeadline).getTime() - Date.now()) / 3600000) < 2 && (
+                          <span className="rounded-full bg-[#DC2626] px-1.5 py-0.5 text-[9px] font-bold text-white uppercase tracking-wider">Urgent</span>
+                        )}
                       </div>
-                      <div className="mt-1 text-[13px] font-medium text-[#4A4A4A]" style={{ fontFamily: "var(--font-jakarta)" }}>
-                        {d.donorName}
+                      <div className="mt-1 flex items-center justify-between text-[13px] font-medium text-[#4A4A4A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                        <span>{d.donorName}</span>
+                        <a href="tel:1234567890" className="text-[#1A6B3C] text-[12px] font-bold underline" onClick={(e) => e.stopPropagation()}>Call Donor</a>
                       </div>
-                      <div className="mt-1 flex items-center gap-1.5 text-[12px] font-medium text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
-                        <MapPin size={12} />
-                        {d.pickupDistanceKm} km away
+                      <div className="mt-1.5 flex items-center gap-3 text-[12px] font-medium text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                        <div className="flex items-center gap-1">
+                          <MapPin size={12} />
+                          {d.pickupDistanceKm} km away
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock size={12} className="text-[#DC2626]" />
+                          <Countdown deadline={d.expiryDeadline} variant="compact" />
+                        </div>
                       </div>
                     </div>
                   </div>
