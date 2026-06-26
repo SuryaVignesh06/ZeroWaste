@@ -20,10 +20,10 @@ export function VolunteerHome() {
       {/* HEADER */}
       <div className="px-5 pt-12 pb-4 flex justify-between items-start">
         <div>
-          <h1 className="text-xl font-bold text-[#0A0A0A] flex items-center gap-2" style={{ fontFamily: "var(--font-heading)" }}>
-            ðŸ‘‹ Good morning, {volunteerProfile.displayName.split(" ")[0]}!
+          <h1 className="text-xl font-bold text-[#0A0A0A] flex items-center gap-2" style={{ fontFamily: "var(--font-outfit)" }}>
+            👋 Good morning, {volunteerProfile.displayName.split(" ")[0]}!
           </h1>
-          <p className="text-[#4A4A4A] flex items-center gap-1 mt-1 text-sm font-medium" style={{ fontFamily: "var(--font-body)" }}>
+          <p className="text-[#4A4A4A] flex items-center gap-1 mt-1 text-sm font-medium" style={{ fontFamily: "var(--font-jakarta)" }}>
             <MapPin size={14} className="text-[#1B5E8A]" /> T Nagar, Chennai
           </p>
         </div>
@@ -56,11 +56,11 @@ export function VolunteerHome() {
           >
             <div className="flex items-center gap-2 mb-3">
               <span className="w-2 h-2 rounded-full bg-[#C94F3A] animate-pulse" />
-              <h3 className="text-white text-xs font-bold uppercase tracking-widest" style={{ fontFamily: "var(--font-body)" }}>Active Mission</h3>
+              <h3 className="text-white text-xs font-bold uppercase tracking-widest" style={{ fontFamily: "var(--font-jakarta)" }}>Active Mission</h3>
             </div>
             
             <div className="space-y-1 mb-4">
-              <p className="text-white font-bold" style={{ fontFamily: "var(--font-heading)" }}>
+              <p className="text-white font-bold" style={{ fontFamily: "var(--font-outfit)" }}>
                 Picking up: <span className="text-[#E8A020]">Vegetable Biryani ({activeMission.servings})</span>
               </p>
               <p className="text-[#9CA3AF] text-sm">From: {activeMission.providerName}</p>
@@ -100,22 +100,22 @@ export function VolunteerHome() {
             <motion.div variants={fadeUp} className="flex gap-2">
               <div className="flex-1 bg-white border border-[#E5E5E5] rounded-2xl p-3 text-center flex flex-col items-center justify-center shadow-sm">
                 <Clock size={20} className="text-[#1B5E8A] mb-1" />
-                <p className="text-[#0A0A0A] font-bold text-xl" style={{ fontFamily: "var(--font-heading)" }}>3.5h</p>
+                <p className="text-[#0A0A0A] font-bold text-xl" style={{ fontFamily: "var(--font-outfit)" }}>3.5h</p>
                 <p className="text-[#8A8A8A] text-[10px] font-medium uppercase tracking-wider">Today</p>
               </div>
               <div className="flex-1 bg-white border border-[#E5E5E5] rounded-2xl p-3 text-center flex flex-col items-center justify-center shadow-sm">
                 <Package size={20} className="text-[#1B5E8A] mb-1" />
-                <p className="text-[#0A0A0A] font-bold text-xl" style={{ fontFamily: "var(--font-heading)" }}>4</p>
+                <p className="text-[#0A0A0A] font-bold text-xl" style={{ fontFamily: "var(--font-outfit)" }}>4</p>
                 <p className="text-[#8A8A8A] text-[10px] font-medium uppercase tracking-wider">Pickups</p>
               </div>
               <div className="flex-1 bg-white border border-[#E5E5E5] rounded-2xl p-3 text-center flex flex-col items-center justify-center shadow-sm">
                 <Utensils size={20} className="text-[#1B5E8A] mb-1" />
-                <p className="text-[#0A0A0A] font-bold text-xl" style={{ fontFamily: "var(--font-heading)" }}>280</p>
+                <p className="text-[#0A0A0A] font-bold text-xl" style={{ fontFamily: "var(--font-outfit)" }}>280</p>
                 <p className="text-[#8A8A8A] text-[10px] font-medium uppercase tracking-wider">Meals</p>
               </div>
               <div className="flex-1 bg-white border border-[#E5E5E5] rounded-2xl p-3 text-center flex flex-col items-center justify-center shadow-sm">
                 <IndianRupee size={20} className="text-[#1B5E8A] mb-1" />
-                <p className="text-[#0A0A0A] font-bold text-xl" style={{ fontFamily: "var(--font-heading)" }}>140</p>
+                <p className="text-[#0A0A0A] font-bold text-xl" style={{ fontFamily: "var(--font-outfit)" }}>140</p>
                 <p className="text-[#8A8A8A] text-[10px] font-medium uppercase tracking-wider">Earned</p>
               </div>
             </motion.div>
@@ -128,7 +128,7 @@ export function VolunteerHome() {
             >
               <div className="flex items-center gap-2 mb-2">
                 <Flame size={20} className="text-[#E8C547]" />
-                <h3 className="font-bold text-lg" style={{ fontFamily: "var(--font-heading)" }}>7-Day Streak!</h3>
+                <h3 className="font-bold text-lg" style={{ fontFamily: "var(--font-outfit)" }}>7-Day Streak!</h3>
               </div>
               <p className="text-white/80 text-sm mb-4">You've been active 7 days in a row!</p>
               
@@ -150,22 +150,22 @@ export function VolunteerHome() {
             <motion.div variants={fadeUp} className="bg-[#0F2942] rounded-[20px] p-5 text-white shadow-md">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="font-bold flex items-center gap-2 text-white"><TrendingUp size={18} className="text-[#4CAF7D]"/> This Month</h3>
-                <span className="text-xs font-bold bg-white/10 px-2 py-1 rounded-md text-white/90">Sep â–¼</span>
+                <span className="text-xs font-bold bg-white/10 px-2 py-1 rounded-md text-white/90">Sep ▼</span>
               </div>
               
               <div className="flex justify-between bg-white/5 rounded-xl p-3 mb-4">
                 <div className="text-center">
-                  <p className="text-white/60 text-xs mb-0.5">ðŸ• Hours</p>
+                  <p className="text-white/60 text-xs mb-0.5">🕐 Hours</p>
                   <p className="font-bold text-white">{volunteerProfile.totalHours}</p>
                 </div>
                 <div className="w-[1px] bg-white/10" />
                 <div className="text-center">
-                  <p className="text-white/60 text-xs mb-0.5">ðŸ“¦ Pickups</p>
+                  <p className="text-white/60 text-xs mb-0.5">📦 Pickups</p>
                   <p className="font-bold text-white">{volunteerProfile.totalDeliveries}</p>
                 </div>
                 <div className="w-[1px] bg-white/10" />
                 <div className="text-center">
-                  <p className="text-white/60 text-xs mb-0.5">ðŸ½ï¸ Meals</p>
+                  <p className="text-white/60 text-xs mb-0.5">🍽️ Meals</p>
                   <p className="font-bold text-white">1,240</p>
                 </div>
               </div>
@@ -177,7 +177,7 @@ export function VolunteerHome() {
                 ))}
               </div>
 
-              <p className="text-[#E8A020] text-sm font-bold text-center">Top 5% volunteer in Chennai! ðŸ†</p>
+              <p className="text-[#E8A020] text-sm font-bold text-center">Top 5% volunteer in Chennai! 🏆</p>
             </motion.div>
 
             {/* NEARBY OPPORTUNITIES */}
@@ -203,7 +203,7 @@ export function VolunteerHome() {
                         onClick={() => setActiveScreen("volunteerMap")}
                         className="w-full py-1.5 bg-[#E8A020] text-white text-xs font-bold rounded-full shadow-sm"
                       >
-                        Accept â†’
+                        Accept →
                       </button>
                     </div>
                   </div>
@@ -215,13 +215,13 @@ export function VolunteerHome() {
             <motion.div variants={fadeUp} className="bg-[#0F2942] rounded-[20px] p-5 text-white shadow-md">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="font-bold flex items-center gap-2 text-white"><Trophy size={18} className="text-[#E8A020]"/> Leaderboard</h3>
-                <span className="text-xs font-bold bg-white/10 px-2 py-1 rounded-md text-white/90">Your City â–¼</span>
+                <span className="text-xs font-bold bg-white/10 px-2 py-1 rounded-md text-white/90">Your City ▼</span>
               </div>
               
               <div className="space-y-2 mb-4">
                 <div className="flex items-center justify-between p-2 rounded-lg bg-white/5">
                   <div className="flex items-center gap-3">
-                    <span className="text-lg">ðŸ¥‡</span>
+                    <span className="text-lg">🥇</span>
                     <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold">RS</div>
                     <span className="font-medium text-sm">Rahul S</span>
                   </div>
@@ -229,7 +229,7 @@ export function VolunteerHome() {
                 </div>
                 <div className="flex items-center justify-between p-2 rounded-lg bg-white/5">
                   <div className="flex items-center gap-3">
-                    <span className="text-lg">ðŸ¥ˆ</span>
+                    <span className="text-lg">🥈</span>
                     <div className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-xs font-bold">MK</div>
                     <span className="font-medium text-sm">Meena K</span>
                   </div>
@@ -237,7 +237,7 @@ export function VolunteerHome() {
                 </div>
                 <div className="flex items-center justify-between p-2 rounded-lg" style={{ backgroundColor: "rgba(232,160,32,0.15)", borderLeft: "3px solid #E8A020" }}>
                   <div className="flex items-center gap-3">
-                    <span className="text-lg">ðŸ¥‰</span>
+                    <span className="text-lg">🥉</span>
                     <div className="w-8 h-8 rounded-full bg-[#E8A020] flex items-center justify-center text-xs font-bold">YOU</div>
                     <span className="font-medium text-sm">You</span>
                   </div>
@@ -245,9 +245,9 @@ export function VolunteerHome() {
                 </div>
               </div>
               
-              <p className="text-sm text-center text-white/80 mb-2">You're #3 in Chennai! ðŸŽ‰</p>
+              <p className="text-sm text-center text-white/80 mb-2">You're #3 in Chennai! 🎉</p>
               <button className="w-full py-2 text-[#E8A020] text-xs font-bold border border-[#E8A020]/30 rounded-full">
-                View Full Leaderboard â†’
+                View Full Leaderboard →
               </button>
             </motion.div>
 
@@ -270,7 +270,7 @@ export function VolunteerHome() {
                 22 more hours to unlock your official 50-Hour Service Certificate from ZeroWaste!
               </p>
               <button className="text-[#1B5E8A] text-xs font-bold flex items-center gap-1">
-                See All Milestones â†’
+                See All Milestones →
               </button>
             </motion.div>
 
@@ -283,14 +283,14 @@ export function VolunteerHome() {
                   <p className="text-sm leading-snug mb-1 text-white">
                     <span className="font-bold text-[#4CAF7D]">Rahul</span> just completed a pickup from Saravana Bhavan!
                   </p>
-                  <p className="text-xs text-[#9CA3AF]">+180 meals rescued Â· 5min ago</p>
+                  <p className="text-xs text-[#9CA3AF]">+180 meals rescued · 5min ago</p>
                 </div>
                 
                 <div className="bg-white/5 rounded-xl p-3">
                   <p className="text-sm leading-snug mb-1 text-white">
-                    <span className="font-bold text-[#E8A020]">Meena</span> hit 100 hour milestone! Congrats! ðŸŽ‰
+                    <span className="font-bold text-[#E8A020]">Meena</span> hit 100 hour milestone! Congrats! 🎉
                   </p>
-                  <p className="text-xs text-[#9CA3AF]">Â· 12min ago</p>
+                  <p className="text-xs text-[#9CA3AF]">· 12min ago</p>
                 </div>
               </div>
             </motion.div>
@@ -302,8 +302,8 @@ export function VolunteerHome() {
               <div className="absolute inset-0 bg-red-500/5 rounded-[32px] animate-pulse" />
               <Clock size={36} className="text-[#8A8A8A]" />
             </div>
-            <h2 className="text-2xl font-black text-[#0A0A0A] tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>You're Offline</h2>
-            <p className="text-[#8A8A8A] text-sm mt-3 max-w-[250px] leading-relaxed" style={{ fontFamily: "var(--font-body)" }}>
+            <h2 className="text-2xl font-black text-[#0A0A0A] tracking-tight" style={{ fontFamily: "var(--font-outfit)" }}>You're Offline</h2>
+            <p className="text-[#8A8A8A] text-sm mt-3 max-w-[250px] leading-relaxed" style={{ fontFamily: "var(--font-jakarta)" }}>
               Toggle your status to <strong className="text-[#4CAF7D]">Online</strong> above to start receiving food rescue missions in your area.
             </p>
           </motion.div>

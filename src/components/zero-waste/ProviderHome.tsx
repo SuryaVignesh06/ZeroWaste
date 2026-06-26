@@ -40,7 +40,7 @@ export function ProviderHome() {
     <ScreenWrapper>
       <div className="flex flex-col gap-5 pt-4 relative z-10">
         
-        {/* â”€â”€ Header â”€â”€ */}
+        {/* ── Header ── */}
         <motion.div 
           initial={{ y: -16, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -48,7 +48,7 @@ export function ProviderHome() {
           className="flex items-center justify-between"
         >
           <div>
-            <p className="text-body-lg text-text-secondary">Good morning ðŸ‘‹</p>
+            <p className="text-body-lg text-text-secondary">Good morning 👋</p>
             <h1 className="text-display mt-0.5">{user.name}</h1>
           </div>
 
@@ -66,7 +66,7 @@ export function ProviderHome() {
           </motion.div>
         </motion.div>
 
-        {/* â”€â”€ Stats Row â”€â”€ */}
+        {/* ── Stats Row ── */}
         <motion.div 
           initial={{ opacity: 0, y: 12, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -97,7 +97,7 @@ export function ProviderHome() {
           )}
         </motion.div>
 
-        {/* â”€â”€ Quick Add Banner (Donor) â”€â”€ */}
+        {/* ── Quick Add Banner (Donor) ── */}
         {subRole === "donor" && (
           <motion.button
             initial={{ opacity: 0, y: 12 }}
@@ -116,14 +116,14 @@ export function ProviderHome() {
               <Plus size={22} className="text-[#7CA13B]" />
             </div>
             <div className="flex-1">
-              <p className="font-heading font-bold text-[15px] text-[#1A1A1A]">Donate or Sell Surplus</p>
-              <p className="font-body text-[12px] text-text-secondary mt-0.5">List your food in 30 seconds</p>
+              <p className="font-outfit font-bold text-[15px] text-[#1A1A1A]">Donate or Sell Surplus</p>
+              <p className="font-jakarta text-[12px] text-text-secondary mt-0.5">List your food in 30 seconds</p>
             </div>
             <ChevronRight size={18} className="text-text-muted shrink-0" />
           </motion.button>
         )}
 
-        {/* â”€â”€ Shopkeeper Quick Add Banner â”€â”€ */}
+        {/* ── Shopkeeper Quick Add Banner ── */}
         {subRole === "shopkeeper" && (
           <motion.button
             initial={{ opacity: 0, y: 12 }}
@@ -142,14 +142,14 @@ export function ProviderHome() {
               <Plus size={22} className="text-[#3F6E9C]" />
             </div>
             <div className="flex-1">
-              <p className="font-heading font-bold text-[15px] text-[#1A1A1A]">Add to Inventory</p>
-              <p className="font-body text-[12px] text-text-secondary mt-0.5">Track and manage your stock</p>
+              <p className="font-outfit font-bold text-[15px] text-[#1A1A1A]">Add to Inventory</p>
+              <p className="font-jakarta text-[12px] text-text-secondary mt-0.5">Track and manage your stock</p>
             </div>
             <ChevronRight size={18} className="text-text-muted shrink-0" />
           </motion.button>
         )}
 
-        {/* â•â• DONOR SECTION â•â• */}
+        {/* ══ DONOR SECTION ══ */}
         {subRole === "donor" && (
           <motion.div
             variants={staggerChildren}
@@ -164,7 +164,7 @@ export function ProviderHome() {
                 <div className="w-16 h-16 bg-[#9BC84A]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle2 size={32} className="text-[#9BC84A]" />
                 </div>
-                <h3 className="font-heading font-bold text-[17px]">All clear!</h3>
+                <h3 className="font-outfit font-bold text-[17px]">All clear!</h3>
                 <p className="text-body mt-2 text-text-secondary">No open pull requests right now.</p>
               </motion.div>
             )}
@@ -182,7 +182,7 @@ export function ProviderHome() {
                     fallbackInitial={pr.ngoName[0]}
                     title={pr.ngoName}
                     subtitle={isAccepted ? "Waiting for Pickup" : "Needs Food Now"}
-                    progressLabel={isAccepted ? "âœ… Accepted" : `${Math.round(remainingTime / (1000 * 60 * 60))}h remaining`}
+                    progressLabel={isAccepted ? "✅ Accepted" : `${Math.round(remainingTime / (1000 * 60 * 60))}h remaining`}
                     progressValue={progressValue}
                     progressColor={isAccepted ? "#9BC84A" : "#F2D15A"}
                     onTopRightAction={() => setActiveScreen("activity-history")}
@@ -190,7 +190,7 @@ export function ProviderHome() {
                     onAction1={() => setActiveScreen("activity-history")}
                     onAction2={() => handleAcceptRequest(pr.id)}
                     action1Icon={
-                      <span className="font-heading font-bold text-[11px] text-text-secondary">Details</span>
+                      <span className="font-outfit font-bold text-[11px] text-text-secondary">Details</span>
                     }
                     action2Icon={
                       <div
@@ -208,7 +208,7 @@ export function ProviderHome() {
               );
             })}
 
-            {/* â”€â”€ Active Listings (Donations & Sells) â”€â”€ */}
+            {/* ── Active Listings (Donations & Sells) ── */}
             <div className="mt-4">
               <SectionHeader title="Your Active Listings" />
             </div>
@@ -218,7 +218,7 @@ export function ProviderHome() {
                 <div className="w-16 h-16 bg-[#F2D15A]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Package size={32} className="text-[#D4AF37]" />
                 </div>
-                <h3 className="font-heading font-bold text-[17px]">No listings yet</h3>
+                <h3 className="font-outfit font-bold text-[17px]">No listings yet</h3>
                 <p className="text-body mt-2 text-text-secondary">Your surplus food listings will appear here.</p>
               </motion.div>
             ) : (
@@ -235,7 +235,7 @@ export function ProviderHome() {
                       fallbackInitial={title[0]}
                       title={title}
                       subtitle={`${qty} available`}
-                      progressLabel={isSell ? `Listed for â‚¹${item.sellingPrice}` : "Listed for Donation"}
+                      progressLabel={isSell ? `Listed for ₹${item.sellingPrice}` : "Listed for Donation"}
                       progressValue={progressValue}
                       progressColor={isSell ? "#F2D15A" : "#9BC84A"}
                       onTopRightAction={() => {}}
@@ -263,7 +263,7 @@ export function ProviderHome() {
           </motion.div>
         )}
 
-        {/* â•â• SHOPKEEPER SECTION â•â• */}
+        {/* ══ SHOPKEEPER SECTION ══ */}
         {subRole === "shopkeeper" && (
           <motion.div
             variants={staggerChildren}
@@ -278,7 +278,7 @@ export function ProviderHome() {
                 <div className="w-16 h-16 bg-[#9BC84A]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle2 size={32} className="text-[#9BC84A]" />
                 </div>
-                <h3 className="font-heading font-bold text-[17px]">All caught up!</h3>
+                <h3 className="font-outfit font-bold text-[17px]">All caught up!</h3>
                 <p className="text-body mt-2 text-text-secondary">No items expiring soon.</p>
               </motion.div>
             ) : (

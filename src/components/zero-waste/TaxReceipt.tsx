@@ -33,7 +33,7 @@ export function TaxReceipt() {
         >
           <ArrowLeft size={20} className="text-[var(--color-dark-text)]" />
         </button>
-        <h1 className="font-heading text-[20px] font-bold text-[var(--color-dark-text)]">
+        <h1 className="font-outfit text-[20px] font-bold text-[var(--color-dark-text)]">
           Tax Receipt
         </h1>
         <div className="w-10" />
@@ -54,33 +54,33 @@ export function TaxReceipt() {
             <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-3">
               <FileText size={24} className="text-blue-600" />
             </div>
-            <h2 className="font-heading text-[20px] font-bold text-[var(--color-dark-text)]">
+            <h2 className="font-outfit text-[20px] font-bold text-[var(--color-dark-text)]">
               80G Donation Certificate
             </h2>
-            <p className="font-body text-[12px] text-[var(--color-muted-text)] mt-1">
+            <p className="font-jakarta text-[12px] text-[var(--color-muted-text)] mt-1">
               Receipt No: {receiptNumber}
             </p>
           </div>
 
           <div className="space-y-4 relative z-10">
             <div className="flex justify-between items-end border-b border-gray-100 pb-3">
-              <span className="font-body text-[13px] text-[var(--color-muted-text)]">Donor Name</span>
-              <span className="font-heading text-[15px] font-bold text-[var(--color-dark-text)] text-right">{user.name}</span>
+              <span className="font-jakarta text-[13px] text-[var(--color-muted-text)]">Donor Name</span>
+              <span className="font-outfit text-[15px] font-bold text-[var(--color-dark-text)] text-right">{user.name}</span>
             </div>
             
             <div className="flex justify-between items-end border-b border-gray-100 pb-3">
-              <span className="font-body text-[13px] text-[var(--color-muted-text)]">Financial Year</span>
-              <span className="font-heading text-[15px] font-bold text-[var(--color-dark-text)] text-right">2023-24</span>
+              <span className="font-jakarta text-[13px] text-[var(--color-muted-text)]">Financial Year</span>
+              <span className="font-outfit text-[15px] font-bold text-[var(--color-dark-text)] text-right">2023-24</span>
             </div>
 
             <div className="flex justify-between items-end border-b border-gray-100 pb-3">
-              <span className="font-body text-[13px] text-[var(--color-muted-text)]">Total Donations</span>
-              <span className="font-heading text-[15px] font-bold text-[var(--color-dark-text)] text-right">{user.totalDonations} items</span>
+              <span className="font-jakarta text-[13px] text-[var(--color-muted-text)]">Total Donations</span>
+              <span className="font-outfit text-[15px] font-bold text-[var(--color-dark-text)] text-right">{user.totalDonations} items</span>
             </div>
 
             <div className="flex justify-between items-end pt-2">
-              <span className="font-body text-[14px] font-bold text-[var(--color-dark-text)]">Eligible Amount</span>
-              <span className="font-heading text-[24px] font-bold text-blue-600">â‚¹{totalTaxValue.toLocaleString()}</span>
+              <span className="font-jakarta text-[14px] font-bold text-[var(--color-dark-text)]">Eligible Amount</span>
+              <span className="font-outfit text-[24px] font-bold text-blue-600">₹{totalTaxValue.toLocaleString()}</span>
             </div>
           </div>
 
@@ -99,7 +99,7 @@ export function TaxReceipt() {
           <button
             onClick={handleDownload}
             disabled={downloading || downloaded}
-            className={`w-full h-[60px] rounded-full font-heading text-[18px] font-bold flex items-center justify-center gap-2 transition-all ${
+            className={`w-full h-[60px] rounded-full font-outfit text-[18px] font-bold flex items-center justify-center gap-2 transition-all ${
               downloaded 
                 ? "bg-[var(--color-success)] text-white" 
                 : "bg-blue-600 text-white shadow-[0_8px_24px_rgba(37,99,235,0.25)] hover:bg-blue-700"

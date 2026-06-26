@@ -37,12 +37,12 @@ export function NGOStats() {
             <div className="relative z-10">
               <div className="flex items-center gap-2 mb-2">
                 <BarChart3 size={20} className="text-white/80" />
-                <h3 className="font-bold text-[16px] text-white/90" style={{ fontFamily: "var(--font-heading)" }}>Meals this week</h3>
+                <h3 className="font-bold text-[16px] text-white/90" style={{ fontFamily: "var(--font-outfit)" }}>Meals this week</h3>
               </div>
-              <p className="text-[48px] font-bold text-[#F5B840] leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
+              <p className="text-[48px] font-bold text-[#F5B840] leading-tight" style={{ fontFamily: "var(--font-outfit)" }}>
                 {ngoUser.totalMealsDistributed}
               </p>
-              <div className="mt-2 text-[14px] text-white/70 font-medium" style={{ fontFamily: "var(--font-body)" }}>
+              <div className="mt-2 text-[14px] text-white/70 font-medium" style={{ fontFamily: "var(--font-jakarta)" }}>
                 +14% from last week
               </div>
             </div>
@@ -57,19 +57,19 @@ export function NGOStats() {
         >
           <div className="flex items-center gap-2 mb-4">
             <Radio className="text-[#1B5E8A]" size={24} />
-            <h2 className="text-[20px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>Pull a Request</h2>
+            <h2 className="text-[20px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>Pull a Request</h2>
           </div>
-          <p className="text-[14px] text-[#4A4A4A] mb-4" style={{ fontFamily: "var(--font-body)" }}>
+          <p className="text-[14px] text-[#4A4A4A] mb-4" style={{ fontFamily: "var(--font-jakarta)" }}>
             Notify nearby donors about urgent requirements.
           </p>
 
           <LightCard className="p-5 flex flex-col gap-4">
             <div className="flex flex-col gap-1.5">
-              <label className="text-[13px] font-bold text-[#8A8A8A] uppercase tracking-wider" style={{ fontFamily: "var(--font-heading)" }}>Food Type</label>
+              <label className="text-[13px] font-bold text-[#8A8A8A] uppercase tracking-wider" style={{ fontFamily: "var(--font-outfit)" }}>Food Type</label>
               <input type="text" placeholder="e.g. Rice & Curry" className="w-full bg-[#FAFAF8] border border-[#E8E8E4] rounded-xl px-4 py-3 text-[15px] focus:outline-none focus:border-[#1B5E8A] transition-colors" />
             </div>
             <div className="flex flex-col gap-1.5">
-              <label className="text-[13px] font-bold text-[#8A8A8A] uppercase tracking-wider" style={{ fontFamily: "var(--font-heading)" }}>Quantity Needed</label>
+              <label className="text-[13px] font-bold text-[#8A8A8A] uppercase tracking-wider" style={{ fontFamily: "var(--font-outfit)" }}>Quantity Needed</label>
               <input type="number" placeholder="e.g. 50 servings" className="w-full bg-[#FAFAF8] border border-[#E8E8E4] rounded-xl px-4 py-3 text-[15px] focus:outline-none focus:border-[#1B5E8A] transition-colors" />
             </div>
             

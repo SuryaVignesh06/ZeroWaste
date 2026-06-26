@@ -16,7 +16,7 @@ export interface CelebrationScreenProps {
   onSecondaryAction?: () => void;
 }
 
-// â”€â”€ Donor Animation (Heart/Life Saving) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Donor Animation (Heart/Life Saving) ──────────────────────────────────
 const DonorAnimation = () => (
   <div className="relative w-56 h-56 flex items-center justify-center">
     <motion.div
@@ -60,7 +60,7 @@ const DonorAnimation = () => (
   </div>
 );
 
-// â”€â”€ Shopkeeper Animation (Shop Building) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Shopkeeper Animation (Shop Building) ─────────────────────────────────
 const ShopkeeperAnimation = () => (
   <div className="relative w-64 h-64 flex items-center justify-center">
     <motion.div
@@ -124,7 +124,7 @@ const ShopkeeperAnimation = () => (
   </div>
 );
 
-// â”€â”€ Volunteer Animation (Delivery / Happy) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Volunteer Animation (Delivery / Happy) ────────────────────────────────
 const VolunteerAnimation = () => (
   <div className="relative w-56 h-56 flex items-center justify-center">
     <motion.div
@@ -166,7 +166,7 @@ const VolunteerAnimation = () => (
   </div>
 );
 
-// â”€â”€ Role Configs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Role Configs ────────────────────────────────────────────────────────
 const CONFIGS = {
   donor: {
     bg: "linear-gradient(145deg, #6B9E2B 0%, #3A6915 100%)",
@@ -185,7 +185,7 @@ const CONFIGS = {
   },
 } as const;
 
-// â”€â”€ Main Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Main Component ───────────────────────────────────────────────────────
 export function CelebrationScreen({
   mode,
   title,
@@ -248,10 +248,10 @@ export function CelebrationScreen({
           transition={{ type: "spring", stiffness: 300, damping: 24, delay: 0.4 }}
           className="flex flex-col items-center gap-3"
         >
-          <h1 className="font-heading font-black text-[40px] leading-[1.1] text-white drop-shadow-md">
+          <h1 className="font-outfit font-black text-[40px] leading-[1.1] text-white drop-shadow-md">
             {title}
           </h1>
-          <p className="font-body text-[16px] text-white/90 max-w-[280px] leading-relaxed font-medium">
+          <p className="font-jakarta text-[16px] text-white/90 max-w-[280px] leading-relaxed font-medium">
             {subtitle}
           </p>
 
@@ -265,7 +265,7 @@ export function CelebrationScreen({
               style={{ background: "rgba(255,255,255,0.2)" }}
             >
               <Star size={20} className="fill-[#F2D15A] text-[#F2D15A] drop-shadow-sm" />
-              <span className="font-heading font-black text-[17px] text-white tracking-wide">
+              <span className="font-outfit font-black text-[17px] text-white tracking-wide">
                 +{points} Points Earned!
               </span>
             </motion.div>
@@ -297,7 +297,7 @@ export function CelebrationScreen({
           {secondaryCtaLabel && onSecondaryAction && (
             <button
               onClick={onSecondaryAction}
-              className={`w-full py-3.5 rounded-full font-heading font-bold text-[17px] border-2 transition-transform active:scale-95 ${
+              className={`w-full py-3.5 rounded-full font-outfit font-bold text-[17px] border-2 transition-transform active:scale-95 ${
                 mode === "donor"
                   ? "border-[#9BC84A] text-[#9BC84A] hover:bg-[#9BC84A]/10"
                   : mode === "shopkeeper"
@@ -311,7 +311,7 @@ export function CelebrationScreen({
           
           <button
             onClick={onDone}
-            className={`w-full py-4 rounded-full font-heading font-bold text-[17px] flex items-center justify-center gap-2 transition-transform active:scale-95 ${
+            className={`w-full py-4 rounded-full font-outfit font-bold text-[17px] flex items-center justify-center gap-2 transition-transform active:scale-95 ${
               mode === "donor" 
                 ? "bg-white text-[#5A8C2A] shadow-[0_0_30px_rgba(255,255,255,0.4)]" 
                 : mode === "shopkeeper"

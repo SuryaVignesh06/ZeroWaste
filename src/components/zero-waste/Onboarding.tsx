@@ -83,7 +83,7 @@ export function Onboarding() {
             whileTap={{ scale: 0.95 }}
             onClick={() => setScreen("roleSelect")}
             className="rounded-full bg-white/50 px-4 py-2 text-[14px] font-bold text-[var(--color-zw-ink)] shadow-sm backdrop-blur-md"
-            style={{ fontFamily: "var(--font-body)" }}
+            style={{ fontFamily: "var(--font-jakarta)" }}
           >
             Skip
           </motion.button>
@@ -123,7 +123,7 @@ export function Onboarding() {
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                     className="absolute -bottom-4 -left-8 rounded-2xl bg-white px-4 py-3 shadow-lg"
                   >
-                    <span className="text-[14px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-heading)" }}>+50 Meals Rescued</span>
+                    <span className="text-[14px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>+50 Meals Rescued</span>
                   </motion.div>
                 </div>
               )}
@@ -141,7 +141,7 @@ export function Onboarding() {
                     transition={{ delay: 0.3, type: "spring", bounce: 0.6 }}
                     className="absolute -left-6 -bottom-6 flex h-20 w-20 items-center justify-center rounded-full bg-[var(--color-zw-ink)] shadow-lg"
                   >
-                    <span className="text-[20px] font-bold text-white" style={{ fontFamily: "var(--font-heading)" }}>-70%</span>
+                    <span className="text-[20px] font-bold text-white" style={{ fontFamily: "var(--font-outfit)" }}>-70%</span>
                   </motion.div>
                   {/* Floating badge */}
                   <motion.div
@@ -150,8 +150,8 @@ export function Onboarding() {
                     className="absolute -right-12 top-12 rounded-2xl bg-white px-4 py-3 shadow-lg"
                   >
                     <div className="flex flex-col">
-                      <span className="text-[10px] font-bold text-[var(--color-zw-ink-secondary)] line-through" style={{ fontFamily: "var(--font-body)" }}>â‚¹120</span>
-                      <span className="text-[16px] font-bold text-[var(--color-pastel-green)]" style={{ fontFamily: "var(--font-heading)" }}>â‚¹35</span>
+                      <span className="text-[10px] font-bold text-[var(--color-zw-ink-secondary)] line-through" style={{ fontFamily: "var(--font-jakarta)" }}>₹120</span>
+                      <span className="text-[16px] font-bold text-[var(--color-pastel-green)]" style={{ fontFamily: "var(--font-outfit)" }}>₹35</span>
                     </div>
                   </motion.div>
                 </div>
@@ -204,14 +204,14 @@ export function Onboarding() {
                 className="mb-4 inline-flex items-center rounded-full px-4 py-1.5 shadow-sm"
                 style={{ background: slide.color }}
               >
-                <span className="text-[12px] font-bold uppercase tracking-wider text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-body)" }}>
+                <span className="text-[12px] font-bold uppercase tracking-wider text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-jakarta)" }}>
                   {slide.eyebrow}
                 </span>
               </div>
-              <h1 className="text-[36px] font-extrabold leading-[1.1] text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-heading)" }}>
+              <h1 className="text-[36px] font-extrabold leading-[1.1] text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
                 {slide.title}
               </h1>
-              <p className="mt-4 text-[16px] font-medium leading-[1.6] text-[var(--color-zw-ink-secondary)]" style={{ fontFamily: "var(--font-body)" }}>
+              <p className="mt-4 text-[16px] font-medium leading-[1.6] text-[var(--color-zw-ink-secondary)]" style={{ fontFamily: "var(--font-jakarta)" }}>
                 {slide.subtitle}
               </p>
             </motion.div>
@@ -244,7 +244,7 @@ export function Onboarding() {
             }}
           >
             {isLast ? (
-              <span className="text-[16px] font-bold" style={{ fontFamily: "var(--font-heading)" }}>Go</span>
+              <span className="text-[16px] font-bold" style={{ fontFamily: "var(--font-outfit)" }}>Go</span>
             ) : (
               <ArrowRight size={28} />
             )}

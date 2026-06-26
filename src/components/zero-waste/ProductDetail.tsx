@@ -47,14 +47,14 @@ export function ProductDetail() {
         <motion.div variants={slideInRight} initial="initial" animate="animate" className="px-6 py-6 flex flex-col gap-6">
           {/* Title & Price */}
           <div>
-            <h1 className="text-2xl font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>{mockListing.name}</h1>
+            <h1 className="text-2xl font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>{mockListing.name}</h1>
             <p className="text-[#8A8A8A] mt-1 font-medium">{mockListing.providerName}</p>
             
             <div className="flex items-end gap-3 mt-4">
               {mockListing.mode === "sell" ? (
                 <>
-                  <span className="text-[#0A0A0A] font-bold text-3xl" style={{ fontFamily: "var(--font-heading)" }}>â‚¹{mockListing.discountPrice}</span>
-                  <span className="text-[#8A8A8A] text-lg line-through pb-0.5">â‚¹{mockListing.mrp}</span>
+                  <span className="text-[#0A0A0A] font-bold text-3xl" style={{ fontFamily: "var(--font-outfit)" }}>₹{mockListing.discountPrice}</span>
+                  <span className="text-[#8A8A8A] text-lg line-through pb-0.5">₹{mockListing.mrp}</span>
                 </>
               ) : (
                 <span className="bg-[#F0F7F2] text-[#1A6B3C] px-4 py-2 rounded-xl font-bold text-lg">
@@ -107,7 +107,7 @@ export function ProductDetail() {
           className="h-[56px] w-full rounded-full text-[17px] font-bold text-white transition-all relative overflow-hidden"
           style={{ 
             background: mockListing.mode === "donate" ? "#1A6B3C" : "#D97706",
-            fontFamily: "var(--font-heading)",
+            fontFamily: "var(--font-outfit)",
             boxShadow: mockListing.mode === "donate" ? "0 8px 24px rgba(26,107,60,0.25)" : "0 8px 24px rgba(217,119,6,0.25)"
           }}
         >

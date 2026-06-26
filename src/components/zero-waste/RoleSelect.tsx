@@ -97,12 +97,12 @@ export function RoleSelect() {
                         <Utensils size={24} strokeWidth={1.8} className="text-[#D4AF37]" />
                       </div>
                       <div>
-                        <h2 className="font-heading text-[18px] font-semibold text-text-primary tracking-tight">Donor & Shopkeeper</h2>
-                        <p className="font-body text-[13px] text-text-secondary mt-0.5">Hotels, Shops & Individuals</p>
+                        <h2 className="font-outfit text-[18px] font-semibold text-text-primary tracking-tight">Donor & Shopkeeper</h2>
+                        <p className="font-jakarta text-[13px] text-text-secondary mt-0.5">Hotels, Shops & Individuals</p>
                       </div>
                     </div>
                     <div className="w-8 h-8 rounded-full bg-white/60 backdrop-blur-sm flex items-center justify-center text-text-secondary shadow-sm border border-white/50">
-                      <span className="text-lg font-bold">â†’</span>
+                      <span className="text-lg font-bold">→</span>
                     </div>
                   </div>
                 </GlassSurface>
@@ -130,12 +130,12 @@ export function RoleSelect() {
                         <Building2 size={24} strokeWidth={1.8} className="text-[#3F6E9C]" />
                       </div>
                       <div>
-                        <h2 className="font-heading text-[18px] font-semibold text-text-primary tracking-tight">NGO & Receiver</h2>
-                        <p className="font-body text-[13px] text-text-secondary mt-0.5">Organizations & People in need</p>
+                        <h2 className="font-outfit text-[18px] font-semibold text-text-primary tracking-tight">NGO & Receiver</h2>
+                        <p className="font-jakarta text-[13px] text-text-secondary mt-0.5">Organizations & People in need</p>
                       </div>
                     </div>
                     <div className="w-8 h-8 rounded-full bg-white/60 backdrop-blur-sm flex items-center justify-center text-text-secondary shadow-sm border border-white/50">
-                      <span className="text-lg font-bold">â†’</span>
+                      <span className="text-lg font-bold">→</span>
                     </div>
                   </div>
                 </GlassSurface>
@@ -163,12 +163,12 @@ export function RoleSelect() {
                         <Bike size={24} strokeWidth={1.8} className="text-[#7CA13B]" />
                       </div>
                       <div>
-                        <h2 className="font-heading text-[18px] font-semibold text-text-primary tracking-tight">Volunteer</h2>
-                        <p className="font-body text-[13px] text-text-secondary mt-0.5">NSS Students & Riders</p>
+                        <h2 className="font-outfit text-[18px] font-semibold text-text-primary tracking-tight">Volunteer</h2>
+                        <p className="font-jakarta text-[13px] text-text-secondary mt-0.5">NSS Students & Riders</p>
                       </div>
                     </div>
                     <div className="w-8 h-8 rounded-full bg-white/60 backdrop-blur-sm flex items-center justify-center text-text-secondary shadow-sm border border-white/50">
-                      <span className="text-lg font-bold">â†’</span>
+                      <span className="text-lg font-bold">→</span>
                     </div>
                   </div>
                 </GlassSurface>
@@ -236,8 +236,8 @@ export function RoleSelect() {
                         <Utensils size={24} strokeWidth={1.5} />
                       </div>
                       <div>
-                        <h2 className="font-heading text-[18px] font-semibold text-text-primary tracking-tight">I'm a Donor</h2>
-                        <p className="font-body text-[13px] text-text-secondary mt-0.5">Hotels, Marriage Halls, Hostels & Individuals</p>
+                        <h2 className="font-outfit text-[18px] font-semibold text-text-primary tracking-tight">I'm a Donor</h2>
+                        <p className="font-jakarta text-[13px] text-text-secondary mt-0.5">Hotels, Marriage Halls, Hostels & Individuals</p>
                       </div>
                     </div>
                     
@@ -289,8 +289,8 @@ export function RoleSelect() {
                         <Store size={24} strokeWidth={1.5} />
                       </div>
                       <div>
-                        <h2 className="font-heading text-[18px] font-semibold text-text-primary tracking-tight">I'm a Shopkeeper</h2>
-                        <p className="font-body text-[13px] text-text-secondary mt-0.5">Grocery, Bakery, Restaurant & Supermarket</p>
+                        <h2 className="font-outfit text-[18px] font-semibold text-text-primary tracking-tight">I'm a Shopkeeper</h2>
+                        <p className="font-jakarta text-[13px] text-text-secondary mt-0.5">Grocery, Bakery, Restaurant & Supermarket</p>
                       </div>
                     </div>
                     
@@ -344,8 +344,8 @@ export function RoleSelect() {
                             <Building2 size={24} strokeWidth={1.5} />
                           </div>
                           <div>
-                            <h2 className="font-heading text-[18px] font-semibold text-text-primary tracking-tight">I'm an NGO</h2>
-                            <p className="font-body text-[13px] text-text-secondary mt-0.5">Government registered organizations</p>
+                            <h2 className="font-outfit text-[18px] font-semibold text-text-primary tracking-tight">I'm an NGO</h2>
+                            <p className="font-jakarta text-[13px] text-text-secondary mt-0.5">Government registered organizations</p>
                           </div>
                         </div>
                         
@@ -397,8 +397,8 @@ export function RoleSelect() {
                             <Utensils size={24} strokeWidth={1.5} />
                           </div>
                           <div>
-                            <h2 className="font-heading text-[18px] font-semibold text-text-primary tracking-tight">I'm a Recipient</h2>
-                            <p className="font-body text-[13px] text-text-secondary mt-0.5">People seeking food support</p>
+                            <h2 className="font-outfit text-[18px] font-semibold text-text-primary tracking-tight">I'm a Recipient</h2>
+                            <p className="font-jakarta text-[13px] text-text-secondary mt-0.5">People seeking food support</p>
                           </div>
                         </div>
                         
@@ -425,7 +425,7 @@ export function RoleSelect() {
                 onClick={handleSubRoleContinue} 
                 disabled={!selectedSubRole}
               >
-                Continue â†’
+                Continue →
               </PrimaryButton>
             </motion.div>
           </motion.div>

@@ -1,24 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Oswald, Poppins } from "next/font/google";
+import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const headingFont = Oswald({
-  variable: "--font-heading",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
-const bodyFont = Poppins({
-  variable: "--font-body",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Zero-Waste â€” Food Rescue & Affordable Groceries",
+  title: "Zero-Waste — Food Rescue & Affordable Groceries",
   description:
     "AI-powered food rescue and affordable grocery ecosystem. Connect surplus food with people who need it.",
 };
@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${headingFont.variable} ${bodyFont.variable} antialiased`}
+        className={`${outfit.variable} ${jakarta.variable} antialiased`}
       >
         {children}
         <Toaster />

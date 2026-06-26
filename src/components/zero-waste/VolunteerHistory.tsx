@@ -22,7 +22,7 @@ export function VolunteerHistory() {
           >
             <ArrowLeft size={20} />
           </motion.button>
-          <h1 className="text-xl font-bold" style={{ fontFamily: "var(--font-heading)" }}>Pickups</h1>
+          <h1 className="text-xl font-bold" style={{ fontFamily: "var(--font-outfit)" }}>Pickups</h1>
         </div>
         <button className="flex items-center gap-1.5 text-sm font-bold bg-white px-3 py-1.5 rounded-full shadow-sm border border-gray-200">
           <Filter size={14} /> Filter
@@ -35,12 +35,12 @@ export function VolunteerHistory() {
           <div className="flex-1 bg-[#1B5E8A] text-white rounded-[16px] p-4 shadow-sm relative overflow-hidden">
             <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-white/10 rounded-full blur-xl" />
             <p className="text-white/80 text-xs font-bold uppercase tracking-wider mb-1">Total</p>
-            <p className="font-bold text-2xl" style={{ fontFamily: "var(--font-heading)" }}>34</p>
+            <p className="font-bold text-2xl" style={{ fontFamily: "var(--font-outfit)" }}>34</p>
           </div>
           <div className="flex-1 bg-[#4CAF7D] text-white rounded-[16px] p-4 shadow-sm relative overflow-hidden">
             <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-white/10 rounded-full blur-xl" />
             <p className="text-white/80 text-xs font-bold uppercase tracking-wider mb-1">This Week</p>
-            <p className="font-bold text-2xl" style={{ fontFamily: "var(--font-heading)" }}>4</p>
+            <p className="font-bold text-2xl" style={{ fontFamily: "var(--font-outfit)" }}>4</p>
           </div>
         </div>
 
@@ -51,8 +51,8 @@ export function VolunteerHistory() {
             <div className="h-16 w-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
               <History size={24} className="text-gray-400" />
             </div>
-            <h3 className="text-lg font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>No Pickups Yet</h3>
-            <p className="text-[#8A8A8A] text-sm mt-2 leading-relaxed" style={{ fontFamily: "var(--font-body)" }}>
+            <h3 className="text-lg font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>No Pickups Yet</h3>
+            <p className="text-[#8A8A8A] text-sm mt-2 leading-relaxed" style={{ fontFamily: "var(--font-jakarta)" }}>
               Your completed rescues will appear here. Go to the map to find your first pickup!
             </p>
           </div>
@@ -75,10 +75,10 @@ export function VolunteerHistory() {
                       <PackageCheck size={20} />
                     </div>
                     <div>
-                      <p className="font-bold text-[#0A0A0A] text-[16px] leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                      <p className="font-bold text-[#0A0A0A] text-[16px] leading-tight" style={{ fontFamily: "var(--font-outfit)" }}>
                         {mission.servings} Meals Delivered
                       </p>
-                      <p className="text-xs text-[#8A8A8A] font-medium mt-0.5 flex items-center gap-1" style={{ fontFamily: "var(--font-body)" }}>
+                      <p className="text-xs text-[#8A8A8A] font-medium mt-0.5 flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
                         <Calendar size={12} />
                         {mission.completedAt?.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                       </p>

@@ -55,7 +55,7 @@ export function RequestFood() {
         >
           <ArrowLeft size={20} className="text-[#0A0A0A]" />
         </button>
-        <h1 className="text-lg font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>
+        <h1 className="text-lg font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
           Request Food
         </h1>
         <div className="w-10" />
@@ -70,15 +70,15 @@ export function RequestFood() {
                 <HandHeart size={24} className="text-[#86198F]" />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>Food Requirement</h2>
-                <p className="text-sm text-[#8A8A8A]" style={{ fontFamily: "var(--font-body)" }}>Providers nearby will be notified</p>
+                <h2 className="text-lg font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>Food Requirement</h2>
+                <p className="text-sm text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>Providers nearby will be notified</p>
               </div>
             </div>
 
             <div className="space-y-5">
               {/* Servings */}
               <div>
-                <label className="text-[13px] font-semibold text-[#8A8A8A] block mb-2" style={{ fontFamily: "var(--font-body)" }}>
+                <label className="text-[13px] font-semibold text-[#8A8A8A] block mb-2" style={{ fontFamily: "var(--font-jakarta)" }}>
                   How many servings needed?
                 </label>
                 <div className="relative">
@@ -95,7 +95,7 @@ export function RequestFood() {
 
               {/* Urgency */}
               <div>
-                <label className="text-[13px] font-semibold text-[#8A8A8A] block mb-2" style={{ fontFamily: "var(--font-body)" }}>
+                <label className="text-[13px] font-semibold text-[#8A8A8A] block mb-2" style={{ fontFamily: "var(--font-jakarta)" }}>
                   How urgently do you need it?
                 </label>
                 <div className="grid grid-cols-3 gap-2">
@@ -131,7 +131,7 @@ export function RequestFood() {
 
               {/* Dietary Notes */}
               <div>
-                <label className="text-[13px] font-semibold text-[#8A8A8A] block mb-2" style={{ fontFamily: "var(--font-body)" }}>
+                <label className="text-[13px] font-semibold text-[#8A8A8A] block mb-2" style={{ fontFamily: "var(--font-jakarta)" }}>
                   Dietary Restrictions (Optional)
                 </label>
                 <input
@@ -145,7 +145,7 @@ export function RequestFood() {
 
               {/* Special Instructions */}
               <div>
-                <label className="text-[13px] font-semibold text-[#8A8A8A] block mb-2" style={{ fontFamily: "var(--font-body)" }}>
+                <label className="text-[13px] font-semibold text-[#8A8A8A] block mb-2" style={{ fontFamily: "var(--font-jakarta)" }}>
                   Special Instructions (Optional)
                 </label>
                 <textarea
@@ -166,7 +166,7 @@ export function RequestFood() {
             className="mt-4 h-[56px] w-full rounded-full text-[17px] font-bold text-white transition-all disabled:opacity-50 relative overflow-hidden"
             style={{ 
               background: receiverType === "ngo" ? "#1E3A8A" : "#86198F",
-              fontFamily: "var(--font-heading)",
+              fontFamily: "var(--font-outfit)",
               boxShadow: receiverType === "ngo" ? "0 8px 24px rgba(30,58,138,0.25)" : "0 8px 24px rgba(134,25,143,0.25)"
             }}
           >
@@ -219,7 +219,7 @@ export function RequestFood() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
               className="text-2xl font-bold text-center px-6"
-              style={{ fontFamily: "var(--font-heading)" }}
+              style={{ fontFamily: "var(--font-outfit)" }}
             >
               Request Posted!
             </motion.h2>
@@ -228,7 +228,7 @@ export function RequestFood() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
               className="mt-2 text-white/80 text-center px-8"
-              style={{ fontFamily: "var(--font-body)" }}
+              style={{ fontFamily: "var(--font-jakarta)" }}
             >
               Nearby donors have been notified. You will receive an alert when someone accepts your request.
             </motion.p>

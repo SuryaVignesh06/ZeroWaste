@@ -47,7 +47,7 @@ export function SplashScreen() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.5, ease: "easeOut" }}
           className="mt-4 text-[28px] font-extrabold text-white tracking-[3px]"
-          style={{ fontFamily: "var(--font-heading)" }}
+          style={{ fontFamily: "var(--font-outfit)" }}
         >
           ZERO WASTE
         </motion.h1>
@@ -57,7 +57,7 @@ export function SplashScreen() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.65, ease: "easeOut" }}
           className="mt-2 text-[15px] font-normal text-white/75 text-center px-8"
-          style={{ fontFamily: "var(--font-body)" }}
+          style={{ fontFamily: "var(--font-jakarta)" }}
         >
           Food should feed people, not landfills.
         </motion.p>

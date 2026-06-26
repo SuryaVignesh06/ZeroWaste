@@ -97,7 +97,7 @@ export function ReservationInbox() {
       {/* Header */}
       <div className="bg-white px-6 pt-12 pb-4 shadow-sm relative z-20">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>
+          <h1 className="text-2xl font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
             {providerMode === "donate" ? "Donation Requests" : "Reservations"}
           </h1>
           {providerMode === "sell" && (
@@ -117,7 +117,7 @@ export function ReservationInbox() {
             className={`flex-1 rounded-full py-2 text-sm font-semibold transition-all ${
               activeTab === "pending" ? "bg-white text-[#0A0A0A] shadow-sm" : "text-[#8A8A8A]"
             }`}
-            style={{ fontFamily: "var(--font-body)" }}
+            style={{ fontFamily: "var(--font-jakarta)" }}
           >
             {providerMode === "donate" ? "Pending" : "Active"}
           </button>
@@ -126,7 +126,7 @@ export function ReservationInbox() {
             className={`flex-1 rounded-full py-2 text-sm font-semibold transition-all ${
               activeTab === "completed" ? "bg-white text-[#0A0A0A] shadow-sm" : "text-[#8A8A8A]"
             }`}
-            style={{ fontFamily: "var(--font-body)" }}
+            style={{ fontFamily: "var(--font-jakarta)" }}
           >
             Completed
           </button>
@@ -145,7 +145,7 @@ export function ReservationInbox() {
                       {req.receiverType === "ngo" ? <Building2 size={14} className="text-[#1A6B3C]" /> : <User size={14} className="text-[#1A6B3C]" />}
                     </div>
                     <div>
-                      <h3 className="font-bold text-[#0A0A0A] text-[15px]" style={{ fontFamily: "var(--font-heading)" }}>{req.receiverName}</h3>
+                      <h3 className="font-bold text-[#0A0A0A] text-[15px]" style={{ fontFamily: "var(--font-outfit)" }}>{req.receiverName}</h3>
                       <p className="text-[#8A8A8A] text-xs font-medium">{req.location.address}</p>
                     </div>
                   </div>
@@ -186,12 +186,12 @@ export function ReservationInbox() {
               <motion.div key={res.id} variants={cardVariants} className="bg-white rounded-[20px] p-5 shadow-sm border border-[#E8E8E4]">
                 <div className="flex justify-between items-start mb-3">
                   <div>
-                    <h3 className="font-bold text-[#0A0A0A] text-lg leading-tight" style={{ fontFamily: "var(--font-heading)" }}>{res.productName}</h3>
+                    <h3 className="font-bold text-[#0A0A0A] text-lg leading-tight" style={{ fontFamily: "var(--font-outfit)" }}>{res.productName}</h3>
                     <p className="text-[#8A8A8A] text-sm mt-0.5">Reserved by {res.userId === "rec_1" ? "Priya" : "Customer"}</p>
                   </div>
                   <div className="bg-[#FFF7ED] text-[#D97706] px-3 py-1.5 rounded-lg text-center">
                     <p className="text-[10px] font-bold uppercase">Pay at Store</p>
-                    <p className="font-bold text-lg leading-none">â‚¹{res.discountPrice}</p>
+                    <p className="font-bold text-lg leading-none">₹{res.discountPrice}</p>
                   </div>
                 </div>
 
@@ -212,7 +212,7 @@ export function ReservationInbox() {
               <motion.div key={res.id} variants={cardVariants} className="bg-white rounded-[20px] p-5 shadow-sm border border-[#E8E8E4] opacity-60">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="font-bold text-[#0A0A0A] text-lg leading-tight line-through" style={{ fontFamily: "var(--font-heading)" }}>{res.productName}</h3>
+                    <h3 className="font-bold text-[#0A0A0A] text-lg leading-tight line-through" style={{ fontFamily: "var(--font-outfit)" }}>{res.productName}</h3>
                     <p className="text-[#8A8A8A] text-sm mt-0.5">Reserved by Customer</p>
                   </div>
                   <span className="bg-[#F0F0F0] text-[#8A8A8A] text-[10px] font-bold px-2 py-1 rounded-md uppercase">Expired</span>
@@ -262,7 +262,7 @@ export function ReservationInbox() {
                   </div>
                   <h3 className="text-xl font-bold text-[#0A0A0A]">Verified!</h3>
                   <p className="text-[#4A4A4A] mt-1 text-sm">Reservation ZW-123 is valid.</p>
-                  <p className="text-[#D97706] font-bold text-xl mt-3">Collect â‚¹20</p>
+                  <p className="text-[#D97706] font-bold text-xl mt-3">Collect ₹20</p>
                 </motion.div>
               )}
             </div>

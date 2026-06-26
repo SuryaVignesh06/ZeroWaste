@@ -46,7 +46,7 @@ export function NGOVolunteers() {
                   ? "bg-[#1B5E8A] text-white shadow-[0_4px_12px_rgba(27,94,138,0.25)]" 
                   : "bg-white text-[#8A8A8A] border border-[#E8E8E4]"
               }`}
-              style={{ fontFamily: "var(--font-heading)" }}
+              style={{ fontFamily: "var(--font-outfit)" }}
             >
               {tab}
             </button>
@@ -71,9 +71,9 @@ export function NGOVolunteers() {
                         <div className={`absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white ${v.status === 'online' ? 'bg-green-500' : 'bg-gray-400'}`} />
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-[17px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>{v.name}</h4>
+                        <h4 className="text-[17px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>{v.name}</h4>
                         <div className="flex items-center gap-2 mt-1">
-                          <span className="text-[13px] font-semibold text-[#8A8A8A] bg-[#FAFAF8] px-2 py-0.5 rounded-md" style={{ fontFamily: "var(--font-body)" }}>{v.type}</span>
+                          <span className="text-[13px] font-semibold text-[#8A8A8A] bg-[#FAFAF8] px-2 py-0.5 rounded-md" style={{ fontFamily: "var(--font-jakarta)" }}>{v.type}</span>
                           <span className="flex items-center gap-0.5 text-[13px] font-bold text-[#F5B840]">
                             <Star size={12} fill="currentColor" /> {v.rating}
                           </span>

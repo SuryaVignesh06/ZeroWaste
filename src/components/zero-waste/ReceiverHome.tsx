@@ -74,8 +74,8 @@ export function ReceiverHome() {
       >
         <div className="relative z-10 flex items-center justify-between">
           <div>
-            <p className="text-white/80 text-sm font-medium" style={{ fontFamily: "var(--font-body)" }}>Hello,</p>
-            <h1 className="text-2xl font-bold text-white mt-1" style={{ fontFamily: "var(--font-heading)" }}>{displayName}</h1>
+            <p className="text-white/80 text-sm font-medium" style={{ fontFamily: "var(--font-jakarta)" }}>Hello,</p>
+            <h1 className="text-2xl font-bold text-white mt-1" style={{ fontFamily: "var(--font-outfit)" }}>{displayName}</h1>
           </div>
           <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
             {receiverType === "ngo" ? <Building2 color="white" /> : <User color="white" />}
@@ -89,7 +89,7 @@ export function ReceiverHome() {
             type="text"
             placeholder="Search food, shops, or categories..."
             className="flex-1 bg-transparent text-[15px] text-white placeholder-white/70 outline-none"
-            style={{ fontFamily: "var(--font-body)" }}
+            style={{ fontFamily: "var(--font-jakarta)" }}
           />
         </div>
 
@@ -115,10 +115,10 @@ export function ReceiverHome() {
           }}
         >
           <div className="relative z-10 text-white">
-            <h3 className="font-bold text-lg" style={{ fontFamily: "var(--font-heading)" }}>
+            <h3 className="font-bold text-lg" style={{ fontFamily: "var(--font-outfit)" }}>
               Request Food
             </h3>
-            <p className="text-white/80 text-sm mt-1" style={{ fontFamily: "var(--font-body)" }}>
+            <p className="text-white/80 text-sm mt-1" style={{ fontFamily: "var(--font-jakarta)" }}>
               {receiverType === "ngo" ? "Post a requirement for bulk feeding" : "Need food right now? Let us know."}
             </p>
           </div>
@@ -131,13 +131,13 @@ export function ReceiverHome() {
         {/* DONATIONS SECTION */}
         <motion.div variants={fadeUp}>
           <div className="flex items-center justify-between mb-3 px-1">
-            <h2 className="text-lg font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>
+            <h2 className="text-lg font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
               {receiverType === "ngo" ? "Bulk Donations" : "Active Donations"}
             </h2>
             <button 
               onClick={() => setScreen("browseListings")}
               className="text-[#1A6B3C] text-sm font-semibold" 
-              style={{ fontFamily: "var(--font-body)" }}
+              style={{ fontFamily: "var(--font-jakarta)" }}
             >
               See Map
             </button>
@@ -156,7 +156,7 @@ export function ReceiverHome() {
                     <HandHeart size={12} /> Free
                   </div>
                 </div>
-                <h3 className="font-bold text-[#0A0A0A] text-[15px] leading-tight" style={{ fontFamily: "var(--font-heading)" }}>{donation.name}</h3>
+                <h3 className="font-bold text-[#0A0A0A] text-[15px] leading-tight" style={{ fontFamily: "var(--font-outfit)" }}>{donation.name}</h3>
                 <p className="text-[#8A8A8A] text-[13px] mt-1 line-clamp-1">{donation.providerName}</p>
                 <div className="flex items-center justify-between mt-3">
                   <div className="flex items-center gap-1 text-[#4A4A4A] text-xs">
@@ -174,13 +174,13 @@ export function ReceiverHome() {
         {/* SHOPPING / DISCOUNTS SECTION */}
         <motion.div variants={fadeUp}>
           <div className="flex items-center justify-between mb-3 px-1">
-            <h2 className="text-lg font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>
+            <h2 className="text-lg font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
               Discounted Groceries
             </h2>
             <button 
               onClick={() => setScreen("browseListings")}
               className="text-[#D97706] text-sm font-semibold" 
-              style={{ fontFamily: "var(--font-body)" }}
+              style={{ fontFamily: "var(--font-jakarta)" }}
             >
               View all
             </button>
@@ -201,12 +201,12 @@ export function ReceiverHome() {
                 </div>
                 <div className="flex flex-col justify-between py-1 flex-1">
                   <div>
-                    <h3 className="font-bold text-[#0A0A0A] text-[15px] leading-tight" style={{ fontFamily: "var(--font-heading)" }}>{sale.name}</h3>
-                    <p className="text-[#8A8A8A] text-[12px] mt-0.5">{sale.providerName} â€¢ {sale.providerLocation.address.split(",")[0]}</p>
+                    <h3 className="font-bold text-[#0A0A0A] text-[15px] leading-tight" style={{ fontFamily: "var(--font-outfit)" }}>{sale.name}</h3>
+                    <p className="text-[#8A8A8A] text-[12px] mt-0.5">{sale.providerName} • {sale.providerLocation.address.split(",")[0]}</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[#0A0A0A] font-bold text-[15px]">â‚¹{sale.discountPrice}</span>
-                    <span className="text-[#8A8A8A] text-[12px] line-through">â‚¹{sale.mrp}</span>
+                    <span className="text-[#0A0A0A] font-bold text-[15px]">₹{sale.discountPrice}</span>
+                    <span className="text-[#8A8A8A] text-[12px] line-through">₹{sale.mrp}</span>
                   </div>
                 </div>
               </div>

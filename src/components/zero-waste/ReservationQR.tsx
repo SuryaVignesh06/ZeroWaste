@@ -21,7 +21,7 @@ export function ReservationQR() {
         >
           <ArrowLeft size={20} className="text-white" />
         </button>
-        <h1 className="text-lg font-bold text-white" style={{ fontFamily: "var(--font-heading)" }}>
+        <h1 className="text-lg font-bold text-white" style={{ fontFamily: "var(--font-outfit)" }}>
           Your QR Code
         </h1>
         <div className="w-10" />
@@ -33,7 +33,7 @@ export function ReservationQR() {
           <div className="bg-white rounded-[32px] overflow-hidden shadow-2xl relative">
             {/* Top section */}
             <div className="p-8 pb-4 text-center">
-              <h2 className="text-xl font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>Organic Tomatoes</h2>
+              <h2 className="text-xl font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>Organic Tomatoes</h2>
               <p className="text-[#8A8A8A] mt-1 text-sm">FreshMart</p>
             </div>
 
@@ -61,7 +61,7 @@ export function ReservationQR() {
                 ) : (
                   <div className="bg-[#FFF7ED] text-[#D97706] px-4 py-2 rounded-xl">
                     <p className="text-[10px] font-bold uppercase">Pay at Store</p>
-                    <p className="font-bold text-xl leading-none mt-0.5">â‚¹40.00</p>
+                    <p className="font-bold text-xl leading-none mt-0.5">₹40.00</p>
                   </div>
                 )}
               </div>

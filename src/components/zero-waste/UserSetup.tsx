@@ -41,10 +41,10 @@ export function UserSetup() {
           <Leaf size={48} color="#1A6B3C" />
         </div>
 
-        <h1 className="mt-6 text-[28px] font-bold text-[#0A0A0A] text-center" style={{ fontFamily: "var(--font-heading)" }}>
+        <h1 className="mt-6 text-[28px] font-bold text-[#0A0A0A] text-center" style={{ fontFamily: "var(--font-outfit)" }}>
           What should we call you?
         </h1>
-        <p className="mt-2 text-[15px] text-[#4A4A4A] text-center" style={{ fontFamily: "var(--font-body)" }}>
+        <p className="mt-2 text-[15px] text-[#4A4A4A] text-center" style={{ fontFamily: "var(--font-jakarta)" }}>
           Just two things and you are in.
         </p>
 
@@ -58,7 +58,7 @@ export function UserSetup() {
             onChange={(e) => setName(e.target.value)}
             placeholder="Your name"
             className="w-full h-[56px] rounded-[16px] border-[1.5px] border-[#E8E8E4] bg-white pl-12 pr-4 text-[16px] font-medium text-[#0A0A0A] focus:border-[#1A6B3C] focus:outline-none"
-            style={{ fontFamily: "var(--font-heading)" }}
+            style={{ fontFamily: "var(--font-outfit)" }}
           />
         </div>
 
@@ -72,7 +72,7 @@ export function UserSetup() {
               onChange={(e) => setLocation(e.target.value)}
               placeholder="Your area"
               className="w-full h-[56px] rounded-[16px] border-[1.5px] border-[#E8E8E4] bg-white pl-12 pr-4 text-[16px] font-medium text-[#0A0A0A] focus:border-[#1A6B3C] focus:outline-none"
-              style={{ fontFamily: "var(--font-heading)" }}
+              style={{ fontFamily: "var(--font-outfit)" }}
             />
           </div>
           <button 
@@ -80,7 +80,7 @@ export function UserSetup() {
             className="mt-2 flex items-center gap-1.5 rounded-full border border-[#C8E8D0] bg-[#F0F7F2] px-3 py-1.5"
           >
             <Navigation size={14} color="#1A6B3C" />
-            <span className="text-[13px] font-semibold text-[#1A6B3C]" style={{ fontFamily: "var(--font-body)" }}>Use current location</span>
+            <span className="text-[13px] font-semibold text-[#1A6B3C]" style={{ fontFamily: "var(--font-jakarta)" }}>Use current location</span>
           </button>
         </div>
 
@@ -93,7 +93,7 @@ export function UserSetup() {
               ? "bg-[#1A6B3C] shadow-[0_4px_20px_rgba(26,107,60,0.4)]"
               : "bg-[#E8E8E4] text-[#8A8A8A]"
           }`}
-          style={{ fontFamily: "var(--font-heading)" }}
+          style={{ fontFamily: "var(--font-outfit)" }}
         >
           Let's Go
         </button>

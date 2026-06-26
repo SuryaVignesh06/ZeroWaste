@@ -180,10 +180,10 @@ export function AppShell() {
                   {/* Header */}
                   <div className="flex items-center justify-between w-full">
                     <div>
-                      <h3 className="font-heading font-black text-[22px] text-[#1A1A1A] leading-tight">
+                      <h3 className="font-outfit font-black text-[22px] text-[#1A1A1A] leading-tight">
                         What would you like to do?
                       </h3>
-                      <p className="font-body text-[13px] text-[#9A9A9A] mt-0.5">
+                      <p className="font-jakarta text-[13px] text-[#9A9A9A] mt-0.5">
                         Choose an action to continue
                       </p>
                     </div>
@@ -226,10 +226,10 @@ export function AppShell() {
                         <Utensils size={24} className="text-[#5A8C2A]" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-heading font-black text-[16px] text-[#1A1A1A]">
+                        <h4 className="font-outfit font-black text-[16px] text-[#1A1A1A]">
                           Donate Surplus Food
                         </h4>
-                        <p className="font-body text-[12px] text-[#7A7A7A] mt-0.5 leading-snug">
+                        <p className="font-jakarta text-[12px] text-[#7A7A7A] mt-0.5 leading-snug">
                           List free items for NGOs and local recipients
                         </p>
                       </div>
@@ -237,7 +237,7 @@ export function AppShell() {
                         className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
                         style={{ background: "rgba(155,200,74,0.15)" }}
                       >
-                        <span className="text-[#5A8C2A] font-black text-[16px]">â€º</span>
+                        <span className="text-[#5A8C2A] font-black text-[16px]">›</span>
                       </div>
                     </motion.button>
 
@@ -268,10 +268,10 @@ export function AppShell() {
                         <Store size={24} className="text-[#2C5F8E]" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-heading font-black text-[16px] text-[#1A1A1A]">
+                        <h4 className="font-outfit font-black text-[16px] text-[#1A1A1A]">
                           Add to Inventory
                         </h4>
-                        <p className="font-body text-[12px] text-[#7A7A7A] mt-0.5 leading-snug">
+                        <p className="font-jakarta text-[12px] text-[#7A7A7A] mt-0.5 leading-snug">
                           Track and sell products at discounted rates
                         </p>
                       </div>
@@ -279,7 +279,7 @@ export function AppShell() {
                         className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
                         style={{ background: "rgba(91,141,184,0.15)" }}
                       >
-                        <span className="text-[#2C5F8E] font-black text-[16px]">â€º</span>
+                        <span className="text-[#2C5F8E] font-black text-[16px]">›</span>
                       </div>
                     </motion.button>
                   </div>

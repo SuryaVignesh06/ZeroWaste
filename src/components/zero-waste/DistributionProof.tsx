@@ -76,7 +76,7 @@ export function DistributionProof() {
         >
           <ArrowLeft size={20} className="text-[#0A0A0A]" />
         </button>
-        <h1 className="text-lg font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>
+        <h1 className="text-lg font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
           Upload Distribution Proof
         </h1>
         <div className="w-10" />
@@ -88,8 +88,8 @@ export function DistributionProof() {
           <div className="bg-[#F0F7F2] rounded-[20px] p-4 flex gap-3 border border-[#BBF7D0]">
             <ShieldCheck className="text-[#1A6B3C] shrink-0" size={24} />
             <div>
-              <h3 className="font-bold text-[#1A6B3C] text-[15px]" style={{ fontFamily: "var(--font-heading)" }}>Verify Distribution</h3>
-              <p className="text-[#4A4A4A] text-sm mt-0.5" style={{ fontFamily: "var(--font-body)" }}>
+              <h3 className="font-bold text-[#1A6B3C] text-[15px]" style={{ fontFamily: "var(--font-outfit)" }}>Verify Distribution</h3>
+              <p className="text-[#4A4A4A] text-sm mt-0.5" style={{ fontFamily: "var(--font-jakarta)" }}>
                 Upload a photo of the food being distributed to earn impact points and maintain NGO trust rating.
               </p>
             </div>
@@ -121,11 +121,11 @@ export function DistributionProof() {
                     <div className="h-16 w-16 rounded-full bg-white flex items-center justify-center shadow-sm mb-3">
                       <Camera size={30} className="text-[#8A8A8A]" />
                     </div>
-                    <p className="text-[#4A4A4A] font-medium" style={{ fontFamily: "var(--font-body)" }}>Capture distribution</p>
+                    <p className="text-[#4A4A4A] font-medium" style={{ fontFamily: "var(--font-jakarta)" }}>Capture distribution</p>
                     <button 
                       onClick={startCamera}
                       className="mt-4 bg-[#1E3A8A] text-white px-6 py-2.5 rounded-full text-[15px] font-bold shadow-sm"
-                      style={{ fontFamily: "var(--font-heading)" }}
+                      style={{ fontFamily: "var(--font-outfit)" }}
                     >
                       Open Camera
                     </button>
@@ -144,7 +144,7 @@ export function DistributionProof() {
           </div>
 
           <div>
-            <label className="text-[13px] font-semibold text-[#8A8A8A] block mb-2" style={{ fontFamily: "var(--font-body)" }}>
+            <label className="text-[13px] font-semibold text-[#8A8A8A] block mb-2" style={{ fontFamily: "var(--font-jakarta)" }}>
               Add a note (Optional)
             </label>
             <textarea
@@ -166,7 +166,7 @@ export function DistributionProof() {
           className="h-[56px] w-full rounded-full text-[17px] font-bold text-white transition-all disabled:opacity-50 relative overflow-hidden"
           style={{ 
             background: "#1E3A8A",
-            fontFamily: "var(--font-heading)",
+            fontFamily: "var(--font-outfit)",
             boxShadow: "0 8px 24px rgba(30,58,138,0.25)"
           }}
         >
@@ -216,7 +216,7 @@ export function DistributionProof() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
               className="text-2xl font-bold text-center px-6"
-              style={{ fontFamily: "var(--font-heading)" }}
+              style={{ fontFamily: "var(--font-outfit)" }}
             >
               Proof Verified!
             </motion.h2>
@@ -225,7 +225,7 @@ export function DistributionProof() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
               className="mt-2 text-white/80 text-center px-8"
-              style={{ fontFamily: "var(--font-body)" }}
+              style={{ fontFamily: "var(--font-jakarta)" }}
             >
               You earned +50 Impact Points for successful distribution.
             </motion.p>

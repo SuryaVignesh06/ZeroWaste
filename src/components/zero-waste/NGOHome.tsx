@@ -34,7 +34,7 @@ export function NGOHome() {
     <ScreenWrapper>
       <div className="flex flex-col gap-5 pt-4 relative z-10 pb-24">
         
-        {/* â”€â”€ Header â”€â”€ */}
+        {/* ── Header ── */}
         <motion.div 
           initial={{ y: -16, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -63,7 +63,7 @@ export function NGOHome() {
           </motion.div>
         </motion.div>
 
-        {/* â”€â”€ Stats Row â”€â”€ */}
+        {/* ── Stats Row ── */}
         <motion.div 
           initial={{ opacity: 0, y: 12, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -87,7 +87,7 @@ export function NGOHome() {
           />
         </motion.div>
 
-        {/* â”€â”€ Quick Action: Request Food â”€â”€ */}
+        {/* ── Quick Action: Request Food ── */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -102,8 +102,8 @@ export function NGOHome() {
               <Radio className="text-white" size={24} />
             </div>
             <div className="flex-1">
-              <h3 className="text-[17px] font-bold text-white tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>Broadcast Request</h3>
-              <p className="text-[13px] text-white/80 font-medium" style={{ fontFamily: "var(--font-body)" }}>Notify donors for urgent food needs</p>
+              <h3 className="text-[17px] font-bold text-white tracking-tight" style={{ fontFamily: "var(--font-outfit)" }}>Broadcast Request</h3>
+              <p className="text-[13px] text-white/80 font-medium" style={{ fontFamily: "var(--font-jakarta)" }}>Notify donors for urgent food needs</p>
             </div>
             <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
               <ChevronRight className="text-white" size={18} />
@@ -111,7 +111,7 @@ export function NGOHome() {
           </div>
         </motion.div>
 
-        {/* â”€â”€ Live Food Feed â”€â”€ */}
+        {/* ── Live Food Feed ── */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -119,7 +119,7 @@ export function NGOHome() {
           className="mt-2"
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[20px] font-bold text-[#0A0A0A] flex items-center gap-2" style={{ fontFamily: "var(--font-heading)" }}>
+            <h2 className="text-[20px] font-bold text-[#0A0A0A] flex items-center gap-2" style={{ fontFamily: "var(--font-outfit)" }}>
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
@@ -143,8 +143,8 @@ export function NGOHome() {
                   <div className="w-16 h-16 rounded-full bg-[#1B5E8A]/10 flex items-center justify-center mb-4">
                     <Radio size={28} className="text-[#1B5E8A]" />
                   </div>
-                  <p className="text-[16px] font-semibold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>No live donations nearby.</p>
-                  <p className="text-[14px] text-[#4A4A4A] mt-1 max-w-[200px]" style={{ fontFamily: "var(--font-body)" }}>Broadcast a request to notify donors in your area.</p>
+                  <p className="text-[16px] font-semibold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>No live donations nearby.</p>
+                  <p className="text-[14px] text-[#4A4A4A] mt-1 max-w-[200px]" style={{ fontFamily: "var(--font-jakarta)" }}>Broadcast a request to notify donors in your area.</p>
                 </motion.div>
               ) : (
                 liveDonations.map((pr) => (
@@ -171,15 +171,15 @@ export function NGOHome() {
                               <MapPin size={12} /> {pr.distance} km
                             </span>
                           </div>
-                          <h3 className="text-[18px] font-bold text-[#0A0A0A] leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                          <h3 className="text-[18px] font-bold text-[#0A0A0A] leading-tight" style={{ fontFamily: "var(--font-outfit)" }}>
                             {pr.foodType}
                           </h3>
                           <div className="flex items-center gap-3 mt-auto">
-                            <span className="text-[14px] font-semibold text-[#1A1A1A] flex items-center gap-1" style={{ fontFamily: "var(--font-body)" }}>
+                            <span className="text-[14px] font-semibold text-[#1A1A1A] flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
                               <Utensils size={14} className="text-[#8A8A8A]" />
                               {pr.servingsNeeded} Servings
                             </span>
-                            <span className="text-[14px] font-semibold text-[#1A1A1A] flex items-center gap-1" style={{ fontFamily: "var(--font-body)" }}>
+                            <span className="text-[14px] font-semibold text-[#1A1A1A] flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
                               <Clock size={14} className="text-[#8A8A8A]" />
                               12m ago
                             </span>
@@ -187,7 +187,7 @@ export function NGOHome() {
                         </div>
                       </div>
                       
-                      <button className="w-full h-11 rounded-full bg-[#1B5E8A] text-white font-bold text-[15px] flex items-center justify-center shadow-[0_4px_12px_rgba(27,94,138,0.2)] active:scale-95 transition-all" style={{ fontFamily: "var(--font-heading)" }}>
+                      <button className="w-full h-11 rounded-full bg-[#1B5E8A] text-white font-bold text-[15px] flex items-center justify-center shadow-[0_4px_12px_rgba(27,94,138,0.2)] active:scale-95 transition-all" style={{ fontFamily: "var(--font-outfit)" }}>
                         Reserve Food
                       </button>
                     </LightCard>
@@ -198,7 +198,7 @@ export function NGOHome() {
           </motion.div>
         </motion.div>
 
-        {/* â”€â”€ Active Volunteers â”€â”€ */}
+        {/* ── Active Volunteers ── */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -206,11 +206,11 @@ export function NGOHome() {
           className="mt-2 mb-8"
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[20px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>Active Volunteers</h2>
+            <h2 className="text-[20px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>Active Volunteers</h2>
             <button 
               onClick={() => setActiveScreen("ngoVolunteers")}
               className="text-[14px] font-semibold text-[#1B5E8A]"
-              style={{ fontFamily: "var(--font-body)" }}
+              style={{ fontFamily: "var(--font-jakarta)" }}
             >
               View All
             </button>
@@ -224,8 +224,8 @@ export function NGOHome() {
                 <Avatar src="https://i.pravatar.cc/100?img=13" fallback="V3" size="md" className="border-2 border-white relative z-0" />
               </div>
               <div>
-                <p className="text-[16px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>12 On Duty</p>
-                <p className="text-[13px] font-medium text-[#4A4A4A]" style={{ fontFamily: "var(--font-body)" }}>Ready for pickup</p>
+                <p className="text-[16px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>12 On Duty</p>
+                <p className="text-[13px] font-medium text-[#4A4A4A]" style={{ fontFamily: "var(--font-jakarta)" }}>Ready for pickup</p>
               </div>
             </div>
             <div className="w-10 h-10 rounded-full bg-[#FAFAF8] flex items-center justify-center text-[#8A8A8A]">
