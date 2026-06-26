@@ -7,7 +7,7 @@ export function ToastSystem() {
     <SonnerToaster 
       position="top-center"
       toastOptions={{
-        className: "bg-bg-card-dark text-text-on-dark border border-border-dark shadow-dark rounded-xl font-jakarta",
+        className: "bg-bg-card-dark text-text-on-dark border border-border-dark shadow-dark rounded-xl font-body",
         descriptionClassName: "text-text-on-dark-muted",
       }}
     />

@@ -51,7 +51,7 @@ export function RecipientProfile() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...springGentle, delay: 0.1 }}
           className="text-[28px] font-extrabold text-white text-center"
-          style={{ fontFamily: "var(--font-outfit)" }}
+          style={{ fontFamily: "var(--font-heading)" }}
         >
           {recipientUser.name}
         </motion.h1>
@@ -61,7 +61,7 @@ export function RecipientProfile() {
           transition={{ ...springGentle, delay: 0.15 }}
           className="text-white/80 text-[15px] font-medium mt-1 flex items-center gap-1.5"
         >
-          Recipient • <MapPin size={14} /> {recipientUser.city}
+          Recipient â€¢ <MapPin size={14} /> {recipientUser.city}
         </motion.p>
       </div>
 
@@ -92,10 +92,10 @@ export function RecipientProfile() {
           className="mt-4"
         >
           <LightCard className="p-6">
-            <h3 className="font-bold text-[18px] text-[#0A0A0A] mb-5 flex items-center gap-2" style={{ fontFamily: "var(--font-outfit)" }}>
+            <h3 className="font-bold text-[18px] text-[#0A0A0A] mb-5 flex items-center gap-2" style={{ fontFamily: "var(--font-heading)" }}>
               <ShieldCheck size={20} className="text-[#86198F]" /> Account Status
             </h3>
-            <div className="flex flex-col gap-4 text-[15px]" style={{ fontFamily: "var(--font-jakarta)" }}>
+            <div className="flex flex-col gap-4 text-[15px]" style={{ fontFamily: "var(--font-body)" }}>
               <div className="flex justify-between items-center pb-1">
                 <span className="text-[#8A8A8A] font-semibold">Verification</span>
                 <span className="font-bold text-[#3A7D52] uppercase px-3 py-1 bg-[#3A7D52]/10 rounded-full text-[12px] tracking-wide">{recipientUser.verificationStatus}</span>

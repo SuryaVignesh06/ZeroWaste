@@ -32,8 +32,8 @@ export function VolunteerMap() {
     return (
       <CelebrationScreen
         mode="volunteer"
-        title="Delivery Complete! 🚴"
-        subtitle={`${activeMission?.servings || 45} meals delivered! Kids at ${activeMission?.ngoName || "Helping Hands NGO"} are smiling because of you! 😊`}
+        title="Delivery Complete! ðŸš´"
+        subtitle={`${activeMission?.servings || 45} meals delivered! Kids at ${activeMission?.ngoName || "Helping Hands NGO"} are smiling because of you! ðŸ˜Š`}
         points={100}
         ctaLabel="Back to Dashboard"
         onDone={() => {
@@ -180,7 +180,7 @@ export function VolunteerMap() {
                   <Package size={16} color="white" />
                   
                   <div className="absolute -top-2 -right-2 w-5 h-5 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-100">
-                    <span className="text-[10px] font-bold text-[#1B5E8A]" style={{ fontFamily: "var(--font-outfit)" }}>{pr.servingsNeeded}</span>
+                    <span className="text-[10px] font-bold text-[#1B5E8A]" style={{ fontFamily: "var(--font-heading)" }}>{pr.servingsNeeded}</span>
                   </div>
                 </motion.div>
               </Marker>
@@ -208,7 +208,7 @@ export function VolunteerMap() {
                   
                   {/* Quantity Badge */}
                   <div className="absolute -top-2 -right-2 w-5 h-5 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-100">
-                    <span className="text-[10px] font-bold text-[#1B5E8A]" style={{ fontFamily: "var(--font-outfit)" }}>{mission.servings}</span>
+                    <span className="text-[10px] font-bold text-[#1B5E8A]" style={{ fontFamily: "var(--font-heading)" }}>{mission.servings}</span>
                   </div>
                 </motion.div>
               </Marker>
@@ -251,8 +251,8 @@ export function VolunteerMap() {
                 </div>
                 
                 <div className="flex justify-between items-center text-xs font-bold mb-4 bg-gray-50 p-2 rounded-lg">
-                  <span className="text-[#1B5E8A]">👥 {selectedMission.servings} servings</span>
-                  <span className="text-[#E8A020]">🏆 +15 pts</span>
+                  <span className="text-[#1B5E8A]">ðŸ‘¥ {selectedMission.servings} servings</span>
+                  <span className="text-[#E8A020]">ðŸ† +15 pts</span>
                 </div>
 
                 <div className="flex gap-2">
@@ -316,7 +316,7 @@ export function VolunteerMap() {
           type="text" 
           placeholder="Search area..." 
           className="flex-1 bg-transparent border-none text-sm outline-none text-[#0A0A0A] placeholder:text-[#8A8A8A]"
-          style={{ fontFamily: "var(--font-jakarta)" }}
+          style={{ fontFamily: "var(--font-body)" }}
         />
         <button className="w-8 h-8 rounded-full bg-[#1B5E8A] flex items-center justify-center shrink-0 shadow-sm">
           <SlidersHorizontal size={14} className="text-white" />
@@ -487,10 +487,10 @@ export function VolunteerMap() {
                 <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=800" className="w-full h-[200px] object-cover" alt="food" />
                 
                 <div className="p-6">
-                  <h2 className="text-[22px] font-bold text-[#0A0A0A] mb-2" style={{ fontFamily: "var(--font-outfit)" }}>Vegetable Biryani</h2>
+                  <h2 className="text-[22px] font-bold text-[#0A0A0A] mb-2" style={{ fontFamily: "var(--font-heading)" }}>Vegetable Biryani</h2>
                   <div className="flex gap-2 mb-6">
                     <span className="bg-[#4CAF7D]/10 text-[#4CAF7D] px-2.5 py-1 rounded-md text-xs font-bold">Freshly Cooked</span>
-                    <span className="bg-[#1B5E8A]/10 text-[#1B5E8A] px-2.5 py-1 rounded-md text-xs font-bold">👥 80 servings</span>
+                    <span className="bg-[#1B5E8A]/10 text-[#1B5E8A] px-2.5 py-1 rounded-md text-xs font-bold">ðŸ‘¥ 80 servings</span>
                   </div>
 
                   <h3 className="text-sm font-bold text-[#8A8A8A] uppercase tracking-wider mb-3">Pickup Details</h3>
@@ -515,7 +515,7 @@ export function VolunteerMap() {
                     </div>
                     <div className="bg-orange-50 p-3 rounded-xl border border-orange-100">
                       <p className="text-xs text-orange-800 font-medium italic flex items-start gap-2">
-                        <span>📝</span> "Please bring containers for biryani. Heavy quantity."
+                        <span>ðŸ“</span> "Please bring containers for biryani. Heavy quantity."
                       </p>
                     </div>
                   </div>
@@ -537,15 +537,15 @@ export function VolunteerMap() {
                   <h3 className="text-sm font-bold text-[#8A8A8A] uppercase tracking-wider mb-3">Your Rewards</h3>
                   <div className="flex gap-2 mb-8">
                     <div className="flex-1 bg-white border border-gray-100 rounded-[16px] p-3 text-center shadow-sm">
-                      <p className="text-lg mb-1">🏆</p>
+                      <p className="text-lg mb-1">ðŸ†</p>
                       <p className="font-bold text-[#1B5E8A] text-sm">+15 pts</p>
                     </div>
                     <div className="flex-1 bg-white border border-gray-100 rounded-[16px] p-3 text-center shadow-sm">
-                      <p className="text-lg mb-1">💰</p>
-                      <p className="font-bold text-[#4CAF7D] text-sm">₹60 earned</p>
+                      <p className="text-lg mb-1">ðŸ’°</p>
+                      <p className="font-bold text-[#4CAF7D] text-sm">â‚¹60 earned</p>
                     </div>
                     <div className="flex-1 bg-white border border-gray-100 rounded-[16px] p-3 text-center shadow-sm">
-                      <p className="text-lg mb-1">🕐</p>
+                      <p className="text-lg mb-1">ðŸ•</p>
                       <p className="font-bold text-[#0A0A0A] text-sm">~2 hrs</p>
                     </div>
                   </div>
@@ -559,7 +559,7 @@ export function VolunteerMap() {
                     }}
                     className="w-full bg-[#1B5E8A] text-white py-4 rounded-full font-bold text-lg shadow-[0_8px_20px_rgba(27,94,138,0.3)] mb-3"
                   >
-                    ✅ Accept Pickup
+                    âœ… Accept Pickup
                   </button>
                   <button 
                     onClick={() => setShowFullDetails(false)}

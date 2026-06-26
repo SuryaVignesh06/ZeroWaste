@@ -58,10 +58,10 @@ export function HiringStyleCard({
         <div className="flex items-center gap-4">
           <Avatar src={avatarSrc} fallback={fallbackInitial} size="md" />
           <div className="flex flex-col">
-            <h3 className="font-outfit text-h3 leading-tight tracking-tight text-text-primary">
+            <h3 className="font-heading text-h3 leading-tight tracking-tight text-text-primary">
               {title}
             </h3>
-            <span className="font-jakarta text-[13px] text-text-muted font-medium mt-0.5 tracking-wide">
+            <span className="font-body text-[13px] text-text-muted font-medium mt-0.5 tracking-wide">
               {subtitle}
             </span>
           </div>
@@ -78,7 +78,7 @@ export function HiringStyleCard({
       {/* Bottom Section */}
       <div className="flex justify-between items-end mt-1">
         <div className="flex flex-col gap-2 flex-1 pr-6">
-          <span className="font-jakarta text-[11px] font-semibold text-text-secondary tracking-wide">
+          <span className="font-body text-[11px] font-semibold text-text-secondary tracking-wide">
             {progressLabel}
           </span>
           <div className="flex items-center gap-1.5 h-2 w-full max-w-[180px]">
@@ -95,7 +95,7 @@ export function HiringStyleCard({
         </div>
 
         {isListed ? (
-          <div className="flex items-center gap-1.5 px-4 py-2 bg-accent-green/10 text-accent-green border border-accent-green/20 rounded-full font-bold font-outfit text-[12px] shrink-0">
+          <div className="flex items-center gap-1.5 px-4 py-2 bg-accent-green/10 text-accent-green border border-accent-green/20 rounded-full font-bold font-heading text-[12px] shrink-0">
             <ShieldCheck size={14} className="text-accent-green" />
             <span>LISTED</span>
           </div>

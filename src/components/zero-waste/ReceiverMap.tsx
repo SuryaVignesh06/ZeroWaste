@@ -162,7 +162,7 @@ export function ReceiverMap() {
               </div>
               <div className="flex flex-col justify-between py-1">
                 <div>
-                  <h3 className="font-bold text-[#0A0A0A] text-lg leading-tight line-clamp-2" style={{ fontFamily: "var(--font-outfit)" }}>{selectedListing.name}</h3>
+                  <h3 className="font-bold text-[#0A0A0A] text-lg leading-tight line-clamp-2" style={{ fontFamily: "var(--font-heading)" }}>{selectedListing.name}</h3>
                   <p className="text-[#8A8A8A] text-[13px] mt-1">{selectedListing.providerName}</p>
                 </div>
                 <div className="flex items-center gap-1 text-[#4A4A4A] text-sm">
@@ -175,8 +175,8 @@ export function ReceiverMap() {
             <div className="flex items-center gap-4 mt-5">
               {selectedListing.mode === "sell" ? (
                 <div className="flex items-end gap-2 flex-1">
-                  <span className="text-[#0A0A0A] font-bold text-2xl" style={{ fontFamily: "var(--font-outfit)" }}>₹{selectedListing.discountPrice}</span>
-                  <span className="text-[#8A8A8A] text-sm line-through pb-1">₹{selectedListing.mrp}</span>
+                  <span className="text-[#0A0A0A] font-bold text-2xl" style={{ fontFamily: "var(--font-heading)" }}>â‚¹{selectedListing.discountPrice}</span>
+                  <span className="text-[#8A8A8A] text-sm line-through pb-1">â‚¹{selectedListing.mrp}</span>
                 </div>
               ) : (
                 <div className="bg-[#F0F7F2] text-[#1A6B3C] px-3 py-1.5 rounded-lg font-bold text-sm">
@@ -189,7 +189,7 @@ export function ReceiverMap() {
                 className="flex-1 py-3.5 rounded-full text-white font-bold text-[15px] shadow-sm transition-all"
                 style={{ 
                   background: selectedListing.mode === "donate" ? "#1A6B3C" : "#D97706",
-                  fontFamily: "var(--font-outfit)"
+                  fontFamily: "var(--font-heading)"
                 }}
               >
                 {selectedListing.mode === "donate" ? "Reserve Food" : "Claim Deal"}

@@ -35,7 +35,7 @@ export function RecipientStore() {
               type="text" 
               placeholder="Search items..." 
               className="w-full h-12 bg-white rounded-2xl pl-11 pr-4 text-[15px] border border-[#E8E8E4] shadow-[0_2px_8px_rgba(0,0,0,0.04)] focus:outline-none focus:border-[#86198F] transition-colors"
-              style={{ fontFamily: "var(--font-jakarta)" }}
+              style={{ fontFamily: "var(--font-body)" }}
             />
           </div>
         </motion.div>
@@ -59,17 +59,17 @@ export function RecipientStore() {
                       </div>
                     </div>
                     <div className="p-3 flex flex-col flex-1">
-                      <h3 className="text-[14px] font-bold text-[#0A0A0A] leading-tight mb-1 line-clamp-2" style={{ fontFamily: "var(--font-outfit)" }}>{item.itemName}</h3>
-                      <p className="text-[12px] font-medium text-[#8A8A8A] flex items-center gap-1 mb-3 line-clamp-1" style={{ fontFamily: "var(--font-jakarta)" }}>
+                      <h3 className="text-[14px] font-bold text-[#0A0A0A] leading-tight mb-1 line-clamp-2" style={{ fontFamily: "var(--font-heading)" }}>{item.itemName}</h3>
+                      <p className="text-[12px] font-medium text-[#8A8A8A] flex items-center gap-1 mb-3 line-clamp-1" style={{ fontFamily: "var(--font-body)" }}>
                         {item.donorName}
                       </p>
                       
                       <div className="flex items-center justify-between mt-auto pt-1">
                         <div className="flex flex-col">
-                          <span className="text-[10px] font-semibold text-[#8A8A8A] line-through uppercase">₹{item.originalPrice}</span>
-                          <span className="text-[16px] font-black text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>₹{item.sellingPrice}</span>
+                          <span className="text-[10px] font-semibold text-[#8A8A8A] line-through uppercase">â‚¹{item.originalPrice}</span>
+                          <span className="text-[16px] font-black text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>â‚¹{item.sellingPrice}</span>
                         </div>
-                        <button className="h-8 px-4 rounded-[10px] border border-[#86198F] text-[#86198F] bg-[#86198F]/5 font-extrabold text-[12px] active:scale-95 transition-transform uppercase tracking-wider" style={{ fontFamily: "var(--font-outfit)" }}>
+                        <button className="h-8 px-4 rounded-[10px] border border-[#86198F] text-[#86198F] bg-[#86198F]/5 font-extrabold text-[12px] active:scale-95 transition-transform uppercase tracking-wider" style={{ fontFamily: "var(--font-heading)" }}>
                           ADD
                         </button>
                       </div>

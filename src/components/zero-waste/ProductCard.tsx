@@ -52,28 +52,28 @@ export function ProductCard({ product, index = 0, onClick }: ProductCardProps) {
             <span className="text-[48px] font-bold text-[var(--color-zw-ink)]">{product.name.charAt(0)}</span>
           </div>
         )}
-        <div className="absolute left-3 top-3 rounded-full bg-[var(--color-zw-urgent-red)] px-3 py-1.5 text-[11px] font-bold text-[var(--color-zw-ink)] shadow-sm" style={{ fontFamily: "var(--font-jakarta)" }}>
+        <div className="absolute left-3 top-3 rounded-full bg-[var(--color-zw-urgent-red)] px-3 py-1.5 text-[11px] font-bold text-[var(--color-zw-ink)] shadow-sm" style={{ fontFamily: "var(--font-body)" }}>
           {discountPct}% OFF
         </div>
         {product.isAiMatch && (
           <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-[var(--color-pastel-green)] px-2.5 py-1.5 shadow-sm">
             <Sparkles size={11} className="text-[var(--color-zw-ink)]" />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-jakarta)" }}>AI</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-body)" }}>AI</span>
           </div>
         )}
       </div>
 
       <div className="flex flex-1 flex-col p-4">
-        <div className="flex items-center gap-1.5 text-[11px] font-medium text-[var(--color-zw-ink-secondary)]" style={{ fontFamily: "var(--font-jakarta)" }}>
+        <div className="flex items-center gap-1.5 text-[11px] font-medium text-[var(--color-zw-ink-secondary)]" style={{ fontFamily: "var(--font-body)" }}>
           <MapPin size={11} />
-          <span className="truncate">{product.shopName} · {product.shopDistanceKm}km</span>
+          <span className="truncate">{product.shopName} Â· {product.shopDistanceKm}km</span>
         </div>
-        <h3 className="mt-1 line-clamp-2 text-[14px] font-bold leading-snug text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
+        <h3 className="mt-1 line-clamp-2 text-[14px] font-bold leading-snug text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-heading)" }}>
           {product.name}
         </h3>
         <div className="mt-3 flex items-baseline gap-2">
-          <span className="text-[16px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>{formatINR(product.discountedPrice)}</span>
-          <span className="text-[12px] font-medium text-[var(--color-zw-ink-tertiary)] line-through" style={{ fontFamily: "var(--font-jakarta)" }}>{formatINR(product.originalPrice)}</span>
+          <span className="text-[16px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-heading)" }}>{formatINR(product.discountedPrice)}</span>
+          <span className="text-[12px] font-medium text-[var(--color-zw-ink-tertiary)] line-through" style={{ fontFamily: "var(--font-body)" }}>{formatINR(product.originalPrice)}</span>
         </div>
 
         <motion.div
@@ -117,18 +117,18 @@ export function RescueAlertCard({ donation, index = 0, onClick }: RescueAlertCar
         )}
         <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-[var(--color-pastel-green)] px-2.5 py-1.5 shadow-sm">
           <Leaf size={11} className="text-[var(--color-zw-ink)]" />
-          <span className="text-[10px] font-bold uppercase text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-jakarta)" }}>{donation.servings} srv</span>
+          <span className="text-[10px] font-bold uppercase text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-body)" }}>{donation.servings} srv</span>
         </div>
-        <div className="absolute left-3 top-3 rounded-full bg-[var(--color-zw-urgent-red)] px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[var(--color-zw-ink)] shadow-sm" style={{ fontFamily: "var(--font-jakarta)" }}>
+        <div className="absolute left-3 top-3 rounded-full bg-[var(--color-zw-urgent-red)] px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[var(--color-zw-ink)] shadow-sm" style={{ fontFamily: "var(--font-body)" }}>
           Rescue
         </div>
       </div>
       <div className="flex flex-1 flex-col p-4">
-        <h4 className="line-clamp-1 text-[14px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>{donation.donorName}</h4>
-        <p className="mt-1 line-clamp-1 text-[12px] font-medium text-[var(--color-zw-ink-secondary)]" style={{ fontFamily: "var(--font-jakarta)" }}>{donation.title}</p>
+        <h4 className="line-clamp-1 text-[14px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-heading)" }}>{donation.donorName}</h4>
+        <p className="mt-1 line-clamp-1 text-[12px] font-medium text-[var(--color-zw-ink-secondary)]" style={{ fontFamily: "var(--font-body)" }}>{donation.title}</p>
         <div className="mt-3 flex items-center gap-1.5 rounded-full bg-[var(--color-pastel-yellow)] px-3 py-2">
           <Flame size={12} className="text-[var(--color-zw-ink)]" />
-          <span className="text-[10px] font-bold uppercase text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-jakarta)" }}>Expires</span>
+          <span className="text-[10px] font-bold uppercase text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-body)" }}>Expires</span>
           <Countdown deadline={donation.expiryDeadline} variant="compact" />
         </div>
       </div>
@@ -141,10 +141,10 @@ export function SectionHeader({ title, action, onAction, icon }: { title: string
     <div className="mb-4 flex items-center justify-between">
       <div className="flex items-center gap-3">
         {icon}
-        <h2 className="text-[20px] font-bold tracking-tight text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>{title}</h2>
+        <h2 className="text-[20px] font-bold tracking-tight text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-heading)" }}>{title}</h2>
       </div>
       {action && (
-        <button onClick={onAction} className="flex items-center gap-1 text-[14px] font-bold text-[var(--color-zw-ink)] active:scale-95 transition-transform" style={{ fontFamily: "var(--font-jakarta)" }}>
+        <button onClick={onAction} className="flex items-center gap-1 text-[14px] font-bold text-[var(--color-zw-ink)] active:scale-95 transition-transform" style={{ fontFamily: "var(--font-body)" }}>
           {action}
           <ChevronRight size={16} strokeWidth={2.5} />
         </button>
@@ -173,8 +173,8 @@ export function HeroCarousel() {
         >
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/40">{c.icon}</div>
           <div>
-            <h3 className="text-[18px] font-bold tracking-tight" style={{ color: c.color, fontFamily: "var(--font-outfit)" }}>{c.title}</h3>
-            <p className="text-[13px] font-medium mt-0.5" style={{ color: c.color, fontFamily: "var(--font-jakarta)" }}>{c.subtitle}</p>
+            <h3 className="text-[18px] font-bold tracking-tight" style={{ color: c.color, fontFamily: "var(--font-heading)" }}>{c.title}</h3>
+            <p className="text-[13px] font-medium mt-0.5" style={{ color: c.color, fontFamily: "var(--font-body)" }}>{c.subtitle}</p>
           </div>
         </motion.div>
       ))}
@@ -190,8 +190,8 @@ export function TopBar({ areaName = "Anna Nagar", onBellClick }: { areaName?: st
           <MapPin size={18} className="text-[var(--color-zw-ink)]" />
         </div>
         <div>
-          <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-zw-ink-secondary)]" style={{ fontFamily: "var(--font-jakarta)" }}>Deliver to</div>
-          <button className="flex items-center gap-1.5 text-[16px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-outfit)" }}>
+          <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-zw-ink-secondary)]" style={{ fontFamily: "var(--font-body)" }}>Deliver to</div>
+          <button className="flex items-center gap-1.5 text-[16px] font-bold text-[var(--color-zw-ink)]" style={{ fontFamily: "var(--font-heading)" }}>
             {areaName}
             <motion.svg animate={{ y: [0, 2, 0] }} transition={{ duration: 1.5, repeat: Infinity }} width="12" height="12" viewBox="0 0 10 10" fill="none">
               <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

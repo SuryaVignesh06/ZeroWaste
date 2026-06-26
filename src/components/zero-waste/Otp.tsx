@@ -10,7 +10,7 @@ import { IconButton } from "../ui/Buttons/IconButton";
 import { springGentle, springBouncy } from "@/lib/animations";
 import { CelebrationScreen } from "./CelebrationScreen";
 
-// ─── Helper: derive celebration mode from role ─────────────────────────────
+// â”€â”€â”€ Helper: derive celebration mode from role â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function getCelebrationMode(activePanel: string, subRole: string): "donor" | "shopkeeper" | "volunteer" {
   if (activePanel === "volunteer") return "volunteer";
@@ -22,21 +22,21 @@ function getCelebrationContent(mode: "donor" | "shopkeeper" | "volunteer") {
   switch (mode) {
     case "donor":
       return {
-        title: "Welcome, Hero! 🫶",
+        title: "Welcome, Hero! ðŸ«¶",
         subtitle: "Your account is verified! Start donating surplus food and save lives today.",
         points: 20,
         ctaLabel: "Start Saving Lives",
       };
     case "shopkeeper":
       return {
-        title: "Shop Verified! 🏪",
+        title: "Shop Verified! ðŸª",
         subtitle: "Your store is now live on ZeroWaste. List your near-expiry items and make them count!",
         points: 15,
         ctaLabel: "Open My Shop",
       };
     case "volunteer":
       return {
-        title: "Ready to Ride! 🚴",
+        title: "Ready to Ride! ðŸš´",
         subtitle: "Welcome aboard! You're now part of a network delivering hope to kids every day!",
         points: 25,
         ctaLabel: "Start Volunteering",
@@ -44,7 +44,7 @@ function getCelebrationContent(mode: "donor" | "shopkeeper" | "volunteer") {
   }
 }
 
-// ─── OTP Digit Box ─────────────────────────────────────────────────────────
+// â”€â”€â”€ OTP Digit Box â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 interface OtpBoxProps {
   digit: string;
@@ -110,7 +110,7 @@ function OtpBox({ digit, idx, isFocused, hasError, isSuccess, inputRef, onChange
           onFocus={() => onFocus(idx)}
           className="h-[64px] w-[64px] rounded-[22px] text-center text-[24px] font-black outline-none transition-all duration-200 select-none"
           style={{
-            fontFamily: "var(--font-outfit)",
+            fontFamily: "var(--font-heading)",
             background: isSuccess && digit
               ? "linear-gradient(135deg, #D4AF37, #F2D15A)"
               : hasError
@@ -138,7 +138,7 @@ function OtpBox({ digit, idx, isFocused, hasError, isSuccess, inputRef, onChange
   );
 }
 
-// ─── Main Component ────────────────────────────────────────────────────────
+// â”€â”€â”€ Main Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export function Otp() {
   const login = useAppStore((s) => s.login);
@@ -218,7 +218,7 @@ export function Otp() {
   const allFilled = otp.every((d) => d);
   const isPhoneValid = phoneNumber.length === 10;
 
-  // ── Full-screen celebration ──
+  // â”€â”€ Full-screen celebration â”€â”€
   if (verifiedState === "verified") {
     return (
       <CelebrationScreen
@@ -266,11 +266,11 @@ export function Otp() {
           >
             <Leaf size={24} />
           </motion.div>
-          <span className="font-outfit font-black text-[20px] text-[#1A1A1A]">ZeroWaste</span>
+          <span className="font-heading font-black text-[20px] text-[#1A1A1A]">ZeroWaste</span>
         </div>
 
         <AnimatePresence mode="wait">
-          {/* ── Phone Step ── */}
+          {/* â”€â”€ Phone Step â”€â”€ */}
           {step === "phone" && (
             <motion.div
               key="phone"
@@ -284,7 +284,7 @@ export function Otp() {
                 initial={{ y: 12, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ ...springGentle, delay: 0.05 }}
-                className="font-outfit font-black text-[28px] text-[#1A1A1A] leading-tight mb-2"
+                className="font-heading font-black text-[28px] text-[#1A1A1A] leading-tight mb-2"
               >
                 Enter your number
               </motion.h2>
@@ -292,7 +292,7 @@ export function Otp() {
                 initial={{ y: 8, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ ...springGentle, delay: 0.1 }}
-                className="font-jakarta text-[15px] text-text-secondary mb-8"
+                className="font-body text-[15px] text-text-secondary mb-8"
               >
                 We'll send a verification code via SMS
               </motion.p>
@@ -312,8 +312,8 @@ export function Otp() {
               >
                 {/* Country code badge */}
                 <div className="flex items-center gap-2 mr-3 shrink-0">
-                  <span className="text-[11px] bg-[#1A1A1A] text-white px-2 py-1 rounded-lg font-jakarta font-bold tracking-wide">IN</span>
-                  <span className="font-outfit text-[17px] font-black text-[#1A1A1A]">+91</span>
+                  <span className="text-[11px] bg-[#1A1A1A] text-white px-2 py-1 rounded-lg font-body font-bold tracking-wide">IN</span>
+                  <span className="font-heading text-[17px] font-black text-[#1A1A1A]">+91</span>
                 </div>
                 <div className="h-5 w-px bg-black/12 mr-3 shrink-0" />
                 <input
@@ -322,7 +322,7 @@ export function Otp() {
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ""))}
                   placeholder="9876543210"
-                  className="flex-1 bg-transparent font-outfit text-[18px] font-bold text-[#1A1A1A] outline-none placeholder:text-[#C8C8C8] tracking-widest"
+                  className="flex-1 bg-transparent font-heading text-[18px] font-bold text-[#1A1A1A] outline-none placeholder:text-[#C8C8C8] tracking-widest"
                   autoFocus
                 />
                 {/* Animated tick */}
@@ -362,7 +362,7 @@ export function Otp() {
                   disabled={!isPhoneValid}
                   whileTap={isPhoneValid ? { scale: 0.96 } : {}}
                   whileHover={isPhoneValid ? { scale: 1.02 } : {}}
-                  className="w-full h-[58px] rounded-full font-outfit font-black text-[17px] flex items-center justify-center gap-2.5 transition-all duration-300"
+                  className="w-full h-[58px] rounded-full font-heading font-black text-[17px] flex items-center justify-center gap-2.5 transition-all duration-300"
                   style={{
                     background: isPhoneValid
                       ? "linear-gradient(135deg, #F2D15A 0%, #D4AF37 100%)"
@@ -381,7 +381,7 @@ export function Otp() {
             </motion.div>
           )}
 
-          {/* ── OTP Step ── */}
+          {/* â”€â”€ OTP Step â”€â”€ */}
           {step === "otp" && (
             <motion.div
               key="otp"
@@ -395,7 +395,7 @@ export function Otp() {
                 initial={{ y: 12, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ ...springGentle, delay: 0.05 }}
-                className="font-outfit font-black text-[28px] text-[#1A1A1A] leading-tight mb-2"
+                className="font-heading font-black text-[28px] text-[#1A1A1A] leading-tight mb-2"
               >
                 Enter OTP
               </motion.h2>
@@ -403,7 +403,7 @@ export function Otp() {
                 initial={{ y: 8, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ ...springGentle, delay: 0.1 }}
-                className="font-jakarta text-[15px] text-text-secondary mb-8"
+                className="font-body text-[15px] text-text-secondary mb-8"
               >
                 Sent to <span className="font-bold text-[#1A1A1A]">+91 {phoneNumber.slice(0, 5)} {phoneNumber.slice(5)}</span>
               </motion.p>
@@ -439,9 +439,9 @@ export function Otp() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.95 }}
                     transition={springBouncy}
-                    className="text-center font-jakarta text-[13px] text-[#FF6B6B] font-semibold mb-3"
+                    className="text-center font-body text-[13px] text-[#FF6B6B] font-semibold mb-3"
                   >
-                    ❌ Incorrect code — try again
+                    âŒ Incorrect code â€” try again
                   </motion.p>
                 )}
               </AnimatePresence>
@@ -463,7 +463,7 @@ export function Otp() {
                         transition={{ duration: 0.7, delay: i * 0.18, repeat: Infinity }}
                       />
                     ))}
-                    <span className="font-jakarta text-[13px] text-[#D4AF37] font-bold ml-1">Verifying...</span>
+                    <span className="font-body text-[13px] text-[#D4AF37] font-bold ml-1">Verifying...</span>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -471,7 +471,7 @@ export function Otp() {
               {/* Countdown / Resend */}
               <div className="flex justify-center mb-8">
                 {countdown > 0 ? (
-                  <p className="font-jakarta text-[14px] text-text-secondary">
+                  <p className="font-body text-[14px] text-text-secondary">
                     Resend in{" "}
                     <motion.span
                       key={countdown}
@@ -494,9 +494,9 @@ export function Otp() {
                       setHasError(false);
                       setTimeout(() => inputRefs.current[0]?.focus(), 100);
                     }}
-                    className="font-jakarta text-[14px] font-bold text-[#D4AF37] underline underline-offset-2"
+                    className="font-body text-[14px] font-bold text-[#D4AF37] underline underline-offset-2"
                   >
-                    Resend OTP ↺
+                    Resend OTP â†º
                   </motion.button>
                 )}
               </div>
@@ -507,7 +507,7 @@ export function Otp() {
                   disabled={!allFilled || verifiedState === "verifying"}
                   whileTap={allFilled ? { scale: 0.96 } : {}}
                   whileHover={allFilled ? { scale: 1.02 } : {}}
-                  className="w-full h-[58px] rounded-full font-outfit font-black text-[17px] flex items-center justify-center gap-2.5 transition-all duration-300 relative overflow-hidden"
+                  className="w-full h-[58px] rounded-full font-heading font-black text-[17px] flex items-center justify-center gap-2.5 transition-all duration-300 relative overflow-hidden"
                   style={{
                     background: allFilled && verifiedState !== "verifying"
                       ? "linear-gradient(135deg, #F2D15A 0%, #D4AF37 100%)"

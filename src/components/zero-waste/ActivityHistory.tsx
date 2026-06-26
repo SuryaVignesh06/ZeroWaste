@@ -28,7 +28,7 @@ export function ActivityHistory() {
   return (
     <ScreenWrapper className="bg-transparent pb-32">
       {/* =========================================
-          ZONE 1 — HEADER TOP BAR
+          ZONE 1 â€” HEADER TOP BAR
       ========================================= */}
       <div className="flex items-center justify-between pt-6 pb-4 relative z-20">
         {/* Back Arrow */}
@@ -44,7 +44,7 @@ export function ActivityHistory() {
         <div className="flex bg-white/10 border border-white/20 p-0.5 rounded-full backdrop-blur-md">
           <button
             onClick={() => setActiveTab("all")}
-            className={`px-4 py-1.5 rounded-full font-jakarta text-[12px] font-bold transition-all ${
+            className={`px-4 py-1.5 rounded-full font-body text-[12px] font-bold transition-all ${
               activeTab === "all" ? "bg-white text-[#121214] shadow-sm" : "text-white/75 hover:text-white"
             }`}
           >
@@ -52,7 +52,7 @@ export function ActivityHistory() {
           </button>
           <button
             onClick={() => setActiveTab("donations")}
-            className={`px-4 py-1.5 rounded-full font-jakarta text-[12px] font-bold transition-all ${
+            className={`px-4 py-1.5 rounded-full font-body text-[12px] font-bold transition-all ${
               activeTab === "donations" ? "bg-white text-[#121214] shadow-sm" : "text-white/75 hover:text-white"
             }`}
           >
@@ -60,7 +60,7 @@ export function ActivityHistory() {
           </button>
           <button
             onClick={() => setActiveTab("sales")}
-            className={`px-4 py-1.5 rounded-full font-jakarta text-[12px] font-bold transition-all ${
+            className={`px-4 py-1.5 rounded-full font-body text-[12px] font-bold transition-all ${
               activeTab === "sales" ? "bg-white text-[#121214] shadow-sm" : "text-white/75 hover:text-white"
             }`}
           >
@@ -77,12 +77,12 @@ export function ActivityHistory() {
         </motion.button>
       </div>
 
-      <h1 className="font-outfit text-[28px] font-light leading-[1.2] tracking-tight text-white mb-6">
+      <h1 className="font-heading text-[28px] font-light leading-[1.2] tracking-tight text-white mb-6">
         History
       </h1>
 
       {/* =========================================
-          ZONE 2 — TAX RECEIPT RADIAL GAUGE CARD (Light)
+          ZONE 2 â€” TAX RECEIPT RADIAL GAUGE CARD (Light)
       ========================================= */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
@@ -116,10 +116,10 @@ export function ActivityHistory() {
               />
             </svg>
             <div className="absolute flex flex-col items-center justify-center">
-              <span className="font-outfit text-[17px] font-bold text-text-primary leading-none">
+              <span className="font-heading text-[17px] font-bold text-text-primary leading-none">
                 {eligiblePercentage}%
               </span>
-              <span className="font-jakarta text-[8px] font-semibold text-text-secondary mt-0.5 tracking-tighter uppercase">
+              <span className="font-body text-[8px] font-semibold text-text-secondary mt-0.5 tracking-tighter uppercase">
                 Eligible
               </span>
             </div>
@@ -127,20 +127,20 @@ export function ActivityHistory() {
 
           {/* Details */}
           <div className="flex-1 flex flex-col justify-center">
-            <h3 className="font-outfit text-[16px] font-bold text-text-primary leading-tight">
+            <h3 className="font-heading text-[16px] font-bold text-text-primary leading-tight">
               Tax Receipt Status
             </h3>
-            <p className="font-jakarta text-[12px] text-text-secondary mt-1">
+            <p className="font-body text-[12px] text-text-secondary mt-1">
               80G certificate ready to download.
             </p>
-            <div className="font-outfit text-[15px] font-bold text-text-primary mt-2 flex items-center gap-1">
+            <div className="font-heading text-[15px] font-bold text-text-primary mt-2 flex items-center gap-1">
               <span>Claim value:</span>
-              <span className="text-accent-gold-dark font-extrabold">₹{totalTaxValue.toLocaleString()}</span>
+              <span className="text-accent-gold-dark font-extrabold">â‚¹{totalTaxValue.toLocaleString()}</span>
             </div>
             
             <button
               onClick={() => setActiveScreen("tax-receipt")}
-              className="mt-3 inline-flex items-center gap-1.5 self-start bg-text-primary hover:bg-black text-white font-outfit text-[12px] font-bold px-4 py-2 rounded-full shadow-button active:scale-95 transition-all"
+              className="mt-3 inline-flex items-center gap-1.5 self-start bg-text-primary hover:bg-black text-white font-heading text-[12px] font-bold px-4 py-2 rounded-full shadow-button active:scale-95 transition-all"
             >
               <FileText size={13} />
               Get Tax Receipt
@@ -150,7 +150,7 @@ export function ActivityHistory() {
       </motion.div>
 
       {/* =========================================
-          ZONE 3 — SESSION HISTORY CONTAINER (Dark)
+          ZONE 3 â€” SESSION HISTORY CONTAINER (Dark)
       ========================================= */}
       <motion.div 
         variants={staggerChildren}
@@ -160,10 +160,10 @@ export function ActivityHistory() {
       >
         {/* Header Row */}
         <div className="flex justify-between items-center mb-4 px-1">
-          <h2 className="font-outfit text-[17px] font-bold text-white tracking-[-0.2px]">
+          <h2 className="font-heading text-[17px] font-bold text-white tracking-[-0.2px]">
             Activity Log
           </h2>
-          <span className="font-jakarta text-[13px] text-white/50 font-semibold tracking-wide">
+          <span className="font-body text-[13px] text-white/50 font-semibold tracking-wide">
             {filteredHistory.length}/{donationHistory.length}
           </span>
         </div>
@@ -194,23 +194,23 @@ export function ActivityHistory() {
                   </div>
 
                   <div>
-                    <h4 className="font-outfit text-white text-[15px] font-bold tracking-tight">
+                    <h4 className="font-heading text-white text-[15px] font-bold tracking-tight">
                       {item.foodName}
                     </h4>
-                    <p className="font-jakarta text-white/50 text-[11px] mt-0.5 font-medium">
-                      {dateStr} • {isDonation ? `${item.servings} servings` : `${item.quantity || 1} units`}
+                    <p className="font-body text-white/50 text-[11px] mt-0.5 font-medium">
+                      {dateStr} â€¢ {isDonation ? `${item.servings} servings` : `${item.quantity || 1} units`}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-1.5">
                   {isDonation ? (
-                    <div className="bg-[#F2D15A]/20 text-[#F2D15A] border border-[#F2D15A]/30 font-bold font-jakarta text-[11px] px-2.5 py-1 rounded-lg">
+                    <div className="bg-[#F2D15A]/20 text-[#F2D15A] border border-[#F2D15A]/30 font-bold font-body text-[11px] px-2.5 py-1 rounded-lg">
                       +{item.pointsEarned} pts
                     </div>
                   ) : (
-                    <div className="bg-[#9BC84A]/20 text-[#9BC84A] border border-[#9BC84A]/30 font-bold font-jakarta text-[11px] px-2.5 py-1 rounded-lg">
-                      ₹{item.earnedAmount || 0} Sold
+                    <div className="bg-[#9BC84A]/20 text-[#9BC84A] border border-[#9BC84A]/30 font-bold font-body text-[11px] px-2.5 py-1 rounded-lg">
+                      â‚¹{item.earnedAmount || 0} Sold
                     </div>
                   )}
                   <ChevronRight size={14} className="text-white/30" />
@@ -220,7 +220,7 @@ export function ActivityHistory() {
           })}
 
           {filteredHistory.length === 0 && (
-            <div className="text-center py-12 text-white/40 font-jakarta text-[13px]">
+            <div className="text-center py-12 text-white/40 font-body text-[13px]">
               No transactions match this category.
             </div>
           )}

@@ -71,7 +71,7 @@ export function Login() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
             className="text-[24px] font-extrabold tracking-[1px] text-white"
-            style={{ fontFamily: "var(--font-outfit)" }}
+            style={{ fontFamily: "var(--font-heading)" }}
           >
             NGO PORTAL
           </motion.h1>
@@ -81,7 +81,7 @@ export function Login() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.25 }}
             className="mt-3 text-center text-[14px] font-normal leading-relaxed text-white/75"
-            style={{ fontFamily: "var(--font-jakarta)" }}
+            style={{ fontFamily: "var(--font-body)" }}
           >
             Log in with your official organization credentials.
           </motion.p>
@@ -99,10 +99,10 @@ export function Login() {
             padding: "32px 24px 40px"
           }}
         >
-          <h2 className="text-[26px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
+          <h2 className="text-[26px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>
             Welcome Back
           </h2>
-          <p className="mt-1 text-[15px] text-[#4A4A4A] mb-6" style={{ fontFamily: "var(--font-jakarta)" }}>
+          <p className="mt-1 text-[15px] text-[#4A4A4A] mb-6" style={{ fontFamily: "var(--font-body)" }}>
             Sign in to manage requests and volunteers.
           </p>
 
@@ -121,7 +121,7 @@ export function Login() {
               onChange={(e) => setNgoId(e.target.value)}
               placeholder="NGO ID (e.g. FI-2023-89)"
               className="w-full bg-transparent text-[16px] font-medium text-[#0A0A0A] placeholder:text-[#8A8A8A] focus:outline-none"
-              style={{ fontFamily: "var(--font-jakarta)" }}
+              style={{ fontFamily: "var(--font-body)" }}
             />
           </div>
 
@@ -140,7 +140,7 @@ export function Login() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               className="w-full bg-transparent text-[16px] font-medium text-[#0A0A0A] placeholder:text-[#8A8A8A] focus:outline-none tracking-wide"
-              style={{ fontFamily: "var(--font-jakarta)" }}
+              style={{ fontFamily: "var(--font-body)" }}
             />
           </div>
 
@@ -166,7 +166,7 @@ export function Login() {
                 <CheckCircle2 size={24} />
               </motion.div>
             ) : (
-              <span className="text-[17px] font-bold" style={{ fontFamily: "var(--font-outfit)" }}>
+              <span className="text-[17px] font-bold" style={{ fontFamily: "var(--font-heading)" }}>
                 Log In
               </span>
             )}

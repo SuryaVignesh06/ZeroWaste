@@ -35,7 +35,7 @@ export function ReserveProduct() {
         >
           <ArrowLeft size={20} className="text-[#0A0A0A]" />
         </button>
-        <h1 className="text-lg font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>
+        <h1 className="text-lg font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>
           Confirm Reservation
         </h1>
         <div className="w-10" />
@@ -44,12 +44,12 @@ export function ReserveProduct() {
       <div className="flex-1 overflow-y-auto px-6 py-6">
         <motion.div variants={slideInRight} initial="initial" animate="animate" className="flex flex-col gap-6">
           <div className="bg-white rounded-[24px] p-6 shadow-sm border border-[#E8E8E4]">
-            <h2 className="text-xl font-bold text-[#0A0A0A] mb-4" style={{ fontFamily: "var(--font-outfit)" }}>Summary</h2>
+            <h2 className="text-xl font-bold text-[#0A0A0A] mb-4" style={{ fontFamily: "var(--font-heading)" }}>Summary</h2>
             
             <div className="flex justify-between items-center mb-4">
               <div>
                 <p className="font-bold text-[#0A0A0A]">Organic Tomatoes</p>
-                <p className="text-sm text-[#8A8A8A]">FreshMart • 1km away</p>
+                <p className="text-sm text-[#8A8A8A]">FreshMart â€¢ 1km away</p>
               </div>
               <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea" className="w-12 h-12 rounded-lg object-cover" />
             </div>
@@ -59,7 +59,7 @@ export function ReserveProduct() {
             <div className="space-y-3">
               <div className="flex justify-between text-[15px]">
                 <span className="text-[#4A4A4A]">Original Price</span>
-                <span className="text-[#8A8A8A] line-through">₹80.00</span>
+                <span className="text-[#8A8A8A] line-through">â‚¹80.00</span>
               </div>
               <div className="flex justify-between text-[15px]">
                 <span className="text-[#4A4A4A]">Zero-Waste Discount</span>
@@ -67,7 +67,7 @@ export function ReserveProduct() {
               </div>
               <div className="flex justify-between text-lg font-bold mt-2 pt-2 border-t border-[#E8E8E4]">
                 <span className="text-[#0A0A0A]">Pay at Store</span>
-                <span className="text-[#0A0A0A]">₹40.00</span>
+                <span className="text-[#0A0A0A]">â‚¹40.00</span>
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@ export function ReserveProduct() {
           className="h-[56px] w-full rounded-full text-[17px] font-bold text-white transition-all disabled:opacity-50 relative overflow-hidden"
           style={{ 
             background: isDonation ? "#1A6B3C" : "#D97706",
-            fontFamily: "var(--font-outfit)",
+            fontFamily: "var(--font-heading)",
             boxShadow: isDonation ? "0 8px 24px rgba(26,107,60,0.25)" : "0 8px 24px rgba(217,119,6,0.25)"
           }}
         >

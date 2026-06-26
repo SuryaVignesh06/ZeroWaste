@@ -131,7 +131,7 @@ export function BottomNav() {
                   </motion.button>
                   {/* Label below CTA */}
                   <span
-                    className="mt-1.5 text-[9px] font-bold font-jakarta tracking-wide"
+                    className="mt-1.5 text-[9px] font-bold font-body tracking-wide"
                     style={{ color: isActive ? "#1A1A1A" : "#8A8A8A" }}
                   >
                     {tab.label}
@@ -172,7 +172,7 @@ export function BottomNav() {
                 </div>
 
                 <span
-                  className="relative z-10 text-[10px] font-bold font-jakarta tracking-wide"
+                  className="relative z-10 text-[10px] font-bold font-body tracking-wide"
                   style={{ color: isActive ? "#1A1A1A" : "#9A9A9F" }}
                 >
                   {tab.label}

@@ -36,15 +36,15 @@ export function VolunteerProfile() {
 
         <div className="flex items-center gap-4 relative z-10 mt-2">
           <div className="h-16 w-16 rounded-full bg-gradient-to-tr from-[#E8A020] to-[#E8C547] flex items-center justify-center shadow-lg border-2 border-white">
-            <span className="text-white font-bold text-2xl" style={{ fontFamily: "var(--font-outfit)" }}>
+            <span className="text-white font-bold text-2xl" style={{ fontFamily: "var(--font-heading)" }}>
               {volunteerProfile.displayName?.charAt(0) || "V"}
             </span>
           </div>
           <div>
-            <h1 className="text-2xl font-black text-white leading-tight tracking-tight" style={{ fontFamily: "var(--font-outfit)" }}>
+            <h1 className="text-2xl font-black text-white leading-tight tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
               {volunteerProfile.displayName || "Volunteer"}
             </h1>
-            <p className="text-[#E8A020] font-bold flex items-center gap-1.5 mt-0.5 text-xs tracking-wider" style={{ fontFamily: "var(--font-jakarta)" }}>
+            <p className="text-[#E8A020] font-bold flex items-center gap-1.5 mt-0.5 text-xs tracking-wider" style={{ fontFamily: "var(--font-body)" }}>
               <ShieldCheck size={14} /> LEVEL {volunteerProfile.rank} RIDER
             </p>
           </div>
@@ -67,19 +67,19 @@ export function VolunteerProfile() {
         {/* STATS ROW (4 Columns) */}
         <motion.div variants={staggerContainer} initial="initial" animate="animate" className="flex gap-2">
           <motion.div variants={fadeUp} className="flex-1 bg-white border border-[#E5E5E5] rounded-2xl p-3 text-center flex flex-col items-center justify-center shadow-sm">
-            <p className="text-[#0A0A0A] font-bold text-lg leading-tight" style={{ fontFamily: "var(--font-outfit)" }}>{volunteerProfile.totalDeliveries}</p>
+            <p className="text-[#0A0A0A] font-bold text-lg leading-tight" style={{ fontFamily: "var(--font-heading)" }}>{volunteerProfile.totalDeliveries}</p>
             <p className="text-[#8A8A8A] text-[10px] font-bold uppercase mt-1">Pickups</p>
           </motion.div>
           <motion.div variants={fadeUp} className="flex-1 bg-white border border-[#E5E5E5] rounded-2xl p-3 text-center flex flex-col items-center justify-center shadow-sm">
-            <p className="text-[#E8A020] font-bold text-lg leading-tight" style={{ fontFamily: "var(--font-outfit)" }}>{volunteerProfile.impactPoints}</p>
+            <p className="text-[#E8A020] font-bold text-lg leading-tight" style={{ fontFamily: "var(--font-heading)" }}>{volunteerProfile.impactPoints}</p>
             <p className="text-[#8A8A8A] text-[10px] font-bold uppercase mt-1">Pts</p>
           </motion.div>
           <motion.div variants={fadeUp} className="flex-1 bg-white border border-[#E5E5E5] rounded-2xl p-3 text-center flex flex-col items-center justify-center shadow-sm">
-            <p className="text-[#0A0A0A] font-bold text-lg leading-tight" style={{ fontFamily: "var(--font-outfit)" }}>{volunteerProfile.totalHours}h</p>
+            <p className="text-[#0A0A0A] font-bold text-lg leading-tight" style={{ fontFamily: "var(--font-heading)" }}>{volunteerProfile.totalHours}h</p>
             <p className="text-[#8A8A8A] text-[10px] font-bold uppercase mt-1">Hours</p>
           </motion.div>
           <motion.div variants={fadeUp} className="flex-1 bg-white border border-[#E5E5E5] rounded-2xl p-3 text-center flex flex-col items-center justify-center shadow-sm">
-            <p className="text-[#0A0A0A] font-bold text-lg leading-tight" style={{ fontFamily: "var(--font-outfit)" }}>{volunteerProfile.distanceCovered.toFixed(0)}</p>
+            <p className="text-[#0A0A0A] font-bold text-lg leading-tight" style={{ fontFamily: "var(--font-heading)" }}>{volunteerProfile.distanceCovered.toFixed(0)}</p>
             <p className="text-[#8A8A8A] text-[10px] font-bold uppercase mt-1">km</p>
           </motion.div>
         </motion.div>
@@ -110,7 +110,7 @@ export function VolunteerProfile() {
           <motion.div variants={fadeUp} className="bg-[#0F2942] rounded-[20px] p-5 shadow-sm border border-gray-100 text-white relative overflow-hidden">
             <div className="absolute -right-4 -top-4 w-20 h-20 bg-[#4CAF7D]/20 blur-xl rounded-full" />
             <h3 className="font-bold flex items-center gap-2 mb-2 text-white"><ShieldCheck size={18} className="text-[#4CAF7D]"/> NSS Service Hours</h3>
-            <p className="text-sm text-white/90 mb-4">{volunteerProfile.institution} • {volunteerProfile.role}</p>
+            <p className="text-sm text-white/90 mb-4">{volunteerProfile.institution} â€¢ {volunteerProfile.role}</p>
 
             <div className="bg-white/10 rounded-xl p-3 flex justify-between items-center mb-3">
               <div>

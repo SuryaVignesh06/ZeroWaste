@@ -88,7 +88,7 @@ export function CreateListing() {
         >
           <ArrowLeft size={20} strokeWidth={2} className="text-[#1A1A1A]" />
         </motion.button>
-        <div className="font-outfit text-[17px] font-semibold text-[#1A1A1A]">
+        <div className="font-heading text-[17px] font-semibold text-[#1A1A1A]">
           Create Listing
         </div>
         <div className="w-10 h-10" />
@@ -96,7 +96,7 @@ export function CreateListing() {
 
       <div className="flex-1 overflow-y-auto px-5 pt-28 pb-36 relative z-10">
 
-        {/* Hero Banner — changes per mode */}
+        {/* Hero Banner â€” changes per mode */}
         <AnimatePresence mode="wait">
           <motion.div
             key={mode}
@@ -121,10 +121,10 @@ export function CreateListing() {
               }
             </div>
             <div>
-              <h2 className="font-outfit text-[18px] font-bold tracking-tight text-[#1A1A1A]">
+              <h2 className="font-heading text-[18px] font-bold tracking-tight text-[#1A1A1A]">
                 {isDonate ? "Donate Surplus Food" : "Sell at Discount"}
               </h2>
-              <p className="font-jakarta text-[12px] text-text-secondary mt-0.5">
+              <p className="font-body text-[12px] text-text-secondary mt-0.5">
                 {isDonate
                   ? "Help NGOs & local recipients with free food"
                   : "List near-expiry items at reduced prices"}
@@ -177,14 +177,14 @@ export function CreateListing() {
             {/* Section marker */}
             <div className={`flex items-center gap-2 -mb-2 pb-4 border-b ${isDonate ? "border-[#9BC84A]/15" : "border-[#F2D15A]/20"}`}>
               <div className={`w-2 h-2 rounded-full ${isDonate ? "bg-[#9BC84A]" : "bg-[#F2D15A]"}`} />
-              <span className={`font-outfit text-[13px] font-bold uppercase tracking-widest ${isDonate ? "text-[#7CA13B]" : "text-[#D4AF37]"}`}>
+              <span className={`font-heading text-[13px] font-bold uppercase tracking-widest ${isDonate ? "text-[#7CA13B]" : "text-[#D4AF37]"}`}>
                 {isDonate ? "Donation Details" : "Listing Details"}
               </span>
             </div>
 
             {/* Photo Upload Area */}
             <div className="-mt-2">
-              <label className="block font-jakarta text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-3 ml-1">
+              <label className="block font-body text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-3 ml-1">
                 Item Photo
               </label>
               <PhotoUpload onImageChange={setPhotoUrl} />
@@ -195,7 +195,7 @@ export function CreateListing() {
             {/* Form Fields */}
             <div className="space-y-6">
               <div>
-                <label className="block font-jakarta text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-2 ml-1">
+                <label className="block font-body text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-2 ml-1">
                   Item Name
                 </label>
                 <InputField
@@ -208,7 +208,7 @@ export function CreateListing() {
               </div>
 
               <div>
-                <label className="block font-jakarta text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-3 ml-1">
+                <label className="block font-body text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-3 ml-1">
                   Category
                 </label>
                 <ChipSelector
@@ -225,7 +225,7 @@ export function CreateListing() {
 
               <div className="flex gap-4">
                 <div className="flex-1">
-                  <label className="block font-jakarta text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-2 ml-1">
+                  <label className="block font-body text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-2 ml-1">
                     Quantity
                   </label>
                   <InputField
@@ -239,7 +239,7 @@ export function CreateListing() {
                 </div>
                 {!isDonate && (
                   <div className="w-28">
-                    <label className="block font-jakarta text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-2 ml-1">
+                    <label className="block font-body text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-2 ml-1">
                       Unit
                     </label>
                     <CustomDropdown
@@ -259,7 +259,7 @@ export function CreateListing() {
 
               {isDonate && (
                 <div>
-                  <label className="block font-jakarta text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-3 ml-1">
+                  <label className="block font-body text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-3 ml-1">
                     Condition
                   </label>
                   <ChipSelector
@@ -279,14 +279,14 @@ export function CreateListing() {
                   {/* Price comparison highlight */}
                   <div className="rounded-2xl bg-[#FFF8E7] border border-[#F2D15A]/30 p-4 flex items-center gap-3">
                     <Sparkles size={18} className="text-[#D4AF37] shrink-0" />
-                    <p className="font-jakarta text-[12px] text-text-secondary">
-                      Set a <span className="font-bold text-[#D4AF37]">discounted sell price</span> — buyers see the savings!
+                    <p className="font-body text-[12px] text-text-secondary">
+                      Set a <span className="font-bold text-[#D4AF37]">discounted sell price</span> â€” buyers see the savings!
                     </p>
                   </div>
                   <div className="flex gap-4">
                     <div className="flex-1">
-                      <label className="block font-jakarta text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-2 ml-1">
-                        Orig. Price (₹)
+                      <label className="block font-body text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-2 ml-1">
+                        Orig. Price (â‚¹)
                       </label>
                       <InputField
                         label=""
@@ -298,8 +298,8 @@ export function CreateListing() {
                       />
                     </div>
                     <div className="flex-1">
-                      <label className="block font-jakarta text-[12px] font-semibold text-[#D4AF37] uppercase tracking-wider mb-2 ml-1">
-                        Sell Price (₹) ↓
+                      <label className="block font-body text-[12px] font-semibold text-[#D4AF37] uppercase tracking-wider mb-2 ml-1">
+                        Sell Price (â‚¹) â†“
                       </label>
                       <InputField
                         label=""
@@ -313,7 +313,7 @@ export function CreateListing() {
                   </div>
 
                   <div>
-                    <label className="block font-jakarta text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-3 ml-1">
+                    <label className="block font-body text-[12px] font-semibold text-text-secondary uppercase tracking-wider mb-3 ml-1">
                       Condition
                     </label>
                     <ChipSelector
@@ -350,7 +350,7 @@ export function CreateListing() {
           >
             {loading
               ? <Loader2 className="animate-spin" size={24} />
-              : isDonate ? "🌿 Publish Donation" : "🏷️ List for Sale"
+              : isDonate ? "ðŸŒ¿ Publish Donation" : "ðŸ·ï¸ List for Sale"
             }
           </PrimaryButton>
         </div>

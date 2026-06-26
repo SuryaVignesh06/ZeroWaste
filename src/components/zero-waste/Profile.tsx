@@ -49,9 +49,9 @@ export function Profile() {
           {role === "user" && (
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
               <div className="flex items-center justify-between mb-3 px-1">
-                <h2 className="text-[20px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>My Donations</h2>
+                <h2 className="text-[20px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>My Donations</h2>
                 {donationHistory.length > 0 && (
-                  <button className="text-[13px] font-medium text-[#1A6B3C]" style={{ fontFamily: "var(--font-jakarta)" }}>See all</button>
+                  <button className="text-[13px] font-medium text-[#1A6B3C]" style={{ fontFamily: "var(--font-body)" }}>See all</button>
                 )}
               </div>
               
@@ -60,12 +60,12 @@ export function Profile() {
                   <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#C8E8D0]">
                     <Leaf size={48} className="text-[#1A6B3C]" />
                   </div>
-                  <h3 className="mt-4 text-[18px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>No donations yet</h3>
-                  <p className="text-[14px] text-[#4A4A4A] mt-1 text-center" style={{ fontFamily: "var(--font-jakarta)" }}>Your first donation is just a tap away.</p>
+                  <h3 className="mt-4 text-[18px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>No donations yet</h3>
+                  <p className="text-[14px] text-[#4A4A4A] mt-1 text-center" style={{ fontFamily: "var(--font-body)" }}>Your first donation is just a tap away.</p>
                   <button 
                     onClick={() => setScreen("donate")}
                     className="mt-5 flex h-12 items-center justify-center rounded-full bg-[#1A6B3C] px-8 text-[15px] font-semibold text-white transition-transform active:scale-95 shadow-[0px_8px_24px_rgba(26,107,60,0.25)]"
-                    style={{ fontFamily: "var(--font-outfit)" }}
+                    style={{ fontFamily: "var(--font-heading)" }}
                   >
                     Donate Food
                   </button>
@@ -82,21 +82,21 @@ export function Profile() {
                         <Leaf size={22} className="text-white" />
                       </div>
                       <div className="flex-1">
-                        <div className="text-[14px] font-semibold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>{d.foodName}</div>
-                        <div className="text-[12px] font-normal text-[#8A8A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                        <div className="text-[14px] font-semibold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>{d.foodName}</div>
+                        <div className="text-[12px] font-normal text-[#8A8A8A]" style={{ fontFamily: "var(--font-body)" }}>
                           {new Date(d.listedAt).toLocaleDateString()}
                         </div>
                         <div className="mt-1">
                           {d.status === "delivered" ? (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-[#F0F7F2] px-2 py-0.5 text-[10px] font-semibold text-[#1A6B3C]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                            <span className="inline-flex items-center gap-1 rounded-full bg-[#F0F7F2] px-2 py-0.5 text-[10px] font-semibold text-[#1A6B3C]" style={{ fontFamily: "var(--font-body)" }}>
                               <CheckCircle size={12} /> Delivered
                             </span>
                           ) : d.status === "picked_up" || d.status === "accepted" ? (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-[#FFF8EC] px-2 py-0.5 text-[10px] font-semibold text-[#D97706]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                            <span className="inline-flex items-center gap-1 rounded-full bg-[#FFF8EC] px-2 py-0.5 text-[10px] font-semibold text-[#D97706]" style={{ fontFamily: "var(--font-body)" }}>
                               <Clock size={12} /> In Progress
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-[#F0F4FF] px-2 py-0.5 text-[10px] font-semibold text-[#1E3A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+                            <span className="inline-flex items-center gap-1 rounded-full bg-[#F0F4FF] px-2 py-0.5 text-[10px] font-semibold text-[#1E3A8A]" style={{ fontFamily: "var(--font-body)" }}>
                               <Bell size={12} /> Available
                             </span>
                           )}
@@ -114,14 +114,14 @@ export function Profile() {
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="space-y-4">
               {/* Document Upload */}
               <div className="rounded-[16px] bg-white p-4 shadow-sm border border-[#E8E8E4]">
-                <h3 className="text-[16px] font-bold text-[#0A0A0A] mb-2" style={{ fontFamily: "var(--font-outfit)" }}>Verification Documents</h3>
+                <h3 className="text-[16px] font-bold text-[#0A0A0A] mb-2" style={{ fontFamily: "var(--font-heading)" }}>Verification Documents</h3>
                 <div className="flex items-center justify-between rounded-[12px] bg-[#F5F5F7] p-3 border border-dashed border-[#AEAEB2]">
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-[8px] bg-white text-[#1A6B3C]">
                       <Shield size={20} />
                     </div>
                     <div>
-                      <div className="text-[14px] font-semibold text-[#0A0A0A]" style={{ fontFamily: "var(--font-jakarta)" }}>NGO Certificate 80G</div>
+                      <div className="text-[14px] font-semibold text-[#0A0A0A]" style={{ fontFamily: "var(--font-body)" }}>NGO Certificate 80G</div>
                       <div className="text-[11px] text-[#8A8A8A]">Tap to upload</div>
                     </div>
                   </div>
@@ -132,8 +132,8 @@ export function Profile() {
               {/* Volunteer List */}
               <div className="rounded-[16px] bg-white p-4 shadow-sm border border-[#E8E8E4]">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-[16px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-outfit)" }}>Active Volunteers</h3>
-                  <button className="text-[13px] font-medium text-[#1A6B3C]" style={{ fontFamily: "var(--font-jakarta)" }}>Invite</button>
+                  <h3 className="text-[16px] font-bold text-[#0A0A0A]" style={{ fontFamily: "var(--font-heading)" }}>Active Volunteers</h3>
+                  <button className="text-[13px] font-medium text-[#1A6B3C]" style={{ fontFamily: "var(--font-body)" }}>Invite</button>
                 </div>
                 <div className="flex flex-col gap-2">
                   {[1, 2, 3].map((i) => (
@@ -142,7 +142,7 @@ export function Profile() {
                         <div className="h-8 w-8 rounded-full bg-[#E8E8E4] overflow-hidden">
                           <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="avatar" />
                         </div>
-                        <span className="text-[14px] font-medium text-[#0A0A0A]" style={{ fontFamily: "var(--font-jakarta)" }}>Volunteer {i}</span>
+                        <span className="text-[14px] font-medium text-[#0A0A0A]" style={{ fontFamily: "var(--font-body)" }}>Volunteer {i}</span>
                       </div>
                       <span className="text-[11px] font-semibold text-[#1A6B3C] bg-[#F0F7F2] px-2 py-1 rounded-full">Available</span>
                     </div>
@@ -170,7 +170,7 @@ export function Profile() {
           <button onClick={() => setScreen("onboarding")} className="flex w-full items-center justify-center gap-2 bg-white py-3.5 text-[13px] font-semibold text-[#dc2626] active:scale-98" style={{ borderRadius: "14px", boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.05)" }}>
             <LogOut size={16} />Log Out
           </button>
-          <p className="text-center text-[11px] text-[#8e8e93]">Zero-Waste v1.0.0 · Made with care</p>
+          <p className="text-center text-[11px] text-[#8e8e93]">Zero-Waste v1.0.0 Â· Made with care</p>
         </div>
       </main>
     </div>

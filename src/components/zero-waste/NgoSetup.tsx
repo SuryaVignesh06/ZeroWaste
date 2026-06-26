@@ -40,10 +40,10 @@ export function NgoSetup() {
     <div className="flex flex-col h-full bg-[#F7F5F0] px-8 py-8 justify-center items-center relative">
       <div className="w-full flex flex-col mt-auto mb-auto max-w-sm">
         
-        <h1 className="mt-6 text-[28px] font-bold text-[#0A0A0A] text-center" style={{ fontFamily: "var(--font-outfit)" }}>
+        <h1 className="mt-6 text-[28px] font-bold text-[#0A0A0A] text-center" style={{ fontFamily: "var(--font-heading)" }}>
           Tell us about your organization
         </h1>
-        <p className="mt-2 text-[15px] text-[#4A4A4A] text-center" style={{ fontFamily: "var(--font-jakarta)" }}>
+        <p className="mt-2 text-[15px] text-[#4A4A4A] text-center" style={{ fontFamily: "var(--font-body)" }}>
           We will verify your details within 48 hours.
         </p>
 
@@ -58,7 +58,7 @@ export function NgoSetup() {
               onChange={(e) => setOrgName(e.target.value)}
               placeholder="Organization name"
               className="w-full h-[56px] rounded-[16px] border-[1.5px] border-[#E8E8E4] bg-white pl-12 pr-4 text-[16px] font-medium text-[#0A0A0A] focus:border-[#1E3A8A] focus:outline-none"
-              style={{ fontFamily: "var(--font-outfit)" }}
+              style={{ fontFamily: "var(--font-heading)" }}
             />
           </div>
 
@@ -71,7 +71,7 @@ export function NgoSetup() {
               onChange={(e) => setContactName(e.target.value)}
               placeholder="Your name"
               className="w-full h-[56px] rounded-[16px] border-[1.5px] border-[#E8E8E4] bg-white pl-12 pr-4 text-[16px] font-medium text-[#0A0A0A] focus:border-[#1E3A8A] focus:outline-none"
-              style={{ fontFamily: "var(--font-outfit)" }}
+              style={{ fontFamily: "var(--font-heading)" }}
             />
           </div>
 
@@ -85,7 +85,7 @@ export function NgoSetup() {
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="Service area"
                 className="w-full h-[56px] rounded-[16px] border-[1.5px] border-[#E8E8E4] bg-white pl-12 pr-4 text-[16px] font-medium text-[#0A0A0A] focus:border-[#1E3A8A] focus:outline-none"
-                style={{ fontFamily: "var(--font-outfit)" }}
+                style={{ fontFamily: "var(--font-heading)" }}
               />
             </div>
             <button 
@@ -93,7 +93,7 @@ export function NgoSetup() {
               className="mt-2 flex items-center gap-1.5 rounded-full border border-[#DBEAFE] bg-[#EFF6FF] px-3 py-1.5"
             >
               <Navigation size={14} color="#1E3A8A" />
-              <span className="text-[13px] font-semibold text-[#1E3A8A]" style={{ fontFamily: "var(--font-jakarta)" }}>Use current location</span>
+              <span className="text-[13px] font-semibold text-[#1E3A8A]" style={{ fontFamily: "var(--font-body)" }}>Use current location</span>
             </button>
           </div>
         </div>
@@ -107,7 +107,7 @@ export function NgoSetup() {
               ? "bg-[#1E3A8A] shadow-[0_4px_20px_rgba(30,58,138,0.4)]"
               : "bg-[#E8E8E4] text-[#8A8A8A]"
           }`}
-          style={{ fontFamily: "var(--font-outfit)" }}
+          style={{ fontFamily: "var(--font-heading)" }}
         >
           Continue
         </button>

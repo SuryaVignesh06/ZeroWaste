@@ -42,10 +42,10 @@ export function VolunteerSetup() {
     <div className="flex flex-col h-full bg-[#F7F5F0] px-8 py-8 justify-center items-center relative">
       <div className="w-full flex flex-col mt-auto mb-auto max-w-sm">
         
-        <h1 className="mt-6 text-[28px] font-bold text-[#0A0A0A] text-center" style={{ fontFamily: "var(--font-outfit)" }}>
+        <h1 className="mt-6 text-[28px] font-bold text-[#0A0A0A] text-center" style={{ fontFamily: "var(--font-heading)" }}>
           Ready to make a difference?
         </h1>
-        <p className="mt-2 text-[15px] text-[#4A4A4A] text-center" style={{ fontFamily: "var(--font-jakarta)" }}>
+        <p className="mt-2 text-[15px] text-[#4A4A4A] text-center" style={{ fontFamily: "var(--font-body)" }}>
           Join the rescue crew.
         </p>
 
@@ -60,7 +60,7 @@ export function VolunteerSetup() {
               onChange={(e) => setName(e.target.value)}
               placeholder="Your name"
               className="w-full h-[56px] rounded-[16px] border-[1.5px] border-[#E8E8E4] bg-white pl-12 pr-4 text-[16px] font-medium text-[#0A0A0A] focus:border-[#D97706] focus:outline-none"
-              style={{ fontFamily: "var(--font-outfit)" }}
+              style={{ fontFamily: "var(--font-heading)" }}
             />
           </div>
 
@@ -74,7 +74,7 @@ export function VolunteerSetup() {
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="Location"
                 className="w-full h-[56px] rounded-[16px] border-[1.5px] border-[#E8E8E4] bg-white pl-12 pr-4 text-[16px] font-medium text-[#0A0A0A] focus:border-[#D97706] focus:outline-none"
-                style={{ fontFamily: "var(--font-outfit)" }}
+                style={{ fontFamily: "var(--font-heading)" }}
               />
             </div>
             <button 
@@ -82,7 +82,7 @@ export function VolunteerSetup() {
               className="mt-2 flex items-center gap-1.5 rounded-full border border-[#FDE68A] bg-[#FFFBEB] px-3 py-1.5"
             >
               <Navigation size={14} color="#D97706" />
-              <span className="text-[13px] font-semibold text-[#D97706]" style={{ fontFamily: "var(--font-jakarta)" }}>Use current location</span>
+              <span className="text-[13px] font-semibold text-[#D97706]" style={{ fontFamily: "var(--font-body)" }}>Use current location</span>
             </button>
           </div>
 
@@ -98,7 +98,7 @@ export function VolunteerSetup() {
                       ? "border-[#D97706] bg-[#FFFBEB] text-[#D97706]"
                       : "border-[#E8E8E4] bg-white text-[#4A4A4A]"
                   }`}
-                  style={{ fontFamily: "var(--font-jakarta)" }}
+                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   {type}
                 </button>
@@ -122,11 +122,11 @@ export function VolunteerSetup() {
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 />
               </button>
-              <span className="text-[14px] font-medium text-[#0A0A0A]" style={{ fontFamily: "var(--font-jakarta)" }}>
+              <span className="text-[14px] font-medium text-[#0A0A0A]" style={{ fontFamily: "var(--font-body)" }}>
                 I am contributing as community service
               </span>
             </div>
-            <p className="mt-1 ml-[60px] text-[12px] text-[#8A8A8A] underline cursor-pointer" style={{ fontFamily: "var(--font-jakarta)" }}>
+            <p className="mt-1 ml-[60px] text-[12px] text-[#8A8A8A] underline cursor-pointer" style={{ fontFamily: "var(--font-body)" }}>
               Read guidelines
             </p>
           </div>
@@ -141,7 +141,7 @@ export function VolunteerSetup() {
               ? "bg-[#D97706] shadow-[0_4px_20px_rgba(217,119,6,0.4)]"
               : "bg-[#E8E8E4] text-[#8A8A8A]"
           }`}
-          style={{ fontFamily: "var(--font-outfit)" }}
+          style={{ fontFamily: "var(--font-heading)" }}
         >
           Join as Volunteer
         </button>

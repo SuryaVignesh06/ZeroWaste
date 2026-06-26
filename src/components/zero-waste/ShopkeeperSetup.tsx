@@ -38,10 +38,10 @@ export function ShopkeeperSetup() {
     <div className="flex flex-col h-full bg-[#F7F5F0] px-8 py-8 justify-center items-center relative">
       <div className="w-full flex flex-col mt-auto mb-auto max-w-sm">
         
-        <h1 className="mt-6 text-[28px] font-bold text-[#0A0A0A] text-center" style={{ fontFamily: "var(--font-outfit)" }}>
+        <h1 className="mt-6 text-[28px] font-bold text-[#0A0A0A] text-center" style={{ fontFamily: "var(--font-heading)" }}>
           List your surplus
         </h1>
-        <p className="mt-2 text-[15px] text-[#4A4A4A] text-center" style={{ fontFamily: "var(--font-jakarta)" }}>
+        <p className="mt-2 text-[15px] text-[#4A4A4A] text-center" style={{ fontFamily: "var(--font-body)" }}>
           Recover costs while reducing waste.
         </p>
 
@@ -56,7 +56,7 @@ export function ShopkeeperSetup() {
               onChange={(e) => setShopName(e.target.value)}
               placeholder="Shop name"
               className="w-full h-[56px] rounded-[16px] border-[1.5px] border-[#E8E8E4] bg-white pl-12 pr-4 text-[16px] font-medium text-[#0A0A0A] focus:border-[#7C3AED] focus:outline-none"
-              style={{ fontFamily: "var(--font-outfit)" }}
+              style={{ fontFamily: "var(--font-heading)" }}
             />
           </div>
 
@@ -70,7 +70,7 @@ export function ShopkeeperSetup() {
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="Location"
                 className="w-full h-[56px] rounded-[16px] border-[1.5px] border-[#E8E8E4] bg-white pl-12 pr-4 text-[16px] font-medium text-[#0A0A0A] focus:border-[#7C3AED] focus:outline-none"
-                style={{ fontFamily: "var(--font-outfit)" }}
+                style={{ fontFamily: "var(--font-heading)" }}
               />
             </div>
             <button 
@@ -78,7 +78,7 @@ export function ShopkeeperSetup() {
               className="mt-2 flex items-center gap-1.5 rounded-full border border-[#DDD6FE] bg-[#F5F3FF] px-3 py-1.5"
             >
               <Navigation size={14} color="#7C3AED" />
-              <span className="text-[13px] font-semibold text-[#7C3AED]" style={{ fontFamily: "var(--font-jakarta)" }}>Use current location</span>
+              <span className="text-[13px] font-semibold text-[#7C3AED]" style={{ fontFamily: "var(--font-body)" }}>Use current location</span>
             </button>
           </div>
         </div>
@@ -92,7 +92,7 @@ export function ShopkeeperSetup() {
               ? "bg-[#7C3AED] shadow-[0_4px_20px_rgba(124,58,237,0.4)]"
               : "bg-[#E8E8E4] text-[#8A8A8A]"
           }`}
-          style={{ fontFamily: "var(--font-outfit)" }}
+          style={{ fontFamily: "var(--font-heading)" }}
         >
           Open Shop
         </button>

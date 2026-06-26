@@ -55,8 +55,8 @@ const config: Config = {
         'float': 'var(--shadow-float)',
       },
       fontFamily: {
-        'outfit': ['Outfit', 'sans-serif'],
-        'jakarta': ['Plus Jakarta Sans', 'sans-serif'],
+        'heading': ['var(--font-heading)', 'sans-serif'],
+        'body': ['var(--font-body)', 'sans-serif'],
       },
     }
   },

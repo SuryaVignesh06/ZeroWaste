@@ -55,7 +55,7 @@ export function NGOProfile() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...springGentle, delay: 0.1 }}
           className="text-[28px] font-extrabold text-white text-center"
-          style={{ fontFamily: "var(--font-outfit)" }}
+          style={{ fontFamily: "var(--font-heading)" }}
         >
           {ngoUser.ngoName}
         </motion.h1>
@@ -65,7 +65,7 @@ export function NGOProfile() {
           transition={{ ...springGentle, delay: 0.15 }}
           className="text-white/80 text-[15px] font-medium mt-1"
         >
-          Food Bank • Official Partner
+          Food Bank â€¢ Official Partner
         </motion.p>
       </div>
 
@@ -96,10 +96,10 @@ export function NGOProfile() {
           className="mt-4"
         >
           <LightCard className="p-6">
-            <h3 className="font-bold text-[18px] text-[#0A0A0A] mb-5 flex items-center gap-2" style={{ fontFamily: "var(--font-outfit)" }}>
+            <h3 className="font-bold text-[18px] text-[#0A0A0A] mb-5 flex items-center gap-2" style={{ fontFamily: "var(--font-heading)" }}>
               <ShieldCheck size={20} className="text-[#1B5E8A]" /> Registration Details
             </h3>
-            <div className="flex flex-col gap-4 text-[15px]" style={{ fontFamily: "var(--font-jakarta)" }}>
+            <div className="flex flex-col gap-4 text-[15px]" style={{ fontFamily: "var(--font-body)" }}>
               <div className="flex justify-between items-center border-b border-[#FAFAF8] pb-3">
                 <span className="text-[#8A8A8A] font-semibold">NGO ID</span>
                 <span className="font-bold text-[#0A0A0A]">{ngoUser.ngoId}</span>
