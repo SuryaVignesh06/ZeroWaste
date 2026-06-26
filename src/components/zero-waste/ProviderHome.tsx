@@ -19,6 +19,7 @@ import { Avatar } from "../ui/Display/Avatar";
 export function ProviderHome() {
   const { 
     subRole, user, pullRequests, inventory, 
+    donations, sellItems,
     acceptRequest, donateFromInventory, sellFromInventory,
     setActiveScreen, setSelectedInventoryItem, setShowAddMenu
   } = useAppStore();
@@ -215,6 +216,59 @@ export function ProviderHome() {
                 </motion.div>
               );
             })}
+
+            {/* ── Active Listings (Donations & Sells) ── */}
+            <div className="mt-4">
+              <SectionHeader title="Your Active Listings" />
+            </div>
+
+            {donations.length === 0 && sellItems.length === 0 ? (
+              <motion.div variants={fadeInUp} className="bg-white/80 rounded-[28px] p-8 text-center shadow-[0_8px_32px_rgba(0,0,0,0.07)] border border-white/50">
+                <div className="w-16 h-16 bg-[#F2D15A]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Package size={32} className="text-[#D4AF37]" />
+                </div>
+                <h3 className="font-outfit font-bold text-[17px]">No listings yet</h3>
+                <p className="text-body mt-2 text-text-secondary">Your surplus food listings will appear here.</p>
+              </motion.div>
+            ) : (
+              [...donations, ...sellItems].map((item: any) => {
+                const isSell = item.sellingPrice !== undefined;
+                const title = isSell ? item.itemName : item.foodName;
+                const qty = isSell ? `${item.quantity} ${item.unit}` : `${item.servings} servings`;
+                const progressValue = 100; // Mock progress
+                
+                return (
+                  <motion.div key={item.id} variants={fadeInUp}>
+                    <HiringStyleCard
+                      avatarSrc={item.photo}
+                      fallbackInitial={title[0]}
+                      title={title}
+                      subtitle={`${qty} available`}
+                      progressLabel={isSell ? `Listed for ₹${item.sellingPrice}` : "Listed for Donation"}
+                      progressValue={progressValue}
+                      progressColor={isSell ? "#F2D15A" : "#9BC84A"}
+                      onTopRightAction={() => {}}
+                      onAction1={() => {}}
+                      onAction2={() => {}}
+                      action1Icon={<Pencil size={18} className="text-text-secondary" />}
+                      action2Icon={
+                        <div
+                          className="w-full h-full flex items-center justify-center rounded-full"
+                          style={{
+                            background: isSell
+                              ? "linear-gradient(135deg, #F2D15A, #D4AF37)"
+                              : "linear-gradient(135deg, #9BC84A, #7CA13B)",
+                            color: isSell ? "#1A1A1A" : "#fff",
+                          }}
+                        >
+                          <HeartHandshake size={18} />
+                        </div>
+                      }
+                    />
+                  </motion.div>
+                );
+              })
+            )}
           </motion.div>
         )}
 

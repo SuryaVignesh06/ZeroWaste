@@ -20,6 +20,8 @@ export function DonationSuccess() {
       points={isDonor ? 10 : 5}
       ctaLabel="Back to Home"
       onDone={() => setActiveScreen("home")}
+      secondaryCtaLabel={isDonor ? "Donate Another Item" : "Add Another Item"}
+      onSecondaryAction={() => setActiveScreen(isDonor ? "createListing" : "add-inventory-item")}
     />
   );
 }

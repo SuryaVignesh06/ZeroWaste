@@ -12,6 +12,8 @@ export interface CelebrationScreenProps {
   points?: number;
   onDone: () => void;
   ctaLabel?: string;
+  secondaryCtaLabel?: string;
+  onSecondaryAction?: () => void;
 }
 
 // ── Donor Animation (Heart/Life Saving) ──────────────────────────────────
@@ -191,10 +193,13 @@ export function CelebrationScreen({
   points = 10,
   onDone,
   ctaLabel = "Back to Home",
+  secondaryCtaLabel,
+  onSecondaryAction
 }: CelebrationScreenProps) {
   const cfg = CONFIGS[mode];
   const [progress, setProgress] = useState(100);
   const [mounted, setMounted] = useState(false);
+  const springBouncy = { type: "spring", stiffness: 300, damping: 20 };
 
   useEffect(() => {
     setTimeout(() => setMounted(true), 0);
@@ -283,20 +288,40 @@ export function CelebrationScreen({
         transition={{ type: "spring", stiffness: 280, damping: 24, delay: 0.7 }}
         className="px-6 pb-12 pt-4 relative z-10"
       >
-        <motion.button
-          onClick={onDone}
-          whileTap={{ scale: 0.95 }}
-          whileHover={{ scale: 1.03 }}
-          className="w-full h-[64px] bg-white rounded-full font-outfit text-[18px] font-black flex items-center justify-center gap-2 transition-shadow"
-          style={{
-            color: cfg.accentColor,
-            boxShadow: "0 16px 40px rgba(0,0,0,0.25)",
-          }}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9, ...springBouncy }}
+          className="mt-6 flex flex-col gap-3"
         >
-          <Home size={22} strokeWidth={2.5} />
-          {ctaLabel}
-          <ArrowRight size={20} strokeWidth={2.5} />
-        </motion.button>
+          {secondaryCtaLabel && onSecondaryAction && (
+            <button
+              onClick={onSecondaryAction}
+              className={`w-full py-3.5 rounded-full font-outfit font-bold text-[17px] border-2 transition-transform active:scale-95 ${
+                mode === "donor"
+                  ? "border-[#9BC84A] text-[#9BC84A] hover:bg-[#9BC84A]/10"
+                  : mode === "shopkeeper"
+                  ? "border-[#F2D15A] text-[#F2D15A] hover:bg-[#F2D15A]/10"
+                  : "border-[#4A90D9] text-[#4A90D9] hover:bg-[#4A90D9]/10"
+              }`}
+            >
+              {secondaryCtaLabel}
+            </button>
+          )}
+          
+          <button
+            onClick={onDone}
+            className={`w-full py-4 rounded-full font-outfit font-bold text-[17px] flex items-center justify-center gap-2 transition-transform active:scale-95 ${
+              mode === "donor" 
+                ? "bg-white text-[#5A8C2A] shadow-[0_0_30px_rgba(255,255,255,0.4)]" 
+                : mode === "shopkeeper"
+                ? "bg-white text-[#D4AF37] shadow-[0_0_30px_rgba(255,255,255,0.4)]"
+                : "bg-white text-[#2C5F8E] shadow-[0_0_30px_rgba(255,255,255,0.4)]"
+            }`}
+          >
+            {ctaLabel} <ArrowRight size={20} />
+          </button>
+        </motion.div>
       </motion.div>
     </div>,
     document.body
