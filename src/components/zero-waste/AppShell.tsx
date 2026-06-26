@@ -14,7 +14,6 @@ import { VolunteerHistory } from "./VolunteerHistory";
 import { VolunteerProfile } from "./VolunteerProfile";
 
 // Panel 1 (Donor + Shopkeeper) V2 Components
-import { NGOStore } from "./NGOStore";
 import { ProviderHome } from "./ProviderHome";
 import { CreateListing } from "./CreateListing";
 import { ProviderProfile } from "./ProviderProfile";
