@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useAppStore } from "@/lib/store";
 import { 
-  ArrowLeft, Phone, MoreHorizontal, ShieldCheck, 
+  ArrowLeft, Phone, Settings, ShieldCheck, 
   Store, History, Star, Award, Plus
 } from "lucide-react";
 
@@ -45,9 +45,10 @@ export function ProviderProfile() {
           </motion.button>
           <motion.button 
             whileTap={{ scale: 0.9 }}
+            onClick={() => setActiveScreen("settings")}
             className="w-10 h-10 rounded-full bg-[#1A1A1A]/70 border border-white/20 backdrop-blur-md shadow-lg flex items-center justify-center"
           >
-            <MoreHorizontal size={20} strokeWidth={2.5} />
+            <Settings size={20} strokeWidth={2.5} />
           </motion.button>
         </div>
       </div>

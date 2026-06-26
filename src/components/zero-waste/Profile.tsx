@@ -20,7 +20,7 @@ export function Profile() {
       { icon: Recycle, label: "Donor Type", sub: "Individual", action: "none" },
       { icon: Recycle, label: "Switch Role", sub: role, action: "switch" }, 
       { icon: Shield, label: "Privacy & Security", sub: "Verified account" }, 
-      { icon: Settings, label: "App Settings", sub: "Theme, Language" }
+      { icon: Settings, label: "App Settings", sub: "Theme, Language", action: () => setActiveScreen("settings") }
     ]},
     { title: "Support", items: [{ icon: HelpCircle, label: "Help Center", sub: "FAQs, Contact" }, { icon: Star, label: "Rate Zero-Waste", sub: "on Play Store" }] },
   ];

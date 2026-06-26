@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/lib/store";
@@ -12,7 +13,9 @@ import {
   ChevronRight, 
   Radio,
   Clock,
-  ArrowRight
+  ArrowRight,
+  Package,
+  X
 } from "lucide-react";
 
 import { ScreenWrapper } from "../ui/ScreenWrapper";
@@ -22,7 +25,9 @@ import { Avatar } from "../ui/Display/Avatar";
 
 export function NGOHome() {
   const ngoUser = useAppStore((s) => s.ngoUser);
-  const { setActiveScreen, pullRequests } = useAppStore();
+  const { setActiveScreen, pullRequests, reserveFood } = useAppStore();
+  const [showReserved, setShowReserved] = useState(false);
+  const reservedFoods = pullRequests.filter(pr => pr.status === "reserved");
 
   if (!ngoUser) return null;
 
@@ -187,7 +192,7 @@ export function NGOHome() {
                         </div>
                       </div>
                       
-                      <button className="w-full h-11 rounded-full bg-[#1B5E8A] text-white font-bold text-[15px] flex items-center justify-center shadow-[0_4px_12px_rgba(27,94,138,0.2)] active:scale-95 transition-all" style={{ fontFamily: "var(--font-outfit)" }}>
+                      <button onClick={() => reserveFood(pr.id)} className="w-full h-11 rounded-full bg-[#1B5E8A] text-white font-bold text-[15px] flex items-center justify-center shadow-[0_4px_12px_rgba(27,94,138,0.2)] active:scale-95 transition-all" style={{ fontFamily: "var(--font-outfit)" }}>
                         Reserve Food
                       </button>
                     </LightCard>
@@ -233,6 +238,73 @@ export function NGOHome() {
             </div>
           </LightCard>
         </motion.div>
+
+        {/* Floating Button for Reserved Foods */}
+        {reservedFoods.length > 0 && (
+          <motion.button
+             initial={{ opacity: 0, scale: 0.8 }}
+             animate={{ opacity: 1, scale: 1 }}
+             onClick={() => setShowReserved(true)}
+             className="fixed bottom-24 right-4 bg-[#F2D15A] text-[#0A0A0A] px-4 py-3 rounded-full font-bold shadow-lg z-40 flex items-center gap-2"
+          >
+             <Package size={20} /> Reserved ({reservedFoods.length})
+          </motion.button>
+        )}
+
+        <AnimatePresence>
+          {showReserved && (
+             <>
+               <motion.div 
+                 initial={{ opacity: 0 }} 
+                 animate={{ opacity: 1 }} 
+                 exit={{ opacity: 0 }}
+                 onClick={() => setShowReserved(false)}
+                 className="fixed inset-0 bg-black/40 z-50 backdrop-blur-sm max-w-[430px] mx-auto"
+               />
+               <motion.div 
+                 initial={{ y: "100%" }}
+                 animate={{ y: 0 }}
+                 exit={{ y: "100%" }}
+                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                 className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto bg-[#F7F5F0] rounded-t-[32px] z-50 h-[80vh] flex flex-col shadow-[0_-8px_30px_rgba(0,0,0,0.12)]"
+               >
+                 <div className="p-5 flex justify-between items-center bg-white rounded-t-[32px]">
+                   <h2 className="text-xl font-bold text-gray-900" style={{ fontFamily: "var(--font-outfit)" }}>Reserved Foods</h2>
+                   <button onClick={() => setShowReserved(false)} className="p-2 bg-gray-100 rounded-full text-gray-600"><X size={20} /></button>
+                 </div>
+                 <div className="p-4 overflow-y-auto flex-1 flex flex-col gap-4 pb-20">
+                   {reservedFoods.map(pr => (
+                      <LightCard key={pr.id} className="p-4 flex flex-col gap-4">
+                        <div className="flex gap-4">
+                          <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-[#E8E8E4]">
+                            <img 
+                              src={pr.id.includes("b") ? "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80" : "https://images.unsplash.com/photo-1628294895950-9805252327bc?w=400&q=80"}
+                              alt={pr.foodType}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="flex flex-col flex-1">
+                            <span className="text-[12px] font-bold text-[#D97706] uppercase tracking-wider mb-1">
+                              Reserved for Pickup
+                            </span>
+                            <h3 className="text-[16px] font-bold text-[#0A0A0A] leading-tight" style={{ fontFamily: "var(--font-outfit)" }}>
+                              {pr.foodType}
+                            </h3>
+                            <div className="flex items-center gap-3 mt-1">
+                              <span className="text-[13px] font-medium text-[#4A4A4A] flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
+                                <Utensils size={14} className="text-[#8A8A8A]" />
+                                {pr.servingsNeeded} Servings
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </LightCard>
+                   ))}
+                 </div>
+               </motion.div>
+             </>
+          )}
+        </AnimatePresence>
 
       </div>
     </ScreenWrapper>

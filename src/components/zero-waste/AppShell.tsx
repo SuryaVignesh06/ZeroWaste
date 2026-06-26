@@ -23,6 +23,7 @@ import { AddInventoryItem } from "./AddInventoryItem";
 import { TaxReceipt } from "./TaxReceipt";
 import { DonationSuccess } from "./DonationSuccess";
 import { ActivityHistory } from "./ActivityHistory";
+import { SettingsScreen } from "./SettingsScreen";
 
 // Panel 2 Components (NGO & Recipient)
 import { NGOHome } from "./NGOHome";
@@ -112,7 +113,9 @@ export function AppShell() {
       case "volunteerProfile":
         return <VolunteerProfile />;
       case "volunteerSettings":
-        return <DummyScreen name="Volunteer Settings" />;
+        return <SettingsScreen />;
+      case "settings":
+        return <SettingsScreen />;
 
       default: 
         if (activePanel === "volunteer") return <VolunteerHome />;
@@ -121,7 +124,7 @@ export function AppShell() {
     }
   };
 
-  const fullScreens = ["splash", "onboarding", "login", "otp", "otp-entry", "roleSelect", "pickupDetail", "add-inventory-item", "edit-inventory-item", "donation-success", "createListing"];
+  const fullScreens = ["splash", "onboarding", "login", "otp", "otp-entry", "roleSelect", "pickupDetail", "add-inventory-item", "edit-inventory-item", "donation-success", "createListing", "settings"];
   const isFullScreen = fullScreens.includes(activeScreen);
 
   return (

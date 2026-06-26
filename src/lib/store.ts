@@ -586,6 +586,16 @@ export const useAppStore = create<AppStore>((set, get) => ({
 
   // ─── REQUEST ACTIONS ───────────────────────────
 
+  reserveFood: (id) => {
+    const { addToast } = get();
+    set((state) => ({
+      pullRequests: state.pullRequests.map((req) =>
+        req.id === id ? { ...req, status: "reserved" } : req
+      )
+    }));
+    addToast({ title: "Food Reserved", message: "You have reserved this food donation.", type: "success" });
+  },
+
   acceptRequest: (requestId) => {
     const { user, addToast } = get()
     set((state) => ({

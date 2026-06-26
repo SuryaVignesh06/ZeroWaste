@@ -35,7 +35,7 @@ export function NGOProfile() {
         <div className="absolute bottom-[-40px] right-[-40px] h-[200px] w-[200px] rounded-full bg-white/5" />
 
         <div className="absolute top-12 right-6">
-          <IconButton icon={<Settings size={20} className="text-white" />} variant="light" className="bg-white/10 border border-white/20" />
+          <IconButton onClick={() => setActiveScreen("settings")} icon={<Settings size={20} className="text-white" />} variant="light" className="bg-white/10 border border-white/20" />
         </div>
 
         <motion.div

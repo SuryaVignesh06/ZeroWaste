@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useAppStore } from "@/lib/store";
 import { springGentle, springBouncy } from "@/lib/animations";
-import { User as UserIcon, CheckCircle2, ShieldCheck, Bell, MapPin, Globe, LogOut, ChevronRight } from "lucide-react";
+import { User as UserIcon, CheckCircle2, ShieldCheck, Bell, MapPin, Globe, LogOut, ChevronRight, Settings } from "lucide-react";
 import { LightCard } from "../ui/Cards/LightCard";
 import { StatCardPair } from "../ui/Cards/StatCardPair";
 import { IconButton } from "../ui/Buttons/IconButton";
@@ -33,6 +33,10 @@ export function RecipientProfile() {
       >
         <div className="absolute top-[-20px] left-[-20px] h-[80px] w-[80px] rounded-full bg-white/5" />
         <div className="absolute bottom-[-40px] right-[-40px] h-[200px] w-[200px] rounded-full bg-white/5" />
+
+        <div className="absolute top-12 right-6">
+          <IconButton onClick={() => setActiveScreen("settings")} icon={<Settings size={20} className="text-white" />} variant="light" className="bg-white/10 border border-white/20" />
+        </div>
 
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
