@@ -6,7 +6,7 @@ import { staggerChildren, fadeInUp, springGentle, springBouncy, tapBounce, popIn
 import { 
   HeartHandshake, Store, AlertTriangle, Clock, MapPin, 
   Utensils, Star, Package, CheckCircle2, Pencil, Plus,
-  TrendingUp, ChevronRight, Zap
+  TrendingUp, ChevronRight, Zap, Check
 } from "lucide-react";
 
 import { ScreenWrapper } from "../ui/ScreenWrapper";
@@ -193,26 +193,17 @@ export function ProviderHome() {
                       <span className="font-outfit font-bold text-[11px] text-text-secondary">Details</span>
                     }
                     action2Icon={
-                      <span className="font-outfit font-bold text-[11px] text-white">Accept</span>
+                      <div
+                        className="w-full h-full flex items-center justify-center rounded-full"
+                        style={{
+                          background: "linear-gradient(135deg, #9BC84A, #7CA13B)",
+                          color: "#fff",
+                        }}
+                      >
+                        <Check size={18} strokeWidth={3} />
+                      </div>
                     }
                   />
-
-                  {/* Accept button below card for open requests */}
-                  {!isAccepted && (
-                    <motion.button
-                      variants={fadeInUp}
-                      {...tapBounce}
-                      onClick={() => handleAcceptRequest(pr.id)}
-                      className="w-full mt-3 py-3.5 rounded-[18px] font-outfit font-bold text-[15px] text-white flex items-center justify-center gap-2"
-                      style={{
-                        background: "linear-gradient(135deg, #9BC84A, #7CA13B)",
-                        boxShadow: "0 6px 20px rgba(155,200,74,0.35), 0 2px 8px rgba(155,200,74,0.20)",
-                      }}
-                    >
-                      <CheckCircle2 size={18} />
-                      Accept Request from {pr.ngoName}
-                    </motion.button>
-                  )}
                 </motion.div>
               );
             })}
