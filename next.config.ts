@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: "/Zero-Waste",
+  basePath: "/ZeroWaste",
   /* config options here */
   images: {
     unoptimized: true,
