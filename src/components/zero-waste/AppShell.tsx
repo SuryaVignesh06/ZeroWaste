@@ -121,7 +121,7 @@ export function AppShell() {
     }
   };
 
-  const fullScreens = ["splash", "onboarding", "login", "otp", "otp-entry", "roleSelect", "pickupDetail", "add-inventory-item", "edit-inventory-item", "donation-success"];
+  const fullScreens = ["splash", "onboarding", "login", "otp", "otp-entry", "roleSelect", "pickupDetail", "add-inventory-item", "edit-inventory-item", "donation-success", "createListing"];
   const isFullScreen = fullScreens.includes(activeScreen);
 
   return (
