@@ -12,6 +12,7 @@ export function DistributionProof() {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const startCamera = async () => {
@@ -20,6 +21,7 @@ export function DistributionProof() {
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         videoRef.current.play();
+        setIsCameraOpen(true);
       }
     } catch (err) {
       console.error("Camera access denied:", err);
@@ -30,6 +32,7 @@ export function DistributionProof() {
     if (videoRef.current?.srcObject) {
       const stream = videoRef.current.srcObject as MediaStream;
       stream.getTracks().forEach((track) => track.stop());
+      setIsCameraOpen(false);
     }
   };
 
@@ -111,9 +114,9 @@ export function DistributionProof() {
                   playsInline 
                   muted 
                   className="w-full h-full object-cover absolute inset-0 hidden" 
-                  style={{ display: videoRef.current?.srcObject ? 'block' : 'none' }}
+                  style={{ display: isCameraOpen ? 'block' : 'none' }}
                 />
-                {!videoRef.current?.srcObject && (
+                {!isCameraOpen && (
                   <div className="flex flex-col items-center justify-center h-full">
                     <div className="h-16 w-16 rounded-full bg-white flex items-center justify-center shadow-sm mb-3">
                       <Camera size={30} className="text-[#8A8A8A]" />
@@ -130,7 +133,7 @@ export function DistributionProof() {
                 )}
               </div>
             )}
-            {videoRef.current?.srcObject && !photoUrl && (
+            {isCameraOpen && !photoUrl && (
               <button 
                 onClick={takePhoto}
                 className="absolute bottom-6 left-1/2 -translate-x-1/2 h-20 w-20 rounded-full border-4 border-white bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-[0_0_0_2px_rgba(0,0,0,0.1)_inset]"

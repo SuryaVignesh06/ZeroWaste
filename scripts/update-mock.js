@@ -1,3 +1,4 @@
+/* eslint-disable */
 const fs = require('fs');
 
 const path = 'c:/Users/surya/Downloads/ZeroWaste/src/lib/mock-data.ts';

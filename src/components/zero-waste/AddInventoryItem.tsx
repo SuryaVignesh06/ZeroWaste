@@ -35,34 +35,36 @@ export function AddInventoryItem() {
 
   // Load selected item for editing
   useEffect(() => {
-    if (selectedInventoryItemId) {
-      const item = inventory.find(i => i.id === selectedInventoryItemId);
-      if (item) {
-        setItemName(item.itemName);
-        setCategory(item.category);
-        setQuantity(item.quantity.toString());
-        setUnit(item.unit);
-        setOriginalPrice(item.originalPrice.toString());
-        // Format expiryDate as YYYY-MM-DD for input element
-        const dateObj = new Date(item.expiryDate);
-        if (!isNaN(dateObj.getTime())) {
-          const formattedDate = dateObj.toISOString().split('T')[0];
-          setExpiryDate(formattedDate);
-        } else {
-          setExpiryDate("");
+    setTimeout(() => {
+      if (selectedInventoryItemId) {
+        const item = inventory.find(i => i.id === selectedInventoryItemId);
+        if (item) {
+          setItemName(item.itemName);
+          setCategory(item.category);
+          setQuantity(item.quantity.toString());
+          setUnit(item.unit);
+          setOriginalPrice(item.originalPrice.toString());
+          // Format expiryDate as YYYY-MM-DD for input element
+          const dateObj = new Date(item.expiryDate);
+          if (!isNaN(dateObj.getTime())) {
+            const formattedDate = dateObj.toISOString().split('T')[0];
+            setExpiryDate(formattedDate);
+          } else {
+            setExpiryDate("");
+          }
+          setStorageType(item.storageType);
         }
-        setStorageType(item.storageType);
+      } else {
+        // Reset form if opening to add
+        setItemName("");
+        setCategory("packaged");
+        setQuantity("");
+        setUnit("pcs");
+        setOriginalPrice("");
+        setExpiryDate("");
+        setStorageType("room_temp");
       }
-    } else {
-      // Reset form if opening to add
-      setItemName("");
-      setCategory("packaged");
-      setQuantity("");
-      setUnit("packets");
-      setOriginalPrice("");
-      setExpiryDate("");
-      setStorageType("room_temp");
-    }
+    }, 0);
   }, [selectedInventoryItemId, inventory]);
 
   const handleSave = () => {

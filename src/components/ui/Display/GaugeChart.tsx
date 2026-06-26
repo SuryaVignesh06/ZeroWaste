@@ -20,7 +20,7 @@ export function GaugeChart({ value, label, size = 120, strokeWidth = 12, classNa
   useEffect(() => {
     // value is percentage. offset for dasharray
     const progress = value / 100;
-    setOffset(circumference - progress * circumference);
+    setTimeout(() => setOffset(circumference - progress * circumference), 0);
   }, [value, circumference]);
 
   return (

@@ -145,10 +145,6 @@ export function GlassSurface({
     setTimeout(updateDisplacementMap, 0);
   }, [width, height]);
 
-  useEffect(() => {
-    setSvgSupported(supportsSVGFilters());
-  }, []);
-
   const supportsSVGFilters = () => {
     if (typeof window === 'undefined' || typeof document === 'undefined') {
       return false;
@@ -166,6 +162,11 @@ export function GlassSurface({
 
     return div.style.backdropFilter !== '';
   };
+
+  useEffect(() => {
+    const isSupported = supportsSVGFilters();
+    setTimeout(() => setSvgSupported(isSupported), 0);
+  }, []);
 
   const containerStyle: CSSProperties = {
     ...style,

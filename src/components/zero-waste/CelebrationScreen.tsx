@@ -197,7 +197,7 @@ export function CelebrationScreen({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    setTimeout(() => setMounted(true), 0);
   }, []);
 
   // 8-second countdown

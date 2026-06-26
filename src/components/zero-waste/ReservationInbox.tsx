@@ -6,7 +6,7 @@ import { useAppStore } from "@/lib/store";
 import { fadeUp, staggerContainer, cardVariants } from "@/lib/animations";
 import { 
   ArrowLeft, QrCode, CheckCircle2, XCircle, User, 
-  MapPin, Clock, HandHeart, Bike, AlertCircle, Camera, X
+  MapPin, Clock, HandHeart, Bike, AlertCircle, Camera, X, Building2
 } from "lucide-react";
 import type { Reservation, FoodRequest } from "@/lib/types";
 
